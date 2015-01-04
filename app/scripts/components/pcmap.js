@@ -8,7 +8,7 @@
    * @todo Find a separate file or better home.
    */
   angular.module('portlandcafes')
-    .directive('pcMap', function (centerOfPortland) {
+    .directive('pcMap', ['centerOfPortland', function (centerOfPortland) {
       var coordsPattern = /(\-?\d{1,3}\.\d+), ?(\-?\d{1,3}\.\d+)/;
       var coordsToObject = function (coords) {
         var output, matches;
@@ -76,5 +76,5 @@
         restrict: 'E',
         template: '<div></div>'
       };
-    });
+    }]);
 })(window.angular);

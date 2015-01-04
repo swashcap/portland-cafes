@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('portlandcafes')
-    .controller('LocationListCtrl', function ($scope, Locations, Geolocation) {
+    .controller('LocationListCtrl', ['$scope', 'Locations', 'Geolocation', function ($scope, Locations, Geolocation) {
       $scope.locations = Locations.getAll();
       $scope.orderByField = 'name';
       $scope.reverseSort = false;
@@ -25,5 +25,5 @@
           setLocationDistances(pos.coords.latitude, pos.coords.longitude);
         });
       }
-    });
+    }]);
 })(window.angular);

@@ -2,8 +2,7 @@
   'use strict';
 
   angular.module('portlandcafes')
-    .controller('LocationDetailCtrl', function ($scope, $routeParams, Locations) {
+    .controller('LocationDetailCtrl', ['$scope', '$routeParams', 'Locations', function ($scope, $routeParams, Locations) {
       $scope.location = Locations.get($routeParams.locationId);
-    });
-
+    }]);
 })(window.angular);

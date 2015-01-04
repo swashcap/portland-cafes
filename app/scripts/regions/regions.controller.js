@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('portlandcafes')
-    .controller('RegionCtrl', function ($scope) {
+    .controller('RegionCtrl', ['$scope', function ($scope) {
 
-    });
+    }]);
 })(window.angular);

@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('portlandcafes')
-    .service('Geolocation', function ($q, $cacheFactory) {
+    .service('Geolocation', ['$q', '$cacheFactory', function ($q, $cacheFactory) {
       var CACHE_NAME = 'portlandcafes-user';
       var CACHE_POSITION_KEY = 'position';
 
@@ -75,5 +75,5 @@
 
         return Math.floor(Math.round(distance/accuracy)*accuracy);
       };
-    });
+    }]);
 })(window.angular);

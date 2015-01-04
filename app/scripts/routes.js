@@ -3,7 +3,7 @@
 
   angular.module('portlandcafes')
     // Set application routes
-    .config(function ($routeProvider) {
+    .config(['$routeProvider', function ($routeProvider) {
       $routeProvider
         .when('/', {
           templateUrl: '/scripts/location-list/location-list.html',
@@ -24,13 +24,14 @@
         .otherwise({
           redirectTo: '/'
         });
-    });
+    }]);
 
-    // Enable HTML5 history
-    // .config(function ($locationProvider) {
-    //   $locationProvider.html5Mode({
-    //     enabled: true,
-    //     requireBase: false
-    //   });
-    // });
+  // Enable HTML5 history
+  // angular.module('portlandcafes')
+  //   .config(['$locationProvider', function ($locationProvider) {
+  //     $locationProvider.html5Mode({
+  //       enabled: true,
+  //       requireBase: false
+  //     });
+  //   }]);
 })(window.angular);
