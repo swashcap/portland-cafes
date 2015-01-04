@@ -3,6 +3,9 @@
 angular.module('portlandcafes')
   .controller('LocationListCtrl', function ($scope, Locations, Geolocation) {
     $scope.locations = Locations.getAll();
+    $scope.orderByField = 'name';
+    $scope.reverseSort = false;
+
 
     var setLocationDistances = function (latitude, longitude) {
       $scope.locations.forEach(function (location) {

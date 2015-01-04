@@ -16,7 +16,9 @@ angular.module('portlandcafes')
     };
 
     $scope.isActive = function (route) {
-      return route == $location.path();
+      if ($location.path().indexOf(route) !== -1) {
+        return true;
+      }
     };
 
     if (Geolocation.hasCurrentPosition()) {

@@ -35,7 +35,7 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li ng-class="{active: isActive('/')}"><a href="#/">All Locations</a></li>
+            <li ng-class="{active: isActive('/location')}"><a href="#/">All Locations</a></li>
             <li ng-class="{active: isActive('/regions')}"><a href="#/regions">Regions</a></li>
             <li ng-class="{active: isActive('/map')}"><a href="#/map">Map</a></li>
           </ul>
@@ -58,19 +58,21 @@
       <div ng-view=""></div>
     </main>
 
-    <footer role="contentinfo" class="container-fluid">
-      <div class="row">
-        <div class="col-xs-12 col-sm-6">
-          <ul class="nav nav-pills">
-            <li role="presentation"><a href="/about/">About</a></li>
-            <li role="presentation"><a href="/contact/">Contact</a></li>
-          </ul>
+    <footer role="contentinfo">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <ul class="nav nav-pills">
+              <li role="presentation"><a href="/about/">About</a></li>
+              <li role="presentation"><a href="/contact/">Contact</a></li>
+            </ul>
+          </div>
+          <div class="col-xs-12 col-sm-6 text-right">
+            <small>&copy; 2015, David LaChasse &amp; Cory Reed. All rights reserved.</small>
+          </div>
         </div>
-        <div class="col-xs-12 col-sm-6 text-right">
-          <small>&copy; 2015, David LaChasse &amp; Cory Reed. All rights reserved.</small>
-        </div>
-      </div>
-    </footer><!-- .container-fluid -->
+      </div><!-- .container-fluid -->
+    </footer>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID.
     <script>

@@ -1,14 +1,34 @@
 <div class="row">
   <div class="col-xs-12 col-sm-10">
     <h1>Locations</h1>
-    <table class="table table-striped table-responsive">
+    <table class="table table-striped table-responsive table-sortable">
       <thead>
         <tr>
-          <th ng-click="orderByField = 'name'; reverseSort = !reverseSort;">Name</th>
-          <th ng-click="orderByField = 'address'; reverseSort = !reverseSort;">Address</th>
-          <th ng-click="orderByField = 'hours.open'; reverseSort = !reverseSort;">Open</th>
-          <th ng-click="orderByField = 'hours.close'; reverseSort = !reverseSort;">Closed</th>
-          <th ng-click="orderByField = 'distance'; reverseSort = !reverseSort;">Distance</th>
+          <th
+            ng-class="{'is-active': orderByField == 'name', 'is-reverse': reverseSort}"
+            ng-click="orderByField = 'name'; reverseSort = !reverseSort;">
+            Name
+            <span class="caret"></span>
+          </th>
+          <th>Address</th>
+          <th
+            ng-class="{'is-active': orderByField == 'hours.open', 'is-reverse': reverseSort}"
+            ng-click="orderByField = 'hours.open'; reverseSort = !reverseSort;">
+            Open
+            <span class="caret"></span>
+          </th>
+          <th
+            ng-class="{'is-active': orderByField == 'hours.close', 'is-reverse': reverseSort}"
+            ng-click="orderByField = 'hours.close'; reverseSort = !reverseSort;">
+            Closed
+            <span class="caret"></span>
+          </th>
+          <th
+            ng-class="{'is-active': orderByField == 'distance', 'is-reverse': reverseSort}"
+            ng-click="orderByField = 'distance'; reverseSort = !reverseSort;">
+            Distance
+            <span class="caret"></span>
+          </th>
         </tr>
       </thead>
       <tbody>

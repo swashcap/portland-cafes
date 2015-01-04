@@ -14,7 +14,6 @@ $icon-font-path: '../bower_components/bootstrap-sass-official/assets/fonts/boots
 /* Space out content a bit */
 body {
   padding-top: 15px;
-  padding-bottom: 5px;
 }
 
 @media (min-width: $screen-sm) {
@@ -29,6 +28,8 @@ pc-map {
   width: 100%;
 }
 
+/* Layout */
+
 html {
   height: 100%;
   width: 100%;
@@ -38,7 +39,6 @@ body {
   display: flex;
   height: 100%;
   flex-direction: column;
-  //justify-content: flex-start;
 }
 header[role='banner'],
 main[role='main'],
@@ -61,8 +61,35 @@ main[role='main'] {
 }
 
 /* Footer */
+footer[role='contentinfo'] {
+  background: rgba(255, 255, 255, .5);
+  padding: .5rem 0;
+  position: relative;
+  z-index: 2;
+}
 footer[role='contentinfo'] small {
   color: $gray-light;
   display: block;
   padding-top: 1.4rem;
+}
+
+/* Sortable table */
+.table-sortable th {
+  color: $gray-light;
+  cursor: pointer;
+
+  .caret {
+    border-top-color: mix($gray-light, $gray-lighter);
+  }
+
+  &.is-active {
+    color: $gray-darker;
+
+    .caret {
+      border-top-color: $gray-darker;
+    }
+  }
+  &.is-active.is-reverse .caret {
+    transform: rotate(180deg);
+  }
 }
