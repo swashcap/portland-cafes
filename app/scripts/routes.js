@@ -12,6 +12,10 @@ angular.module('portlandcafes')
         templateUrl: '/scripts/location-detail/location-detail.html',
         controller: 'LocationDetailCtrl'
       })
+      .when('/regions', {
+        templateUrl: '/scripts/regions/regions.html',
+        controller: 'RegionCtrl'
+      })
       .when('/map', {
         templateUrl: '/scripts/map/map.html',
         controller: 'MapCtrl'
