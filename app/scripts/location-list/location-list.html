@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-10">
+    <h1>Locations</h1>
+    <table class="table table-striped table-responsive">
+      <thead>
+        <tr>
+          <th ng-click="orderByField = 'name'; reverseSort = !reverseSort;">Name</th>
+          <th ng-click="orderByField = 'address'; reverseSort = !reverseSort;">Address</th>
+          <th ng-click="orderByField = 'hours.open'; reverseSort = !reverseSort;">Open</th>
+          <th ng-click="orderByField = 'hours.close'; reverseSort = !reverseSort;">Closed</th>
+          <th ng-click="orderByField = 'distance'; reverseSort = !reverseSort;">Distance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="location in locations | orderBy:orderByField:reverseSort">
+          <td>
+            <strong><a ng-href="#/location/{{location.id}}">{{location.name}}</a></strong>
+          </td>
+          <td>{{location.address}}</td>
+          <td>{{location.hours.open | humanTime}}</td>
+          <td>{{location.hours.close | humanTime}}</td>
+          <td>{{location.distance | toMiles}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-xs-12 col-sm-2">
+    <div class="advertisement">
+      <h1>Ad</h1>
+    </div>
+  </div>
+</div>

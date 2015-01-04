@@ -1,0 +1,27 @@
+'use strict';
+
+angular.module('portlandcafes')
+  .controller('NavigationCtrl', function ($scope, $location, Geolocation) {
+    $scope.hasLocation = false;
+    $scope.location = '';
+    $scope.setLocation = function () {
+      $scope.hasLocation = true;
+
+      Geolocation.getCurrentPosition().then(function (pos) {
+        $scope.hasLocation = true;
+        $scope.location = pos.coords.latitude + ', ' + pos.coords.longitude;
+      }).catch(function (err) {
+        console.log(err);
+      });
+    };
+
+    $scope.isActive = function (route) {
+      return route == $location.path();
+    };
+
+    if (Geolocation.hasCurrentPosition()) {
+      Geolocation.getCurrentPosition().then(function (pos) {
+        $scope.location = pos.coords.latitude + ', ' + pos.coords.longitude;
+      });
+    }
+  });

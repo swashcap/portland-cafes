@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-6">
+    <h1>{{location.name}}</h1>
+    <p>{{location.address}}</p>
+    <h3><small>Open:</small> {{location.hours.open | humanTime}}</h3>
+    <h3><small>Close:</small> {{location.hours.close | humanTime}}</h3>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <h3>Reviews</h3>
+
+      </div>
+      <div class="col-xs-12 col-sm-6">
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-4">
+    <pc-map
+      center="{{location.coords.latitude}}, {{location.coords.longitude}}"
+      markers="{{location.coords.latitude}}, {{location.coords.longitude}}"
+      zoom="14" />
+  </div>
+  <div class="col-xs-12 col-sm-2">
+    <div class="advertisement">
+      <h1>Ad</h1>
+    </div>
+  </div>
+</div>
