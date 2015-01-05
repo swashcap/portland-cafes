@@ -3,16 +3,42 @@
 
   angular.module('portlandcafes')
     .controller('NavigationCtrl', ['$scope', '$location', 'Geolocation', function ($scope, $location, Geolocation) {
+      var LOCATION_FILLER = '…';
+      var setLocationToAddress = function () {
+        var currentPosition = Geolocation.maybeGetCurrentPosition();
+
+        if (currentPosition) {
+          $scope.location = LOCATION_FILLER;
+          Geolocation.getHumanAddress(currentPosition).then(function (address) {
+            $scope.location = address;
+          }).catch(function (err) {
+            console.log(err)
+          });
+        }
+      };
+
       $scope.location = '';
 
-      $scope.setLocation = function () {
-        $scope.location = '…';
+      $scope.setLocation = function (locationName) {
+        $scope.location = LOCATION_FILLER;
 
-        Geolocation.getCurrentPosition().then(function (pos) {
-          $scope.location = pos.coords.latitude + ', ' + pos.coords.longitude;
-        }).catch(function (err) {
-          console.log(err);
-        });
+        console.log('setLocation():', locationName);
+
+        if (! locationName) {
+          Geolocation.getCurrentPosition().then(function (position) {
+            setLocationToAddress();
+          }).catch(function (err) {
+            console.log(err);
+          });
+        } else {
+          $scope.location = locationName;
+          Geolocation.setCurrentPosition(locationName);
+
+          /** @todo Put this in its own service */
+          if ('localStorage' in window) {
+            localStorage.setItem('address', locationName)
+          }
+        }
       };
 
       $scope.isActive = function (route) {
@@ -21,15 +47,7 @@
         }
       };
 
-      var currentPosition = Geolocation.maybeGetCurrentPosition();
-
-      if (currentPosition) {
-        $scope.location = '…';
-        Geolocation.getHumanAddress(currentPosition).then(function (address) {
-          $scope.location = address;
-        }).catch(function (err) {
-          console.log(err)
-        });
-      }
+      // Init
+      setLocationToAddress();
     }]);
 })(window.angular);

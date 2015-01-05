@@ -1,6 +1,35 @@
 <div class="row">
   <div class="col-xs-12 col-sm-10">
-    <h1>Locations</h1>
+    <form class="row">
+      <div class="col-xs-12 col-sm-4 form-group">
+        <label for="location-list-search">Search:</label>
+        <input
+          ng-model="searchText"
+          type="search"
+          id="location-list-search"
+          class="form-control input-sm" />
+      </div>
+      <div class="col-xs-12 col-sm-6 text-right checkbox">
+        <label>
+          <input ng-model="hideClosed" type="checkbox" /> Hide closed cafés
+        </label>
+      </div>
+      <div class="col-xs-12 col-sm-2 form-group">
+        <label for="location-list-range">Only show within:</label>
+        <select
+          ng-model="range"
+          id="location-list-range"
+          class="form-control input-sm">
+          <option value="1">1.0 miles</option>
+          <option value="2">2.0 miles</option>
+          <option value="5">5.0 miles</option>
+          <option value="10">10.0 miles</option>
+          <option value="0">No limit</option>
+        </select>
+      </div>
+    </form>
+
+
     <table class="table table-striped table-responsive table-sortable">
       <thead>
         <tr>
@@ -32,7 +61,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="location in locations | orderBy:orderByField:reverseSort">
+        <tr
+          ng-repeat="location in locations | orderBy:orderByField:reverseSort | filter:searchText | filter:maybeHideClosed | filter:rangeFilter"
+          ng-class="{danger: location.isOpen}">
           <td>
             <strong><a ng-href="#/location/{{location.id}}">{{location.name}}</a></strong>
           </td>

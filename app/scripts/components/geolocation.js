@@ -134,6 +134,7 @@
                   localStorage.setItem(ADDRESS_KEY, results[1].formatted_address);
                 }
 
+                console.log(results);
                 resolve(results[1].formatted_address);
               } else {
                 reject('No address found.');
@@ -145,12 +146,17 @@
         });
       };
 
+      var setCurrentPosition = function (locationName) {
+
+      };
+
       // Public API
       return {
         maybeGetCurrentPosition: maybeGetCurrentPosition,
         getCurrentPosition: getCurrentPosition,
         getDistance: getDistance,
-        getHumanAddress: getHumanAddress
+        getHumanAddress: getHumanAddress,
+        setCurrentPosition: setCurrentPosition
       };
     }]);
 })(window.angular);

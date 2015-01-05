@@ -53,6 +53,18 @@
           open: 8,
           close: 17
         }
+      }, {
+        id: 104,
+        name: 'Milo’s Espresso',
+        address: '16234 Southeast Division Street\nPortland, OR 97236',
+        coords: {
+          latitude: 45.5042416,
+          longitude: -122.4961532
+        },
+        hours: {
+          open: 5,
+          close: 18
+        }
       }];
 
       /** @todo  Fix potential side-effects */
