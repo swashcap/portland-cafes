@@ -2,51 +2,62 @@
   'use strict';
 
   angular.module('portlandcafes')
-    .service('Geolocation', ['$q', '$cacheFactory', function ($q, $cacheFactory) {
-      var CACHE_NAME = 'portlandcafes-user';
-      var CACHE_POSITION_KEY = 'position';
-
+    .factory('Geolocation', ['$q', '$http', function ($q, $http) {
+      var POSITION_KEY = 'position';
       var geolocationOptions = {
         enableHighAccuracy: true,
         timeout: 4 * 1000,
         maximumAge: 600 * 1000
       };
-
-      var cache = $cacheFactory(CACHE_NAME);
-
-      this.hasCurrentPosition = function () {
-        if (cache.get(CACHE_POSITION_KEY)) {
-          return true;
-        } else {
-          return false;
+      var getCoords = function (pos) {
+        if (pos instanceof Object && 'coords' in pos && 'latitude' in pos.coords) {
+          return {
+            latitude: pos.coords.latitude,
+            longitude: pos.coords.longitude
+          };
         }
       };
-      this.getCurrentPosition = function () {
-        return $q(function (res, rej) {
-          if (cache.get(CACHE_POSITION_KEY)) {
-            res(cache.get(CACHE_POSITION_KEY));
+
+      // Get current position from cache if available
+      var maybeGetCurrentPosition = function () {
+        if ('localStorage' in window) {
+          return getCoords(JSON.parse(localStorage.getItem(POSITION_KEY)));
+        }
+      };
+
+      var getCurrentPosition = function () {
+        return $q(function (resolve, reject) {
+          var currentPosition = maybeGetCurrentPosition();
+
+          if (currentPosition) {
+            resolve(currentPosition);
           } else if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition(
               function (position) {
                 // Place response in the cache
-                cache.put(CACHE_POSITION_KEY, position);
+                if ('localStorage' in window) {
+                  localStorage.setItem(POSITION_KEY, JSON.stringify(position));
+                }
 
-                res(position);
+                resolve(getCoords(position));
               },
               function (err) {
-                rej(err);
+                reject(err);
               },
               geolocationOptions
             );
           } else {
-            rej('Browser doesn\'t support geolocation');
+            reject('Browser doesn\'t support geolocation');
           }
         });
       };
+
       /**
+       * Get the distance between to sets of coordinates.
+       *
        * Stolen from GeoLib's `getDistanceSimple`.
        */
-      this.getDistance = function (start, end, accuracy) {
+      var getDistance = function (start, end, accuracy) {
         accuracy = Math.floor(accuracy) || 1;
         var toRad = function (num) {
           return num * Math.PI / 180;
@@ -74,6 +85,13 @@
           );
 
         return Math.floor(Math.round(distance/accuracy)*accuracy);
+      };
+
+      // Public API
+      return {
+        maybeGetCurrentPosition: maybeGetCurrentPosition,
+        getCurrentPosition: getCurrentPosition,
+        getDistance: getDistance
       };
     }]);
 })(window.angular);

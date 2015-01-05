@@ -3,13 +3,12 @@
 
   angular.module('portlandcafes')
     .controller('NavigationCtrl', ['$scope', '$location', 'Geolocation', function ($scope, $location, Geolocation) {
-      $scope.hasLocation = false;
       $scope.location = '';
+
       $scope.setLocation = function () {
-        $scope.hasLocation = true;
+        $scope.location = '&hellip';
 
         Geolocation.getCurrentPosition().then(function (pos) {
-          $scope.hasLocation = true;
           $scope.location = pos.coords.latitude + ', ' + pos.coords.longitude;
         }).catch(function (err) {
           console.log(err);
@@ -22,10 +21,10 @@
         }
       };
 
-      if (Geolocation.hasCurrentPosition()) {
-        Geolocation.getCurrentPosition().then(function (pos) {
-          $scope.location = pos.coords.latitude + ', ' + pos.coords.longitude;
-        });
+      var currentPosition = Geolocation.maybeGetCurrentPosition();
+
+      if (currentPosition) {
+        $scope.location = currentPosition.latitude + ', ' + currentPosition.longitude;
       }
     }]);
 })(window.angular);

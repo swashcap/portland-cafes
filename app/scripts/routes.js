@@ -6,19 +6,19 @@
     .config(['$routeProvider', function ($routeProvider) {
       $routeProvider
         .when('/', {
-          templateUrl: '/scripts/location-list/location-list.html',
+          templateUrl: 'scripts/location-list/location-list.html',
           controller: 'LocationListCtrl'
         })
         .when('/location/:locationId', {
-          templateUrl: '/scripts/location-detail/location-detail.html',
+          templateUrl: 'scripts/location-detail/location-detail.html',
           controller: 'LocationDetailCtrl'
         })
         .when('/regions', {
-          templateUrl: '/scripts/regions/regions.html',
+          templateUrl: 'scripts/regions/regions.html',
           controller: 'RegionCtrl'
         })
         .when('/map', {
-          templateUrl: '/scripts/map/map.html',
+          templateUrl: 'scripts/map/map.html',
           controller: 'MapCtrl'
         })
         .otherwise({

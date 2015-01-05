@@ -41,11 +41,11 @@
           </ul>
           <div class="navbar-right">
             <button
-              ng-if="!hasLocation"
+              ng-if="!location"
               ng-click="setLocation()"
               class="btn btn-primary navbar-btn">Set Your Location</button>
             <p
-              ng-if="hasLocation"
+              ng-if="location"
               class="navbar-text">
                 {{location}}
                 <a href="" ng-click="setLocation()">Change Location</a></p>

@@ -20,10 +20,10 @@
         });
       };
 
-      if (Geolocation.hasCurrentPosition()) {
-        Geolocation.getCurrentPosition().then(function (pos) {
-          setLocationDistances(pos.coords.latitude, pos.coords.longitude);
-        });
+      var currentPosition = Geolocation.maybeGetCurrentPosition();
+
+      if (currentPosition) {
+        setLocationDistances(currentPosition.latitude, currentPosition.longitude);
       }
     }]);
 })(window.angular);
