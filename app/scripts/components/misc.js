@@ -40,4 +40,7 @@
       latitude: 45.5119316,
       longitude: -122.61836459999999
     });
+
+  angular.module('portlandcafes')
+    .constant('GOOGLE_MAPS_KEY', 'AIzaSyA4Wd2HKrDmdh_2HzqPqqa3gsFlqYnVkdo');
 })(window.angular);

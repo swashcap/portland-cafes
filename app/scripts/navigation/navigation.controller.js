@@ -6,7 +6,7 @@
       $scope.location = '';
 
       $scope.setLocation = function () {
-        $scope.location = '&hellip';
+        $scope.location = '…';
 
         Geolocation.getCurrentPosition().then(function (pos) {
           $scope.location = pos.coords.latitude + ', ' + pos.coords.longitude;
@@ -24,7 +24,12 @@
       var currentPosition = Geolocation.maybeGetCurrentPosition();
 
       if (currentPosition) {
-        $scope.location = currentPosition.latitude + ', ' + currentPosition.longitude;
+        $scope.location = '…';
+        Geolocation.getHumanAddress(currentPosition).then(function (address) {
+          $scope.location = address;
+        }).catch(function (err) {
+          console.log(err)
+        });
       }
     }]);
 })(window.angular);

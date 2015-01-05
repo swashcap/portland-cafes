@@ -2,8 +2,9 @@
   'use strict';
 
   angular.module('portlandcafes')
-    .factory('Geolocation', ['$q', '$http', function ($q, $http) {
+    .factory('Geolocation', ['$q', function ($q) {
       var POSITION_KEY = 'position';
+      var ADDRESS_KEY = 'address';
       var geolocationOptions = {
         enableHighAccuracy: true,
         timeout: 4 * 1000,
@@ -87,11 +88,69 @@
         return Math.floor(Math.round(distance/accuracy)*accuracy);
       };
 
+      /**
+       * Get a human-readable address from a position.
+       *
+       * @{@link  https://developers.google.com/maps/documentation/javascript/examples/geocoding-reverse}
+       * @param  {object} position A coordinate set with properties `latitude` and `longitude`
+       * @return {object}          $q-style promise, which resolves to a street address
+       */
+      var getHumanAddress = function (position) {
+        return $q(function (resolve, reject) {
+          if (
+            ! position instanceof Object ||
+            ! 'latitude' in position ||
+            ! 'longitude' in position) {
+            reject('Invalid position.');
+            return;
+          }
+
+          var address, geocoder, latLng;
+
+          // Try local storage first
+          if ('localStorage' in window) {
+            address = localStorage.getItem(ADDRESS_KEY);
+
+            if (address) {
+              resolve(address);
+              return;
+            }
+          }
+
+          geocoder = new google.maps.Geocoder();
+          latLng = new google.maps.LatLng(
+            position.latitude,
+            position.longitude
+          );
+
+          geocoder.geocode({latLng: latLng}, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+              if (results[1]) {
+                /**
+                 * @todo Come up with an abstraction for local storage so these
+                 *       system checks aren't repeated throughout the code.
+                 */
+                if ('localStorage' in window) {
+                  localStorage.setItem(ADDRESS_KEY, results[1].formatted_address);
+                }
+
+                resolve(results[1].formatted_address);
+              } else {
+                reject('No address found.');
+              }
+            } else {
+              reject('Address lookup failed: ' + status.toString());
+            }
+          });
+        });
+      };
+
       // Public API
       return {
         maybeGetCurrentPosition: maybeGetCurrentPosition,
         getCurrentPosition: getCurrentPosition,
-        getDistance: getDistance
+        getDistance: getDistance,
+        getHumanAddress: getHumanAddress
       };
     }]);
 })(window.angular);
