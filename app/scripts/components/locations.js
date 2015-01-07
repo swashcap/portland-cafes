@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('portlandcafes')
-    .service('Locations', ['$http', function ($http) {
+    .service('Locations', ['$http', '$q', function ($http, $q) {
       var now = new Date();
 
       /**
@@ -80,10 +80,22 @@
         return locations;
       };
       this.get = function (id) {
-        return locations.filter(function (location) {
-          return location.id == id;
-        }).shift();
-      };
+        return $q(function (resolve, reject) {
+          locations.then(function (locations) {
+            var result = locations.filter(function (location) {
+              return location.id == id;
+            }).shift();
+
+            if (result) {
+              resolve(result);
+            } else {
+              reject('Couldn\'t find requested ID.');
+            }
+          }).catch(function (error) {
+            reject(error);
+          });
+        });
+      },
       this.getOpen = function () {
         /** @todo This trusts the client's time, which is usually a no-no. */
         var now = new Date();

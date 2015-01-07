@@ -1,10 +1,10 @@
 <div class="row">
   <div class="col-xs-12 col-sm-6">
     <h1>{{location.name}}</h1>
-    <p>{{location.address}}</p>
+    <div ng-bind-html="location.address"></div>
 
     <div
-      ng-if="isClosed"
+      ng-if="!isOpen"
       class="alert alert-danger"
       role="alert">
       <strong>Danger!</strong> This café is closed.
@@ -16,8 +16,8 @@
       <strong>Warning!</strong> This café closes soon.
     </div>
 
-    <h3><small>Open:</small> {{location.hours.open | humanTime}}</h3>
-    <h3><small>Close:</small> {{location.hours.close | humanTime}}</h3>
+    <h3><small>Open:</small> {{location.todayHours.open | humanTime}}</h3>
+    <h3><small>Close:</small> {{location.todayHours.close | humanTime}}</h3>
 
     <div class="row">
       <div class="col-xs-12 col-sm-6">

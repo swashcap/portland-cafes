@@ -42,11 +42,13 @@
       };
       var addMarkers = function (markers, map) {
         var addSingleMarker = function (latitude, longitude) {
-          return new google.maps.Marker({
-            position: new google.maps.LatLng(latitude, longitude),
-            map: map,
-            title: '' // @todo Figure this out
-          });
+          if (latitude && longitude) {
+            return new google.maps.Marker({
+              position: new google.maps.LatLng(latitude, longitude),
+              map: map,
+              title: '' // @todo Figure this out
+            });
+          }
         };
         var output;
 
@@ -84,6 +86,13 @@
           attrs.$observe('markers', function () {
             markers = coordsToObject(attrs.markers) || [];
             addMarkers(markers, map);
+          });
+          attrs.$observe('center', function () {
+            center = coordsToObject(attrs.center) || centerOfPortland;
+
+            if (center.latitude && center.longitude) {
+              map.setCenter(new google.maps.LatLng(center.latitude, center.longitude));
+            }
           });
         },
         restrict: 'E',
