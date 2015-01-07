@@ -65,6 +65,18 @@
           open: 5,
           close: 18
         }
+      }, {
+        id: 105,
+        name: 'Tiny’s Coffee',
+        address: '1412 Southeast 12th Avenue\nPortland, OR 97214',
+        coords: {
+          latitude: 45.5126021,
+          longitude: -122.6534296
+        },
+        hours: {
+          open: 10,
+          close: 19
+        }
       }];
 
       /** @todo  Fix potential side-effects */
