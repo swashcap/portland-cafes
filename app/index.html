@@ -61,30 +61,30 @@
                 data-toggle="dropdown"
                 role="button"
                 aria-expanded="false">
-                <span ng-if="!location">Set Location&hellip;</span>
-                <span ng-if="location">{{location}}</span>
+                <span ng-if="!address">Set Location&hellip;</span>
+                <span ng-if="address">{{address}}</span>
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu" role="menu">
-                <li>
-                  <a ng-click="setLocation()">
+                <li ng-if="!address">
+                  <a ng-click="setPosition()">
                     <span class="glyphicon glyphicon-screenshot"></span>
                     Use Device Location
                   </a>
                 </li>
-                <li>
-                  <a ng-click="refreshLocation()">
+                <li ng-if="address">
+                  <a ng-click="refreshPosition()">
                     <span class="glyphicon glyphicon-refresh"></span>
                     Refresh Location
                   </a>
                 </li>
                 <li role="presentation" class="dropdown-header">Presets</li>
-                <li><a ng-click="setLocation('North Portland')">North</a></li>
-                <li><a ng-click="setLocation('Northwest Portland')">Northwest</a></li>
-                <li><a ng-click="setLocation('Northeast Portland')">Northeast</a></li>
-                <li><a ng-click="setLocation('Downtown Portland')">Downtown</a></li>
-                <li><a ng-click="setLocation('Southwest Portland')">Southwest</a></li>
-                <li><a ng-click="setLocation('Southeast Portland')">Southeast</a></li>
+                <li><a ng-click="setPosition('North Portland')">North</a></li>
+                <li><a ng-click="setPosition('Northwest Portland')">Northwest</a></li>
+                <li><a ng-click="setPosition('Northeast Portland')">Northeast</a></li>
+                <li><a ng-click="setPosition('Downtown Portland')">Downtown</a></li>
+                <li><a ng-click="setPosition('Southwest Portland')">Southwest</a></li>
+                <li><a ng-click="setPosition('Southeast Portland')">Southeast</a></li>
               </ul>
             </li>
           </ul>
@@ -151,10 +151,10 @@
         <!-- build:js scripts/main.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/routes.js"></script>
-        <script src="scripts/components/geolocation.js"></script>
         <script src="scripts/components/locations.js"></script>
         <script src="scripts/components/misc.js"></script>
         <script src="scripts/components/pcmap.js"></script>
+        <script src="scripts/components/position.js"></script>
         <script src="scripts/components/preferences.js"></script>
         <script src="scripts/components/storage.js"></script>
         <script src="scripts/location-detail/location-detail.controller.js"></script>

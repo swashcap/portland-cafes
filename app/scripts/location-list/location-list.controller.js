@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('portlandcafes')
-    .controller('LocationListCtrl', ['$scope', 'Locations', 'Geolocation', 'Preferences', function ($scope, Locations, Geolocation, Preferences) {
+    .controller('LocationListCtrl', ['$scope', 'Locations', 'Position', 'Preferences', 'Distance', function ($scope, Locations, Position, Preferences, distance) {
       $scope.locations = Locations.getAll();
       $scope.orderByField = 'name';
       $scope.reverseSort = false;
@@ -49,7 +49,7 @@
 
       var setLocationDistances = function (latitude, longitude) {
         $scope.locations.forEach(function (location) {
-          return location.distance = Geolocation.getDistance({
+          return location.distance = distance({
             latitude: location.coords.latitude,
             longitude: location.coords.longitude
           }, {
@@ -59,12 +59,6 @@
         });
       };
 
-      var currentPosition = Geolocation.maybeGetCurrentPosition();
-
-      if (currentPosition) {
-        setLocationDistances(currentPosition.coords.latitude, currentPosition.coords.longitude);
-      }
-
       // Persist UI controls back to preferences
       $scope.$watch('hideClosed', function () {
         Preferences.hideClosed($scope.hideClosed);
@@ -72,5 +66,12 @@
       $scope.$watch('distanceRange', function () {
         Preferences.distanceRange($scope.distanceRange);
       });
+
+      // Initialize
+      var currentPosition = Position.getPosition();
+
+      if (currentPosition) {
+        setLocationDistances(currentPosition.latitude, currentPosition.longitude);
+      }
     }]);
 })(window.angular);
