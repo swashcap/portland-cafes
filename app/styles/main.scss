@@ -28,27 +28,6 @@ pc-map {
   width: 100%;
 }
 
-/* Layout */
-
-html {
-  height: 100%;
-  width: 100%;
-}
-body {
-  align-items: flex-start;
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-}
-header[role='banner'],
-main[role='main'],
-footer[role='contentinfo'] {
-  width: 100%;
-}
-main[role='main'] {
-  flex: 1;
-}
-
 /* Advertisements */
 .advertisement {
   background: $gray-lighter;
@@ -62,10 +41,7 @@ main[role='main'] {
 
 /* Footer */
 footer[role='contentinfo'] {
-  background: rgba(255, 255, 255, .5);
   padding: .5rem 0;
-  position: relative;
-  z-index: 2;
 }
 footer[role='contentinfo'] small {
   color: $gray-light;

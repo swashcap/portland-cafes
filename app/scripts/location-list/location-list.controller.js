@@ -2,12 +2,12 @@
   'use strict';
 
   angular.module('portlandcafes')
-    .controller('LocationListCtrl', ['$scope', 'Locations', 'Geolocation', function ($scope, Locations, Geolocation) {
+    .controller('LocationListCtrl', ['$scope', 'Locations', 'Geolocation', 'Preferences', function ($scope, Locations, Geolocation, Preferences) {
       $scope.locations = Locations.getAll();
       $scope.orderByField = 'name';
       $scope.reverseSort = false;
-      $scope.hideClosed = false;
-      $scope.range = 0;
+      $scope.hideClosed = Preferences.hideClosed();
+      $scope.distanceRange = Preferences.distanceRange();
 
       /**
        * Add `isOpen` property to each location.
@@ -36,8 +36,8 @@
 
       $scope.rangeFilter = function (location) {
         /** @todo Do something about miles/meters unit consistency */
-        if ('distance' in location && $scope.range != 0) {
-          if (location.distance * 6.21371e-4 > $scope.range) {
+        if ('distance' in location && $scope.distanceRange != 0) {
+          if (location.distance * 6.21371e-4 > $scope.distanceRange) {
             return false;
           } else {
             return true;
@@ -62,7 +62,15 @@
       var currentPosition = Geolocation.maybeGetCurrentPosition();
 
       if (currentPosition) {
-        setLocationDistances(currentPosition.latitude, currentPosition.longitude);
+        setLocationDistances(currentPosition.coords.latitude, currentPosition.coords.longitude);
       }
+
+      // Persist UI controls back to preferences
+      $scope.$watch('hideClosed', function () {
+        Preferences.hideClosed($scope.hideClosed);
+      });
+      $scope.$watch('distanceRange', function () {
+        Preferences.distanceRange($scope.distanceRange);
+      });
     }]);
 })(window.angular);

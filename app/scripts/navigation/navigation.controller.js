@@ -22,23 +22,11 @@
       $scope.setLocation = function (locationName) {
         $scope.location = LOCATION_FILLER;
 
-        console.log('setLocation():', locationName);
-
-        if (! locationName) {
-          Geolocation.getCurrentPosition().then(function (position) {
-            setLocationToAddress();
-          }).catch(function (err) {
-            console.log(err);
-          });
-        } else {
-          $scope.location = locationName;
-          Geolocation.setCurrentPosition(locationName);
-
-          /** @todo Put this in its own service */
-          if ('localStorage' in window) {
-            localStorage.setItem('address', locationName)
-          }
-        }
+        Geolocation.getCurrentPosition().then(function (position) {
+          setLocationToAddress();
+        }).catch(function (err) {
+          console.log(err);
+        });
       };
 
       $scope.isActive = function (route) {

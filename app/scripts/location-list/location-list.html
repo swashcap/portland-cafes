@@ -17,7 +17,7 @@
       <div class="col-xs-12 col-sm-2 form-group">
         <label for="location-list-range">Only show within:</label>
         <select
-          ng-model="range"
+          ng-model="distanceRange"
           id="location-list-range"
           class="form-control input-sm">
           <option value="1">1.0 miles</option>
@@ -62,14 +62,13 @@
       </thead>
       <tbody>
         <tr
-          ng-repeat="location in locations | orderBy:orderByField:reverseSort | filter:searchText | filter:maybeHideClosed | filter:rangeFilter"
-          ng-class="{danger: location.isOpen}">
+          ng-repeat="location in locations | orderBy:orderByField:reverseSort | filter:searchText | filter:maybeHideClosed | filter:rangeFilter">
           <td>
             <strong><a ng-href="#/location/{{location.id}}">{{location.name}}</a></strong>
           </td>
           <td>{{location.address}}</td>
-          <td>{{location.hours.open | humanTime}}</td>
-          <td>{{location.hours.close | humanTime}}</td>
+          <td ng-class="{'text-danger': location.isOpen}">{{location.hours.open | humanTime}}</td>
+          <td ng-class="{'text-danger': location.isOpen}">{{location.hours.close | humanTime}}</td>
           <td>{{location.distance | toMiles}}</td>
         </tr>
       </tbody>
