@@ -41,14 +41,14 @@
           </th>
           <th>Address</th>
           <th
-            ng-class="{'is-active': orderByField == 'hours.open', 'is-reverse': reverseSort}"
-            ng-click="orderByField = 'hours.open'; reverseSort = !reverseSort;">
+            ng-class="{'is-active': orderByField == 'todayHours.open', 'is-reverse': reverseSort}"
+            ng-click="orderByField = 'todayHours.open'; reverseSort = !reverseSort;">
             Open
             <span class="caret"></span>
           </th>
           <th
-            ng-class="{'is-active': orderByField == 'hours.close', 'is-reverse': reverseSort}"
-            ng-click="orderByField = 'hours.close'; reverseSort = !reverseSort;">
+            ng-class="{'is-active': orderByField == 'todayHours.close', 'is-reverse': reverseSort}"
+            ng-click="orderByField = 'todayHours.close'; reverseSort = !reverseSort;">
             Closed
             <span class="caret"></span>
           </th>
@@ -66,9 +66,9 @@
           <td>
             <strong><a ng-href="#/location/{{location.id}}">{{location.name}}</a></strong>
           </td>
-          <td>{{location.address}}</td>
-          <td ng-class="{'text-danger': location.isOpen}">{{location.hours.open | humanTime}}</td>
-          <td ng-class="{'text-danger': location.isOpen}">{{location.hours.close | humanTime}}</td>
+          <td ng-bind-html="location.address"></td>
+          <td ng-class="{'text-danger': !location.isOpen}">{{location.todayHours.open | humanTime}}</td>
+          <td ng-class="{'text-danger': !location.isOpen}">{{location.todayHours.close | humanTime}}</td>
           <td>{{location.distance | toMiles}}</td>
         </tr>
       </tbody>

@@ -2,82 +2,78 @@
   'use strict';
 
   angular.module('portlandcafes')
-    .service('Locations', function () {
-      /** @todo Attach service's data to the browser's cache */
+    .service('Locations', ['$http', function ($http) {
+      var now = new Date();
 
-      var locations = [{
-        id: 100,
-        name: 'Crema Bakery',
-        address: '2728 Southeast Ankeny Street\nPortland OR 97214',
-        coords: {
-          latitude: 45.5219961,
-          longitude: -122.6374976
-        },
-        hours: {
-          open: 6,
-          close: 18
+      /**
+       * Format string-based time into a number
+       * @param  {String} time Four-digit format, ex: '0845'
+       * @return {Number}
+       */
+      var formatTime = function (time) {
+        if (typeof time !== 'undefined') {
+          return parseInt(time.slice(0,2), 10) + parseInt(time.slice(2), 10) / 60;
         }
-      }, {
-        id: 101,
-        name: 'Green Beans Coffee and Tea',
-        address: '2327 East Burnside Street\nPortland OR 97214',
-        coords: {
-          latitude: 45.5230551,
-          longitude:  -122.6417661
-        },
-        hours: {
-          open: 7,
-          close: 20.5
+      };
+
+      var getTimeProperties = function (data) {
+        var periods = ((((data).details || {}).opening_hours || {}).periods || {});
+        var output, time;
+
+        if (Array.isArray(periods) && periods.length === 7) {
+          output = {
+            hours: data.details.opening_hours.periods,
+            todayHours: {
+              open: data.details.opening_hours.periods[now.getDay()].open.time,
+              close: data.details.opening_hours.periods[now.getDay()].close.time
+            }
+          };
+          time = now.getHours() + now.getMinutes() / 60;
+
+          if (
+            formatTime(output.todayHours.open) < time &&
+            time < formatTime(output.todayHours.close)
+          ) {
+            output.isOpen = true;
+          } else {
+            output.isOpen = false;
+          }
+
+          return output;
         }
-      }, {
-        id: 102,
-        name: 'Common Grounds Coffeehouse',
-        address: '4321 Southeast Hawthorne Boulevard\nPortland OR 97215',
-        coords: {
-          latitude: 45.512208,
-          longitude: -122.6178261
-        },
-        hours: {
-          open: 6.5,
-          close: 22
+      };
+
+      // Retrieve locations from static file
+      var locations = $http.get('results.json').then(function (data) {
+        var locations = [];
+
+        if ('data' in data && Array.isArray(data.data)) {
+          data.data.forEach(function (data) {
+            var location = {
+              id: data.id,
+              name: data.name,
+              rating: data.rating,
+              reviews: data.details.reviews,
+              coords: {
+                latitude: data.geometry.location.lat,
+                longitude: data.geometry.location.lng
+              },
+              types: data.types,
+              placeId: data.place_id,
+              website: data.details.website,
+              address: data.details.adr_address
+            };
+
+            angular.extend(location, getTimeProperties(data));
+
+            locations.push(location);
+          });
         }
-      }, {
-        id: 103,
-        name: 'Floyd’s Coffee Shop Old Town',
-        address: '118 Northwest Couch Street\nPortland, OR 97209',
-        coords: {
-          latitude: 45.5236509,
-          longitude: -122.6716318
-        },
-        hours: {
-          open: 8,
-          close: 17
-        }
-      }, {
-        id: 104,
-        name: 'Milo’s Espresso',
-        address: '16234 Southeast Division Street\nPortland, OR 97236',
-        coords: {
-          latitude: 45.5042416,
-          longitude: -122.4961532
-        },
-        hours: {
-          open: 5,
-          close: 18
-        }
-      }, {
-        id: 105,
-        name: 'Tiny’s Coffee',
-        address: '1412 Southeast 12th Avenue\nPortland, OR 97214',
-        coords: {
-          latitude: 45.5126021,
-          longitude: -122.6534296
-        },
-        hours: {
-          open: 10,
-          close: 19
-        }
-      }];
+
+        return locations;
+      }).catch(function (error) {
+        console.log(error);
+      });
 
       /** @todo  Fix potential side-effects */
       this.getAll = function () {
@@ -97,5 +93,5 @@
           return (location.hours.open < currentHour && location.hours.closed > currentHour);
         });
       };
-    });
+    }]);
 })(window.angular);

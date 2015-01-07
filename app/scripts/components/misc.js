@@ -4,19 +4,21 @@
   /** @todo Find a better home for these filters */
   angular.module('portlandcafes')
     .filter('humanTime', function () {
-      return function (input) {
-        var isPM = false;
-        var hours = 0;
-        var minutes = 0;
-
-        if (input >= 12) {
-          hours = Math.floor(input - 12);
-          isPM = true;
-        } else {
-          hours = Math.floor(input);
+      return function (time) {
+        if (! time) {
+          return;
         }
 
-        minutes = input % 1 * 60;
+        var isPM = false;
+        var hours = parseInt(time.slice(0,2), 10);
+        var minutes = parseInt(time.slice(2), 10);
+
+        if (hours >= 12) {
+          hours = hours - 12;
+          isPM = true;
+        }
+
+        minutes = Math.round(minutes / 60);
 
         if (minutes < 10) {
           minutes = '0' + minutes;

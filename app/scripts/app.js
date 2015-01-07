@@ -2,5 +2,5 @@
 (function (angular) {
   'use strict';
 
-  angular.module('portlandcafes', ['ngRoute']);
+  angular.module('portlandcafes', ['ngRoute', 'ngSanitize']);
 })(window.angular);
