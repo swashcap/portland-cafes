@@ -40,12 +40,26 @@
 
         return output;
       };
-      var addMarker = function (marker, map) {
-        return new google.maps.Marker({
-          position: new google.maps.LatLng(marker.latitude, marker.longitude),
-          map: map,
-          title: '' // @todo Figure this out
-        });
+      var addMarkers = function (markers, map) {
+        var addSingleMarker = function (latitude, longitude) {
+          return new google.maps.Marker({
+            position: new google.maps.LatLng(latitude, longitude),
+            map: map,
+            title: '' // @todo Figure this out
+          });
+        };
+        var output;
+
+        if (Array.isArray(markers)) {
+          output = [];
+          markers.forEach(function (marker) {
+            output.push(addSingleMarker(marker.latitude, marker.longitude));
+          });
+        } else if ('latitude' in markers && 'longitude' in markers) {
+          output = addSingleMarker(markers.latitude, markers.longitude);
+        }
+
+        return output;
       };
 
       return {
@@ -64,14 +78,13 @@
             }
           );
 
-          // Add marker(s)
-          if (markers instanceof Array) {
-            markers.forEach(function (marker) {
-              addMarker(marker, map);
-            });
-          } else if ('latitude' in markers && 'longitude' in markers) {
-            addMarker(markers, map);
-          }
+          // Initialze
+          addMarkers(markers, map);
+
+          attrs.$observe('markers', function () {
+            markers = coordsToObject(attrs.markers) || [];
+            addMarkers(markers, map);
+          });
         },
         restrict: 'E',
         template: '<div></div>'
