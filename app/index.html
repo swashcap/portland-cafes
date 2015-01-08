@@ -93,7 +93,16 @@
     </header><!-- .container-fluid -->
 
     <main role="main" class="container-fluid">
-      <div ng-view=""></div>
+      <div class="row">
+
+        <div ng-view="" class="col-xs-12 col-sm-9"></div>
+
+        <aside class="col-xs-12 col-sm-3">
+          <div class="advertisement">
+            <h1>Ad</h1>
+          </div>
+        </aside>
+      </div><!-- .row -->
     </main>
 
     <footer role="contentinfo">
