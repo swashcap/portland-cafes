@@ -84,4 +84,17 @@
         return Math.floor(Math.round(distance/accuracy)*accuracy);
       };
     });
+
+  angular.module('portlandcafes')
+    .filter('toStars', function () {
+      return function (input) {
+        var rating = Math.round(parseFloat(input) * 10) * 2;
+
+        if (rating) {
+          return '<span class="rating-' + rating + '" title="' + input + ' stars">' + input + '</span>'
+        } else {
+          return input;
+        }
+      };
+    })
 })(window.angular);

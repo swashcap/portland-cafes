@@ -39,7 +39,12 @@
             Name
             <span class="caret"></span>
           </th>
-          <th>Address</th>
+          <th
+            ng-class=""
+            ng-click="orderByField = 'rating'; reverseSort = !reverseSort;">
+            Rating
+            <span class="caret"></span>
+          </th>
           <th
             ng-class="{'is-active': orderByField == 'todayHours.open', 'is-reverse': reverseSort}"
             ng-click="orderByField = 'todayHours.open'; reverseSort = !reverseSort;">
@@ -65,8 +70,9 @@
           ng-repeat="location in locations | orderBy:orderByField:reverseSort | filter:searchText | filter:maybeHideClosed | filter:rangeFilter">
           <td>
             <strong><a ng-href="#/location/{{location.id}}">{{location.name}}</a></strong>
+            <div ng-bind-html="location.address"></div>
           </td>
-          <td ng-bind-html="location.address"></td>
+          <td ng-bind-html="location.rating | toStars"></td>
           <td ng-class="{'text-danger': !location.isOpen}">{{location.todayHours.open | humanTime}}</td>
           <td ng-class="{'text-danger': !location.isOpen}">{{location.todayHours.close | humanTime}}</td>
           <td>{{location.distance | toMiles}}</td>

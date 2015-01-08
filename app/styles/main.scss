@@ -69,3 +69,21 @@ footer[role='contentinfo'] small {
     transform: rotate(180deg);
   }
 }
+
+/* Ratings */
+span[class*='rating'] {
+  background: url(../images/star@2x.png) repeat-x;
+  background-size: 20px auto;
+  color: transparent;
+  display: inline-block;
+  font-size: 0;
+  height: 20px;
+  line-height: 0;
+  vertical-align: top;
+}
+
+@for $i from 0 through 50 {
+  .rating-#{$i * 2} {
+    width: ceil($i * 2px);
+  }
+}
