@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('portlandcafes')
-    .factory('Position', ['Storage', '$q', function (Storage, $q) {
+    .factory('Position', ['$rootScope', '$q', 'Storage', function ($rootScope, $q, Storage) {
       var geolocationOptions = {
         enableHighAccuracy: true,
         timeout: 5 * 1000,
@@ -22,6 +22,18 @@
             navigator.geolocation.getCurrentPosition(
               function (position) {
                 Storage.setPosition(JSON.stringify(position));
+
+                /**
+                 * Broadcast a location-set event to the application. Other
+                 * components can subscribe to this event and use the data.
+                 *
+                 * @todo  Roll this into a component or possibly integrate on
+                 *        the `Storage` layer.
+                 */
+                $rootScope.$broadcast('pc.newPosition', {
+                  latitude: latitude(position),
+                  longitude: longitude(position)
+                });
 
                 resolve(position);
               },
@@ -58,6 +70,12 @@
             if (status == google.maps.GeocoderStatus.OK) {
               if (results[1]) {
                 Storage.setAddress(results[1].formatted_address);
+
+                /** @todo  Integrate in separate component or `Storage` */
+                $rootScope.$broadcast(
+                  'pc.newAddress',
+                  results[1].formatted_address
+                );
 
                 resolve(results[1].formatted_address);
               } else {

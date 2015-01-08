@@ -3,7 +3,7 @@
 
   angular.module('portlandcafes')
     .controller('LocationListCtrl', ['$scope', 'Locations', 'Position', 'Preferences', 'Distance', function ($scope, Locations, Position, Preferences, distance) {
-      var setLocationDistances = function (latitude, longitude) {
+      var setDistances = function (latitude, longitude) {
         $scope.locations.forEach(function (location) {
           return location.distance = distance({
             latitude: location.coords.latitude,
@@ -15,6 +15,7 @@
         });
       };
 
+      $scope.locations = [];
       $scope.orderByField = 'name';
       $scope.reverseSort = false;
       $scope.hideClosed = Preferences.hideClosed();
@@ -42,23 +43,33 @@
       };
 
       // Persist UI controls back to preferences
-      $scope.$watch('hideClosed', function () {
-        Preferences.hideClosed($scope.hideClosed);
+      $scope.$watch('hideClosed', function (newValue, oldValue) {
+        if (newValue !== oldValue) {
+          Preferences.hideClosed($scope.hideClosed);
+        }
       });
-      $scope.$watch('distanceRange', function () {
-        Preferences.distanceRange($scope.distanceRange);
+      $scope.$watch('distanceRange', function (newValue, oldValue) {
+        if (newValue !== oldValue) {
+          Preferences.distanceRange($scope.distanceRange);
+        }
+      });
+
+      // Listen and react to new positions
+      $scope.$on('pc.newPosition', function (event, position) {
+        setDistances(position.latitude, position.longitude);
       });
 
       // Initialize
       Locations.getAll().then(function (locations) {
-        console.log(locations);
         $scope.locations = locations;
+
+        // Set distance if available
+        if (Position.getPosition()) {
+          setDistances(
+            Position.getPosition().latitude,
+            Position.getPosition().longitude
+          );
+        }
       });
-
-      // var currentPosition = Position.getPosition();
-
-      // if (currentPosition) {
-      //   setLocationDistances(currentPosition.latitude, currentPosition.longitude);
-      // }
     }]);
 })(window.angular);

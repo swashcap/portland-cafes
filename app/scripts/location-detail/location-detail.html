@@ -22,7 +22,10 @@
     <div class="row">
       <div class="col-xs-12 col-sm-6">
         <h3>Reviews</h3>
-
+        <div ng-repeat="review in location.reviews">
+          <h4><a ng-href="{{review.author_url}}">{{review.author_name}}</a></h4>
+          <div>{{review.text}}</div>
+        </div>
       </div>
       <div class="col-xs-12 col-sm-6">
       </div>
