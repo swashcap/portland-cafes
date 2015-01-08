@@ -28,6 +28,45 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-6">
+        <h3>Hours</h3>
+        <ol>
+          <li>
+            <strong>Sunday</strong>
+            {{location.hours[0].open.time | humanTime}} &ndash;
+            {{location.hours[0].close.time | humanTime}}
+          </li>
+          <li>
+            <strong>Monday</strong>
+            {{location.hours[1].open.time | humanTime}} &ndash;
+            {{location.hours[1].close.time | humanTime}}
+          </li>
+          <li>
+            <strong>Tuesday</strong>
+            {{location.hours[2].open.time | humanTime}} &ndash;
+            {{location.hours[2].close.time | humanTime}}
+          </li>
+          <li>
+            <strong>Wednesday</strong>
+            {{location.hours[3].open.time | humanTime}} &ndash;
+            {{location.hours[3].close.time | humanTime}}
+          </li>
+          <li>
+            <strong>Thursday</strong>
+            {{location.hours[4].open.time | humanTime}} &ndash;
+            {{location.hours[4].close.time | humanTime}}
+          </li>
+          <li>
+            <strong>Friday</strong>
+            {{location.hours[5].open.time | humanTime}} &ndash;
+            {{location.hours[5].close.time | humanTime}}
+          </li>
+          <li>
+            <strong>Saturday</strong>
+            {{location.hours[6].open.time | humanTime}} &ndash;
+            {{location.hours[6].close.time | humanTime}}
+          </li>
+
+        </ul>
       </div>
     </div>
   </div>
