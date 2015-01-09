@@ -6,10 +6,13 @@
 
       // Initialize
       Locations.getAll().then(function (locations) {
-        $scope.coordinates = locations.map(function (location) {
+        $scope.locations = locations.map(function (location) {
           return {
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude
+            id: location.id,
+            name: location.name,
+            coords: location.coords,
+            address: location.address,
+            todayHours: location.todayHours || {}
           };
         });
       });

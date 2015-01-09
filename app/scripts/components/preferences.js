@@ -11,7 +11,7 @@
 
       var save = function () {
         Storage.setPreferences(preferences);
-      }
+      };
 
       /**
        * Initialize by retrieving the preferences. If nothing's there, save the

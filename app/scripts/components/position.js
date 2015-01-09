@@ -1,8 +1,9 @@
+/* global google */
 (function (angular) {
   'use strict';
 
   angular.module('portlandcafes')
-    .factory('Position', ['$rootScope', '$q', 'Storage', function ($rootScope, $q, Storage) {
+    .factory('Position', ['$rootScope', '$q', 'Storage', 'locationPresets', function ($rootScope, $q, Storage, locationPresets) {
       var geolocationOptions = {
         enableHighAccuracy: true,
         timeout: 5 * 1000,
@@ -15,25 +16,37 @@
       var longitude = function (position) {
         return parseFloat((((position || {}).coords || {}).longitude || {}));
       };
+      var setPosition = function (position) {
+        Storage.setPosition(JSON.stringify(position));
+
+        /**
+         * Broadcast a location-set event to the application. Other
+         * components can subscribe to this event and use the data.
+         *
+         * @todo  Roll this into a component or possibly integrate on
+         *        the `Storage` layer.
+         */
+        $rootScope.$broadcast('pc.newPosition', {
+          latitude: latitude(position),
+          longitude: longitude(position)
+        });
+      };
+      var setAddress = function (address) {
+        Storage.setAddress(address);
+
+        /** @todo  Integrate in separate component or `Storage` */
+        $rootScope.$broadcast(
+          'pc.newAddress',
+          address
+        );
+      };
 
       var getCurrentPosition = function () {
         return $q(function (resolve, reject) {
           if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition(
               function (position) {
-                Storage.setPosition(JSON.stringify(position));
-
-                /**
-                 * Broadcast a location-set event to the application. Other
-                 * components can subscribe to this event and use the data.
-                 *
-                 * @todo  Roll this into a component or possibly integrate on
-                 *        the `Storage` layer.
-                 */
-                $rootScope.$broadcast('pc.newPosition', {
-                  latitude: latitude(position),
-                  longitude: longitude(position)
-                });
+                setPosition(position);
 
                 resolve(position);
               },
@@ -69,13 +82,7 @@
           geocoder.geocode({latLng: latLng}, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
               if (results[1]) {
-                Storage.setAddress(results[1].formatted_address);
-
-                /** @todo  Integrate in separate component or `Storage` */
-                $rootScope.$broadcast(
-                  'pc.newAddress',
-                  results[1].formatted_address
-                );
+                setAddress(results[1].formatted_address);
 
                 resolve(results[1].formatted_address);
               } else {
@@ -125,7 +132,23 @@
 
         // Set a position based on predefined options
         setPosition: function (slug) {
+          return $q(function (resolve, reject) {
+            var location = locationPresets.filter(function (location) {
+              return location.slug === slug;
+            }).shift();
 
+            if (location) {
+              setPosition(location);
+              setAddress(location.name);
+
+              resolve({
+                latitude: latitude(location),
+                longitude: longitude(location)
+              });
+            } else {
+              reject('Couldn’t locate position preset.');
+            }
+          });
         }
       };
     }]);
