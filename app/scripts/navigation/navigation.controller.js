@@ -9,7 +9,10 @@
       };
 
       $scope.isActive = function (route) {
-        if ($location.path().indexOf(route) !== -1) {
+        if (
+          $location.path().indexOf(route) !== -1 ||
+          route.indexOf('location') !== -1 && $location.path() === '/'
+        ) {
           return true;
         }
       };
