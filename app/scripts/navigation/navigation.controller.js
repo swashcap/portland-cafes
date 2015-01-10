@@ -8,6 +8,7 @@
         $scope.address = Position.getAddress();
       };
 
+      $scope.toggleDropdown = false;
       $scope.isActive = function (route) {
         if (
           $location.path().indexOf(route) !== -1 ||
