@@ -132,33 +132,38 @@
           setSingleLocation(locations);
         }
       };
+      var setCenter = function (map, center) {
+        if (center) {
+          center = JSON.parse(center);
+        }
+
+        center = new Pos(center);
+
+        if (! center.isValid()) {
+          center = new Pos(centerOfPortland);
+        }
+        return map.setCenter(new google.maps.LatLng(center.lat, center.lng));
+      };
 
       var link = function (scope, element, attrs) {
-        var center = new Pos(attrs.center);
+        var center = attrs.center || '';
         var markers = attrs.markers || [];
         var zoom = parseInt(attrs.zoom, 10) || 12;
         var locations = attrs.locations || '';
         var map;
 
-        if (! center.isValid()) {
-          center = new Pos(centerOfPortland);
-        }
-
         map = new google.maps.Map(element.get().shift(), {
           zoom: zoom,
-          center: new google.maps.LatLng(center.lat, center.lng)
         });
+
+        setCenter(map, center);
 
         if (locations) {
           setLocations(map, locations);
         }
 
         attrs.$observe('center', function (center) {
-          center = new Pos(center);
-
-          if (center.isValid()) {
-            map.setCenter(new google.maps.LatLng(center.latitude, center.longitude));
-          }
+          return setCenter(map, center);
         });
         attrs.$observe('zoom', function (zoom) {
           zoom = parseInt(zoom, 10);
