@@ -87,3 +87,28 @@ span[class*='rating'] {
     width: ceil($i * 2px);
   }
 }
+
+/* Info Window */
+
+.info-window {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+
+  h2 {
+    font-size: $font-size-large;
+    line-height: $line-height-large;
+    margin: 0;
+  }
+}
+.info-window__address {
+
+}
+.info-window__hours {
+  @include clearfix;
+
+  h5 {
+    float: left;
+    width: 50%;
+  }
+}
