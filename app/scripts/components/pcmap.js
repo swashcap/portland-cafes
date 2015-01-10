@@ -37,21 +37,41 @@
    * Custom Maps Directive.
    */
   angular.module('portlandcafes')
-    .directive('pcMap', ['$compile', '$rootScope', 'centerOfPortland', function ($compile, $rootScope, centerOfPortland) {
-      var infoWindowTemplate = $compile('<div class="info-window">' +
-        '<h2><a ng-href="#/location/{{location.id}}">{{location.name}}</a></h2>' +
-        '<div ng-bind-html="location.address"></div>' +
-        '<div class="info-window__hours">' +
-          '<h5><small>Open:</small> {{location.todayHours.open | humanTime}}</h5>' +
-          '<h5><small>Close:</small> {{location.todayHours.close | humanTime}}</h5>' +
-        '</div>' +
-      '</div>');
+    .directive('pcMap', ['centerOfPortland', function (centerOfPortland) {
 
-      var getTitle = function (location) {
-        if (location instanceof Object && 'name' in location) {
-          return location.name || '';
+      var getProp = function (prop, object) {
+        var props = prop.split('.');
+        var output = '';
+
+        if (Array.isArray(props) && object instanceof Object) {
+          for (var i = 0; i < props.length; i++) {
+            if (props[i] in object) {
+              if (i == props.length - 1) {
+                output = object[props[i]];
+              } else {
+                object = object[props[i]];
+              }
+            } else {
+              break;
+            }
+          }
         }
+
+        return output;
       };
+
+      /** @todo Figure out to use `$compile` */
+      var infoWindowTemplate = function (location) {
+        return '<div class="info-window">' +
+          '<h2><a href="#/location/' + getProp('id', location) + '">' + getProp('name', location) + '</a></h2>' +
+          '<div class="info-window__address">' + getProp('address', location) + '</div>' +
+          '<div class="info-window__hours">' +
+            '<h5><small>Open:</small> ' + getProp('todayHours.open', location) + '</h5>' +
+            '<h5><small>Close:</small> ' + getProp('todayHours.close', location) + '</h5>' +
+          '</div>' +
+        '</div>'
+      };
+
       var getMarker = function (map, location) {
         var pos = new Pos(location);
 
@@ -59,21 +79,20 @@
           return new google.maps.Marker({
             position: new google.maps.LatLng(pos.lat, pos.lng),
             map: map,
-            title: getTitle(location)
+            title: getProp('name', location)
           });
         }
       };
       var getInfoWindow = function (location) {
-        var newScope = $rootScope.$new(true);
-
-        newScope.location = location;
-
         return new google.maps.InfoWindow({
-          content: infoWindowTemplate(newScope).get(0)
+          content: infoWindowTemplate(location),
+          maxWidth: 200
         });
       };
 
       var setLocations = function (map, locations) {
+        var allMarkers = [];
+        var allInfoWindows = [];
         var setSingleLocation = function (location) {
           /**
            * @todo Make sure a marker isn't set in the same position as another
@@ -82,7 +101,16 @@
           var marker = getMarker(map, location);
           var infoWindow = getInfoWindow(location);
 
+          allMarkers.push(marker);
+          allInfoWindows.push(infoWindow);
+
           google.maps.event.addListener(marker, 'click', function () {
+            allInfoWindows.forEach(function (infoWindow) {
+              if (infoWindow instanceof Object && 'close' in infoWindow) {
+                infoWindow.close();
+              }
+            });
+
             infoWindow.open(map, marker);
           });
         };
