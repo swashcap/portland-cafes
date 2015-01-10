@@ -37,6 +37,10 @@ pc-map {
 .advertisement h1 {
   margin: 0;
   padding: 3em 0;
+
+  @media (min-width: $screen-sm) {
+    padding: 5em 0;
+  }
 }
 
 /* Footer */
@@ -110,5 +114,20 @@ span[class*='rating'] {
   h5 {
     float: left;
     width: 50%;
+  }
+}
+
+/* Location Detail */
+.location-detail {
+  .vcard {
+    color: $gray;
+    font-size: $font-size-large;
+    line-height: $line-height-large;
+    margin: 0 0 1em;
+
+    .locality:before {
+      content: '';
+      display: block;
+    }
   }
 }

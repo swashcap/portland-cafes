@@ -61,7 +61,8 @@
               types: data.types,
               placeId: data.place_id,
               website: data.details.website,
-              address: data.details.adr_address
+              address: data.details.adr_address,
+              vicinity: data.vicinity
             };
 
             angular.extend(location, getTimeProperties(data));

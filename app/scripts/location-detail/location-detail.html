@@ -1,7 +1,7 @@
-<div class="row">
+<div class="location-detail row">
   <div class="col-xs-12 col-sm-6">
     <h1>{{location.name}}</h1>
-    <div ng-bind-html="location.address"></div>
+    <div ng-bind-html="location.address" class="vcard"></div>
 
     <div
       ng-if="!location.isOpen"
@@ -16,64 +16,53 @@
       <strong>Warning!</strong> This café closes soon.
     </div>
 
-    <h3><small>Open:</small> {{location.todayHours.open | humanTime}}</h3>
-    <h3><small>Close:</small> {{location.todayHours.close | humanTime}}</h3>
-
     <div class="row">
-      <div class="col-xs-12 col-sm-6">
-        <h3>Reviews</h3>
-        <div ng-repeat="review in location.reviews">
-          <h4><a ng-href="{{review.author_url}}">{{review.author_name}}</a></h4>
-          <div>{{review.text}}</div>
-        </div>
+      <div class="col-xs-6">
+        <h3><small>Open:</small> {{location.todayHours.open | humanTime}}</h3>
       </div>
-      <div class="col-xs-12 col-sm-6">
-        <h3>Hours</h3>
-        <ol>
-          <li>
-            <strong>Sunday</strong>
-            {{location.hours[0].open.time | humanTime}} &ndash;
-            {{location.hours[0].close.time | humanTime}}
-          </li>
-          <li>
-            <strong>Monday</strong>
-            {{location.hours[1].open.time | humanTime}} &ndash;
-            {{location.hours[1].close.time | humanTime}}
-          </li>
-          <li>
-            <strong>Tuesday</strong>
-            {{location.hours[2].open.time | humanTime}} &ndash;
-            {{location.hours[2].close.time | humanTime}}
-          </li>
-          <li>
-            <strong>Wednesday</strong>
-            {{location.hours[3].open.time | humanTime}} &ndash;
-            {{location.hours[3].close.time | humanTime}}
-          </li>
-          <li>
-            <strong>Thursday</strong>
-            {{location.hours[4].open.time | humanTime}} &ndash;
-            {{location.hours[4].close.time | humanTime}}
-          </li>
-          <li>
-            <strong>Friday</strong>
-            {{location.hours[5].open.time | humanTime}} &ndash;
-            {{location.hours[5].close.time | humanTime}}
-          </li>
-          <li>
-            <strong>Saturday</strong>
-            {{location.hours[6].open.time | humanTime}} &ndash;
-            {{location.hours[6].close.time | humanTime}}
-          </li>
+      <div class="col-xs-6">
+        <h3><small>Close:</small> {{location.todayHours.close | humanTime}}</h3>
+      </div>
+    </div><!-- .row -->
 
-        </ul>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Hours</h3>
       </div>
-    </div>
+      <table class="table">
+        <tbody>
+          <tr
+            ng-repeat="hours in location.hours"
+            ng-class="{'active': currentDay == $index}">
+            <th scope="row">{{days[$index]}}</th>
+            <td>{{hours.open.time | humanTime}} &ndash; {{hours.close.time | humanTime}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- .panel -->
   </div>
   <div class="col-xs-12 col-sm-6">
     <pc-map
       center="{{location}}"
       locations="{{location}}"
-      zoom="14" />
+      zoom="14"></pc-map>
+
+    <br />
+    <a ng-href="{{getMapsLink(location)}}" class="btn btn-default btn-sm">
+      <span class="glyphicon glyphicon-globe"></span> Directions
+    </a>
+    <a
+      ng-if="location.website"
+      ng-href="{{location.website}}"
+      class="btn btn-default btn-sm"
+      target="_blank">
+      <span class="glyphicon glyphicon-new-window"></span> Café Website
+    </a>
+
+    <h3>Reviews</h3>
+    <div ng-repeat="review in location.reviews">
+      <h4><a ng-href="{{review.author_url}}">{{review.author_name}}</a></h4>
+      <div>{{review.text}}</div>
+    </div>
   </div>
 </div><!-- .row -->

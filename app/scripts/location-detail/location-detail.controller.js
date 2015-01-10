@@ -3,19 +3,16 @@
 
   angular.module('portlandcafes')
     .controller('LocationDetailCtrl', ['$scope', '$routeParams', 'Locations', function ($scope, $routeParams, Locations) {
-      // $scope.location = Locations.get($routeParams.locationId);
-      // $scope.isClosed = false;
-      // $scope.isClosingSoon = false;
 
-      // // Set up time-related `$scope` properties
-      // var now = new Date();
-      // now = now.getHours() + now.getMinutes() / 60;
-
-      // if ($scope.location.hours.open > now || now > $scope.location.hours.close) {
-      //   $scope.isClosed = true;
-      // } else if (now + .5 >= location.hours.close) {
-      //   $scope.isClosingSoon = true;
-      // }
+      $scope.days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      $scope.currentDay = (new Date()).getDay();
+      $scope.getMapsLink = function (location) {
+        if (typeof location !== 'undefined') {
+          return 'https://maps.google.com?daddr=' + encodeURIComponent(location.vicinity);
+        } else {
+          return '';
+        }
+      };
 
       // Initialize
       Locations.get($routeParams.locationId).then(function (location) {
