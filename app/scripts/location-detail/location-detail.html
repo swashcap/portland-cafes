@@ -4,13 +4,13 @@
     <div ng-bind-html="location.address"></div>
 
     <div
-      ng-if="!isOpen"
+      ng-if="!location.isOpen"
       class="alert alert-danger"
       role="alert">
       <strong>Danger!</strong> This café is closed.
     </div>
     <div
-      ng-if="isClosingSoon"
+      ng-if="location.isClosingSoon"
       class="alert alert-warning"
       role="alert">
       <strong>Warning!</strong> This café closes soon.
