@@ -21,6 +21,10 @@
           templateUrl: 'scripts/map/map.html',
           controller: 'MapCtrl'
         })
+        .when('/about', {
+          templateUrl: 'scripts/about/about.html',
+          controller: 'AboutCtrl'
+        })
         .otherwise({
           redirectTo: '/'
         });
