@@ -8,6 +8,7 @@
         $scope.address = Position.getAddress();
       };
 
+      $scope.address = false;
       $scope.toggleDropdown = false;
       $scope.isActive = function (route) {
         if (
@@ -19,6 +20,7 @@
       };
       $scope.setPosition = function (locationName) {
         $scope.address = ADDRESS_FILLER;
+        $scope.toggleDropdown = false;
 
         if (typeof locationName === 'undefined') {
           Position.updatePosition().then(setAddress).catch(function (error) {
