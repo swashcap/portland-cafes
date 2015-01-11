@@ -1,32 +1,6 @@
 (function (angular) {
   'use strict';
 
-  /** @todo Find a better home for these filters */
-  angular.module('portlandcafes')
-    .filter('humanTime', function () {
-      return function (time) {
-        if (! time) {
-          return;
-        }
-
-        var isPM = false;
-        var hours = parseInt(time.slice(0,2), 10);
-        var minutes = parseInt(time.slice(2), 10);
-
-        if (hours >= 12) {
-          hours = hours - 12;
-          isPM = true;
-        }
-
-        minutes = Math.round(minutes / 60);
-
-        if (minutes < 10) {
-          minutes = '0' + minutes;
-        }
-
-        return hours + ':' + minutes + ' ' + (isPM ? 'PM' : 'AM');
-      };
-    });
   angular.module('portlandcafes')
     .value('locationPresets', [{
       slug: 'north',

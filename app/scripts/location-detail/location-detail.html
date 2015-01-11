@@ -32,10 +32,10 @@
       <table class="table">
         <tbody>
           <tr
-            ng-repeat="hours in location.hours"
+            ng-repeat="times in location.hours track by $index"
             ng-class="{'active': currentDay == $index}">
             <th scope="row">{{days[$index]}}</th>
-            <td>{{hours.open.time | humanTime}} &ndash; {{hours.close.time | humanTime}}</td>
+            <td>{{times}}</td>
           </tr>
         </tbody>
       </table>

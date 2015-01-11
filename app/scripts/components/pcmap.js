@@ -37,7 +37,7 @@
    * Custom Maps Directive.
    */
   angular.module('portlandcafes')
-    .directive('pcMap', ['centerOfPortland', function (centerOfPortland) {
+    .directive('pcMap', ['centerOfPortland', 'Hours', function (centerOfPortland, Hours) {
 
       var getProp = function (prop, object) {
         var props = prop.split('.');
@@ -66,8 +66,8 @@
           '<h2><a href="#/location/' + getProp('id', location) + '">' + getProp('name', location) + '</a></h2>' +
           '<div class="info-window__address">' + getProp('address', location) + '</div>' +
           '<div class="info-window__hours">' +
-            '<h5><small>Open:</small> ' + getProp('todayHours.open', location) + '</h5>' +
-            '<h5><small>Close:</small> ' + getProp('todayHours.close', location) + '</h5>' +
+            '<h5><small>Open:</small> ' + Hours.formatTime(getProp('todayHours.open', location)) + '</h5>' +
+            '<h5><small>Close:</small> ' + Hours.formatTime(getProp('todayHours.close', location)) + '</h5>' +
           '</div>' +
         '</div>'
       };
