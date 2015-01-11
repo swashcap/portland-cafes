@@ -18,7 +18,6 @@ GEM
       slop (~> 3.6)
     columnize (0.9.0)
     debugger-linecache (1.2.0)
-    diff-lcs (1.2.5)
     dotenv (1.0.2)
     httparty (0.13.1)
       json (~> 1.8)
@@ -28,18 +27,6 @@ GEM
     minitest (5.4.2)
     multi_xml (0.5.5)
     rake (10.4.2)
-    rspec (3.0.0)
-      rspec-core (~> 3.0.0)
-      rspec-expectations (~> 3.0.0)
-      rspec-mocks (~> 3.0.0)
-    rspec-core (3.0.3)
-      rspec-support (~> 3.0.0)
-    rspec-expectations (3.0.3)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.0.0)
-    rspec-mocks (3.0.3)
-      rspec-support (~> 3.0.0)
-    rspec-support (3.0.3)
     sequel (4.18.0)
     slop (3.6.0)
     sqlite3 (1.3.10)
@@ -58,6 +45,5 @@ DEPENDENCIES
   dotenv
   httparty
   rake
-  rspec
   sequel
   sqlite3
