@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('portlandcafes')
-    .controller('RegionCtrl', ['$scope', 'Locations', function ($scope, Locations) {
+    .controller('RegionCtrl', ['$scope', 'Locations', 'Regions', 'Geolib', function ($scope, Locations, Regions, Geolib) {
       var isMatch = function (term, searchTerms) {
         if (Array.isArray(searchTerms) && searchTerms.length) {
           for (var i = 0; i < searchTerms.length; i++) {
@@ -14,32 +14,6 @@
 
         return false;
       };
-
-      $scope.regions = [{
-        name: 'North',
-        searchTerms: [],
-        locations: []
-      }, {
-        name: 'Northwest',
-        searchTerms: ['northwest'],
-        locations: []
-      }, {
-        name: 'Northeast',
-        searchTerms: ['northeast'],
-        locations: []
-      }, {
-        name: 'Downtown',
-        searchTerms: [],
-        locations: []
-      }, {
-        name: 'Southwest',
-        searchTerms: ['southwest'],
-        locations: []
-      }, {
-        name: 'Southeast',
-        searchTerms: ['southeast'],
-        locations: []
-      }];
 
       $scope.streets = [{
         name: 'Alberta Street',
@@ -63,11 +37,21 @@
         locations: []
       }];
 
-
+      $scope.regions = Regions.map(function (region) {
+        return {
+          name: region.name,
+          bounds: region.bounds,
+          locations: []
+        };
+      });
 
       Locations.getAll().then(function (locations) {
         locations.forEach(function (location) {
           var vicinity = location.vicinity.toLowerCase();
+          var coords = {
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude
+          };
           var streets = $scope.streets;
           var regions = $scope.regions;
 
@@ -77,8 +61,8 @@
               break;
             }
           }
-          for (var j = 0; j < streets.length; j++) {
-            if (isMatch(location.vicinity, regions[j].searchTerms)) {
+          for (var j = 0; j < regions.length; j++) {
+            if (Geolib.isPointInside(coords, regions[j].bounds)) {
               regions[j].locations.push(location);
               break;
             }
