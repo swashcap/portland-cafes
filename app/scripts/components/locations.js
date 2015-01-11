@@ -1,3 +1,4 @@
+/* global console */
 (function (angular) {
   'use strict';
 
@@ -7,6 +8,7 @@
       // Retrieve locations from static file
       var locations = $http.get('results.json').then(function (data) {
         if ('data' in data && Array.isArray(data.data)) {
+          /*jshint camelcase: false */
           return data.data.map(function (data) {
             var output = {
               id: data.id,
@@ -24,7 +26,7 @@
               vicinity: data.vicinity
             };
 
-            var periods = ((((data).details || {}).opening_hours || {}).periods || [])
+            var periods = ((((data).details || {}).opening_hours || {}).periods || []);
 
             if (periods.length) {
               output.isOpen = Hours.isOpen(periods);
@@ -39,6 +41,7 @@
                 output.hours.push(Hours.getHoursByDay(periods, number));
               });
             }
+            /*jshint camelcase: true */
 
             return output;
           });
@@ -57,7 +60,7 @@
         return $q(function (resolve, reject) {
           locations.then(function (locations) {
             var result = locations.filter(function (location) {
-              return location.id == id;
+              return location.id === id;
             }).shift();
 
             if (result) {
@@ -69,7 +72,7 @@
             reject(error);
           });
         });
-      },
+      };
       this.getOpen = function () {
         /** @todo This trusts the client's time, which is usually a no-no. */
         var now = new Date();

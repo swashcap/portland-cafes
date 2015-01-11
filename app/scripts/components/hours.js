@@ -60,7 +60,7 @@
 
   angular.module('portlandcafes')
     .filter('humanTime', function () {
-      return formatTime
+      return formatTime;
     });
 
   angular.module('portlandcafes')
@@ -97,27 +97,6 @@
             }
           }, '');
         },
-
-        /** @todo Possible remove this method? */
-        getCurrentHours: function (periods) {
-          var test = periods.filter(function (period) {
-            if (period.open.day === currentDay) {
-              return true;
-            }
-          });
-
-          for (var i = 0; i < test.length; i++) {
-            if (
-              (
-                strToTime(test[i].open.time) < currentTime &&
-                currentTime < strToTime(test[i].close.time)
-              ) ||
-              i === test.length - 1
-            ) {
-              return formatTime(test[i].open.time) + ' – ' + formatTime(test[i].close.time);
-            }
-          }
-        },
         getOpenTime: function (periods) {
           var currentDay = this.getCurrentDay();
           var currentTime = this.getCurrentTime();
@@ -146,9 +125,9 @@
             })
             .reduce(function (previous, current, index) {
               if (previous > current) {
-                return previous
+                return previous;
               } else {
-                return current
+                return current;
               }
             }, 0);
         },
@@ -174,7 +153,7 @@
           var currentTime = this.getCurrentTime();
           var closeTime = this.getCloseTime(periods);
 
-          if (currentTime < closeTime && currentTime + .25 >= closeTime) {
+          if (currentTime < closeTime && currentTime + 0.25 >= closeTime) {
             return true;
           } else {
             return false;

@@ -1,4 +1,4 @@
-/* global google */
+/* global google,console */
 (function (angular) {
   'use strict';
 
@@ -80,11 +80,15 @@
 
           /** @todo Use a more human-readable address */
           geocoder.geocode({latLng: latLng}, function (results, status) {
+            /*jshint eqeqeq: false */
             if (status == google.maps.GeocoderStatus.OK) {
+            /*jshint eqeqeq: true */
               if (results[1]) {
+                /*jshint camelcase: false */
                 setAddress(results[1].formatted_address);
 
                 resolve(results[1].formatted_address);
+                /*jshint camelcase: true */
               } else {
                 reject('No address found.');
               }

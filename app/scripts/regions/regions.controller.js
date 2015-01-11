@@ -47,7 +47,6 @@
 
       Locations.getAll().then(function (locations) {
         locations.forEach(function (location) {
-          var vicinity = location.vicinity.toLowerCase();
           var coords = {
             latitude: location.coords.latitude,
             longitude: location.coords.longitude

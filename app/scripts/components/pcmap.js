@@ -1,4 +1,4 @@
-/* global google */
+/* global google,console */
 (function (angular) {
   'use strict';
 
@@ -46,7 +46,7 @@
         if (Array.isArray(props) && object instanceof Object) {
           for (var i = 0; i < props.length; i++) {
             if (props[i] in object) {
-              if (i == props.length - 1) {
+              if (i === props.length - 1) {
                 output = object[props[i]];
               } else {
                 object = object[props[i]];
@@ -69,7 +69,7 @@
             '<h5><small>Open:</small> ' + Hours.formatTime(getProp('todayHours.open', location)) + '</h5>' +
             '<h5><small>Close:</small> ' + Hours.formatTime(getProp('todayHours.close', location)) + '</h5>' +
           '</div>' +
-        '</div>'
+        '</div>';
       };
 
       var getMarker = function (map, location) {
@@ -147,7 +147,6 @@
 
       var link = function (scope, element, attrs) {
         var center = attrs.center || '';
-        var markers = attrs.markers || [];
         var zoom = parseInt(attrs.zoom, 10) || 12;
         var locations = attrs.locations || '';
         var map;

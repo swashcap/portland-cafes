@@ -12,7 +12,7 @@
 
       var setDistances = function (latitude, longitude) {
         $scope.locations.forEach(function (location) {
-          return location.distance = Geolib.getDistance({
+          location.distance = Geolib.getDistance({
             latitude: location.coords.latitude,
             longitude: location.coords.longitude
           }, {
@@ -38,7 +38,7 @@
 
       $scope.rangeFilter = function (location) {
         /** @todo Do something about miles/meters unit consistency */
-        if ('distance' in location && $scope.distanceRange != 0) {
+        if ('distance' in location && parseInt($scope.distanceRange, 10) !== 0) {
           if (location.distance > $scope.distanceRange) {
             return false;
           } else {
