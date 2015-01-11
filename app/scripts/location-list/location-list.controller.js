@@ -2,10 +2,17 @@
   'use strict';
 
   angular.module('portlandcafes')
-    .controller('LocationListCtrl', ['$scope', 'Locations', 'Position', 'Preferences', 'Distance', function ($scope, Locations, Position, Preferences, distance) {
+    .controller('LocationListCtrl', [
+      '$scope',
+      'Locations',
+      'Position',
+      'Preferences',
+      'Geolib',
+      function ($scope, Locations, Position, Preferences, Geolib) {
+
       var setDistances = function (latitude, longitude) {
         $scope.locations.forEach(function (location) {
-          return location.distance = distance({
+          return location.distance = Geolib.getDistance({
             latitude: location.coords.latitude,
             longitude: location.coords.longitude
           }, {
@@ -32,7 +39,7 @@
       $scope.rangeFilter = function (location) {
         /** @todo Do something about miles/meters unit consistency */
         if ('distance' in location && $scope.distanceRange != 0) {
-          if (location.distance * 6.21371e-4 > $scope.distanceRange) {
+          if (location.distance > $scope.distanceRange) {
             return false;
           } else {
             return true;
