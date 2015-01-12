@@ -15,6 +15,18 @@ gulp.task('styles', function () {
     .pipe(gulp.dest('.tmp/styles'));
 });
 
+/**
+ * Inject application scripts using `gulp-inject`.
+ * @{@link  https://www.npmjs.com/package/gulp-inject}
+ */
+gulp.task('injectScripts', function () {
+  var scripts = gulp.src(['app/scripts/*.js', 'app/scripts/**/*.js'], {read: false});
+
+  return gulp.src('./app/index.html')
+    .pipe($.inject(scripts, {relative: true}))
+    .pipe(gulp.dest('./app'));
+});
+
 gulp.task('jshint', function () {
   return gulp.src('app/scripts/**/*.js')
     .pipe($.jshint())
@@ -67,7 +79,7 @@ gulp.task('extras', function () {
 
 gulp.task('clean', require('del').bind(null, ['.tmp', 'dist']));
 
-gulp.task('connect', ['styles'], function () {
+gulp.task('connect', ['styles', 'injectScripts'], function () {
   var serveStatic = require('serve-static');
   var serveIndex = require('serve-index');
   var app = require('connect')()
