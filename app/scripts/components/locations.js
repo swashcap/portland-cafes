@@ -10,23 +10,27 @@
         if ('data' in data && Array.isArray(data.data)) {
           /*jshint camelcase: false */
           return data.data.map(function (data) {
+            var result = data.result;
+
             var output = {
-              id: data.id,
-              name: data.name,
-              rating: data.rating,
-              reviews: data.details.reviews,
+              address: result.adr_address,
+              phoneNumber: result.formatted_phone_number,
               coords: {
-                latitude: data.geometry.location.lat,
-                longitude: data.geometry.location.lng
+                latitude: result.geometry.location.lat,
+                longitude: result.geometry.location.lng
               },
-              types: data.types,
-              placeId: data.place_id,
-              website: data.details.website,
-              address: data.details.adr_address,
-              vicinity: data.vicinity
+              id: result.id,
+              name: result.name,
+              placeId: result.place_id,
+              rating: result.rating,
+              reviews: result.reviews,
+              types: result.types,
+              url: result.url,
+              vicinity: result.vicinity,
+              website: result.website
             };
 
-            var periods = ((((data).details || {}).opening_hours || {}).periods || []);
+            var periods = (((result).opening_hours || {}).periods || []);
 
             if (periods.length) {
               output.isOpen = Hours.isOpen(periods);
