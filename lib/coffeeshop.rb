@@ -40,7 +40,7 @@ module Coffeeshop
 
 		def write_results
 			if valid_details_request?
-				File.open('../app/results.json', 'a+') do |file|
+				File.open(@file, 'a+') do |file|
 					file.write(@details.body + ",")
 				end
 			end
@@ -54,15 +54,8 @@ module Coffeeshop
 			@details.parsed_response["status"] != 'INVALID_REQUEST' && !is_starbucks?
 		end
 
-		def write_complete_results place
-			File.open('../app/results.json', 'a+') do |file|
-				place = remove_unused_place_properties(place)
-				file.write(place.to_json + ",")
-			end
-		end
-
-		def format_output file
-			file_name = "./#{file}.json"
+		def format_output
+			file_name = @file
 			snip_trailing_comma file_name
 			wrap_object_in_array file_name
 		end
@@ -87,12 +80,13 @@ module Coffeeshop
 		end
 
 		def get_details params, output=false
+			@file = './app/results.json' if output
 			place_ids = load_place_ids
 			place_ids.each do |place|
 				details(params.merge!(place_id: place[:place_id]))
 				write_results if output
 			end
-			format_output('results.json') if output
+			format_output if output
 		end
 
 		def get_radar params

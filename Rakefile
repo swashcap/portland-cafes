@@ -3,7 +3,7 @@ require_relative 'lib/coffeeshop'
 
 desc 'Use database places to output massive json object'
 task :details do
-	File.delete('../app/results.json')
+	File.delete('app/results.json') if File.exists?('app/results.json')
 	Coffeeshop.get_details({}, true)
 end
 
