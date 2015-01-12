@@ -40,61 +40,24 @@ module Coffeeshop
 
 		def write_results
 			if valid_details_request?
-				@details = @details.parsed_response["result"]
-				unless @details["name"] == 'Starbucks'
-					File.open('./results.json', 'a+') do |file|
-						place = remove_unused_detail_properties
-						file.write(place.to_json + ",")
-					end
+				File.open('../app/results.json', 'a+') do |file|
+					file.write(@details.body + ",")
 				end
 			end
+		end
+
+		def is_starbucks?
+			@details.parsed_response["result"]["name"] == 'Starbucks'
 		end
 
 		def valid_details_request?
-			@details.parsed_response["status"] != 'INVALID_REQUEST'
-		end
-
-		def scan_places
-			contents = JSON.parse(File.read('./places.json'))
-			contents.each do |place|
-				details({ place_id: place["place_id"] })
-				place["details"] = remove_unused_detail_properties(@details.parsed_response["result"])
-				write_complete_results place
-			end
-			format_output 'results'
+			@details.parsed_response["status"] != 'INVALID_REQUEST' && !is_starbucks?
 		end
 
 		def write_complete_results place
-			File.open('./results.json', 'a+') do |file|
+			File.open('../app/results.json', 'a+') do |file|
 				place = remove_unused_place_properties(place)
 				file.write(place.to_json + ",")
-			end
-		end
-
-		def remove_unused_detail_properties
-			unused_properties = ["address_components", "id", "icon", "international_phone_number", "reference", "scope", "types", "price_level"]
-			@details.reject { |k,v| unused_properties.include?(k) }
-		end
-
-		def remove_unused_place_properties place
-			unused_properties = ["icon", "id", "reference", "scope", "types"]
-			place.reject { |k,v| unused_properties.include?(k) }
-		end
-
-		def check_for_more_results
-			next_page_token = @places.parsed_response.fetch("next_page_token", nil)
-			unless next_page_token.nil?
-				sleep(10.seconds)
-				search({ next_page_token: next_page_token })
-				check_for_more_results
-			end
-		end
-
-		def write_places_results
-			File.open('./places.json','a+') do |file|
-				@places.parsed_response["results"].each do |place|
-					file.write "#{place.to_json},"
-				end
 			end
 		end
 
@@ -121,12 +84,6 @@ module Coffeeshop
 
 		def load_place_ids
 			@db = Database.new.load_all_places
-		end
-
-		def get_places params
-			search(params)
-			check_for_more_results
-			format_output 'places'
 		end
 
 		def get_details params, output=false
