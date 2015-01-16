@@ -20,7 +20,11 @@ gulp.task('styles', function () {
  * @{@link  https://www.npmjs.com/package/gulp-inject}
  */
 gulp.task('injectScripts', function () {
-  var scripts = gulp.src(['app/scripts/*.js', 'app/scripts/**/*.js'], {read: false});
+  var scripts = gulp.src([
+    'app/scripts/*.js',
+    'app/scripts/**/*.js',
+    '!app/scripts/**/*spec.js'
+  ], {read: false});
 
   return gulp.src('./app/index.html')
     .pipe($.inject(scripts, {relative: true}))
