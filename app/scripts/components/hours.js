@@ -1,8 +1,25 @@
 (function (angular) {
   'use strict';
 
-  var DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  /**
+   * [DAYS description]
+   * @type {Array}
+   */
+  var DAYS = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday'
+  ];
 
+  /**
+   * Get a day's name by its index.
+   * @param  {String} index The day's 0-based index
+   * @return {String}
+   */
   var getDayName = function (index) {
     return DAYS[index];
   };
@@ -29,9 +46,7 @@
     var hours;
     var minutes;
 
-    time = parseInt(time, 10);
-
-    if (typeof time !== 'number') {
+    if (typeof time === 'number') {
       hours = Math.floor(time);
       minutes = time - hours;
 
@@ -42,7 +57,7 @@
         isPM = true;
       }
 
-      minutes = Math.round(minutes / 60);
+      minutes = Math.round(minutes * 60);
 
       if (minutes < 10) {
         minutes = '0' + minutes;
@@ -54,8 +69,133 @@
     return output;
   };
 
-  var pluckByDay = function (day, period) {
-    return (((period).open || {}).day || undefined) === day;
+  /**
+   * [getCurrentDay description]
+   * @return {[type]} [description]
+   */
+  var getCurrentDay = function () {
+    var now = new Date();
+
+    return now.getDay();
+  };
+
+  /**
+   * [getCurrentTime description]
+   * @return {[type]} [description]
+   */
+  var getCurrentTime = function () {
+    var now = new Date();
+
+    return now.getHours() + now.getMinutes() / 60;
+  };
+
+  /** [getHoursByDay description] */
+  var getHoursByDay = function (periods, dayNumber) {
+    periods = periods || [];
+    dayNumber = dayNumber || 0;
+
+    return periods.filter(function (period) {
+      if (period.open.day === dayNumber) {
+        return true;
+      }
+    }).map(function (period) {
+      if ('open' in period && 'close' in period) {
+        return formatTime(strToTime(period.open.time)) + ' - ' + formatTime(strToTime(period.close.time));
+      } else {
+        return '';
+      }
+    }).reduce(function (previous, current) {
+      if (previous) {
+        return previous + ', ' + current;
+      } else {
+        return current;
+      }
+    }, '');
+  };
+
+  /**
+   * Get the opening time.
+   * @param  {Object} periods
+   * @return {Number}
+   */
+  var getOpenTime = function (periods) {
+    var currentDay = this.getCurrentDay();
+    var currentTime = this.getCurrentTime();
+
+    return periods.filter(function (period) {
+      return (((period).open || {}).day || 0) === currentDay;
+    }).filter(function (period, index, array) {
+      var closeTime = strToTime(((period).close || {}).time || 0);
+
+      if (currentTime < closeTime || index === array.length - 1) {
+        return true
+      }
+    }).map(function (period) {
+      return strToTime(period.open.time);
+    }).shift();
+  };
+
+  /**
+   * Get the closing time.
+   * @param  {Object} periods
+   * @return {Number}
+   */
+  var getCloseTime = function (periods) {
+    var currentDay = this.getCurrentDay();
+    var currentTime = this.getCurrentTime();
+
+    /** @todo `getOpenTime` shares these filters' code. Remove duplication. */
+    return periods.filter(function (period) {
+      return (((period).open || {}).day || 0) === currentDay;
+    }).filter(function (period, index, array) {
+      var closeTime = strToTime(((period).close || {}).time || 0);
+
+      if (currentTime < closeTime || index === array.length - 1) {
+        return true
+      }
+    }).map(function (period) {
+      return strToTime(period.close.time);
+    }).shift();
+  };
+
+  /**
+   * Retrieve 'open' status from the available periods.
+   * @param  {Array}   periods
+   * @return {Boolean}
+   */
+  var isOpen = function (periods) {
+    var currentTime = this.getCurrentTime();
+    var openTime = this.getOpenTime(periods);
+    var closeTime = this.getCloseTime(periods);
+
+    closeTime = (closeTime === 0) ? 24 : closeTime;
+
+    if (openTime < currentTime && currentTime < closeTime) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  /**
+   * [isClosingSoon description]
+   * @param  {[type]}  periods [description]
+   * @param  {[type]}  margin  [description]
+   * @return {Boolean}         [description]
+   */
+  var isClosingSoon = function (periods, margin) {
+    margin = margin || .25;
+
+    var currentTime = this.getCurrentTime();
+    var closeTime = this.getCloseTime(periods);
+
+    closeTime = (closeTime === 0) ? 24 : closeTime;
+
+    if (currentTime < closeTime && currentTime + margin >= closeTime) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   angular.module('portlandcafes')
@@ -66,99 +206,16 @@
   angular.module('portlandcafes')
     .factory('Hours', function () {
       return {
+        getDayName: getDayName,
+        strToTime: strToTime,
         formatTime: formatTime,
-        getCurrentDay: function () {
-          return (new Date()).getDay();
-        },
-        getCurrentTime: function () {
-          var now = new Date();
-
-          return now.getHours() + now.getMinutes() / 60;
-        },
-        getHoursByDay: function (periods, dayNumber) {
-          periods = periods || [];
-          dayNumber = dayNumber || 0;
-
-          return periods.filter(function (period) {
-            if (period.open.day === dayNumber) {
-              return true;
-            }
-          }).map(function (period) {
-            if ('open' in period && 'close' in period) {
-              return formatTime(strToTime(period.open.time)) + ' – ' + formatTime(strToTime(period.close.time));
-            } else {
-              return '';
-            }
-          }).reduce(function (previous, current) {
-            if (previous) {
-              return previous + ', ' + current;
-            } else {
-              return current;
-            }
-          }, '');
-        },
-        getOpenTime: function (periods) {
-          var currentDay = this.getCurrentDay();
-          var currentTime = this.getCurrentTime();
-
-          return periods
-            .filter(pluckByDay.bind(this, currentDay))
-            .map(function (period) {
-              return strToTime(period.open.time);
-            })
-            .reduce(function (previous, current, index) {
-              if (previous < current) {
-                return previous;
-              } else {
-                return current;
-              }
-            }, 24);
-        },
-        getCloseTime: function (periods) {
-          var currentDay = this.getCurrentDay();
-          var currentTime = this.getCurrentTime();
-
-          return periods
-            .filter(pluckByDay.bind(this, currentDay))
-            .map(function (period) {
-              return strToTime(period.close.time);
-            })
-            .reduce(function (previous, current, index) {
-              if (previous > current) {
-                return previous;
-              } else {
-                return current;
-              }
-            }, 0);
-        },
-
-        /**
-         * Retrieve 'open' status from the available periods.
-         * @param  {Array}   periods
-         * @return {Boolean}
-         */
-        isOpen: function (periods) {
-          var currentTime = this.getCurrentTime();
-          var openTime = this.getOpenTime(periods);
-          var closeTime = this.getCloseTime(periods);
-
-          if (openTime < currentTime && currentTime < closeTime) {
-            return true;
-          } else {
-            return false;
-          }
-        },
-
-        isClosingSoon: function (periods) {
-          var currentTime = this.getCurrentTime();
-          var closeTime = this.getCloseTime(periods);
-
-          if (currentTime < closeTime && currentTime + 0.25 >= closeTime) {
-            return true;
-          } else {
-            return false;
-          }
-        }
+        getCurrentDay: getCurrentDay,
+        getCurrentTime: getCurrentTime,
+        getHoursByDay: getHoursByDay,
+        getOpenTime: getOpenTime,
+        getCloseTime: getCloseTime,
+        isOpen: isOpen,
+        isClosingSoon: isClosingSoon
       };
     });
 })(window.angular);
