@@ -39,19 +39,30 @@ module Coffeeshop
 		end
 
 		def write_results
-			if valid_details_request?
+			if valid_details_request? && !is_undesired_establishment?
 				File.open(@file, 'a+') do |file|
-					file.write(@details.body + ",")
+					@details = remove_unused_detail_properties
+					file.write(jsonified_results + ",")
 				end
 			end
 		end
 
-		def is_starbucks?
-			@details.parsed_response["result"]["name"] == 'Starbucks'
+		def jsonified_results
+			@details.to_json
+		end
+
+		def remove_unused_detail_properties
+			unused_properties = ['formatted_address','icon','international_phone_number','reference','scope','user_ratings_total','utc_offset','address_components','price_level','photos']
+			@details.parsed_response["result"].reject { |k,v| unused_properties.include?(k) }
+		end
+
+		def is_undesired_establishment?
+			undesirables = ['Starbucks','McDonald\'s']
+			undesirables.include?(@details.parsed_response["result"]["name"] == 'Starbucks')
 		end
 
 		def valid_details_request?
-			@details.parsed_response["status"] != 'INVALID_REQUEST' && !is_starbucks?
+			@details.parsed_response["status"] != 'INVALID_REQUEST'
 		end
 
 		def format_output
