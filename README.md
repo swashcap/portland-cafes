@@ -59,7 +59,7 @@ Building and working on the project requires getting this software set up on you
 
 ### Building and Serving the Project
 
-The application is based on [Yeoman’s _gulp-webapp_ generator](https://github.com/yeoman/generator-gulp-webapp), so tasks roughly the [originals](https://github.com/yeoman/generator-gulp-webapp/blob/master/docs/README.md):
+The application is based on [Yeoman’s _gulp-webapp_ generator](https://github.com/yeoman/generator-gulp-webapp), so tasks mostly follow the [originals](https://github.com/yeoman/generator-gulp-webapp/blob/master/docs/README.md):
 
 > To start developing, run:
 >
