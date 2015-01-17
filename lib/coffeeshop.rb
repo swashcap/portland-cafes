@@ -39,15 +39,11 @@ module Coffeeshop
 		end
 
 		def write_results
-			if valid_details_request?
-				unless is_undesired_establishment?
-					File.open(@file, 'a+') do |file|
-						@details = remove_unused_detail_properties
-						file.write(jsonified_results + ",")
-					end
+			unless is_undesired_establishment?
+				File.open(@file, 'a+') do |file|
+					@details = remove_unused_detail_properties
+					file.write(jsonified_results + ",")
 				end
-			else
-				puts 'You\'re receiving an invalid request error!'
 			end
 		end
 
@@ -104,8 +100,8 @@ module Coffeeshop
 			set_options
 			place_ids = load_place_ids
 			place_ids.each do |place|
-				break if @details && !valid_details_request?
 				details(params.merge!(place_id: place[:place_id]))
+				break if !valid_details_request?
 				write_results if output
 			end
 			format_output if output
