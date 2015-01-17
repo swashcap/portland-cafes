@@ -86,5 +86,14 @@
     }, {
       name: 'Hawthorne Boulevard',
       searchTerms: ['hawthorne']
+    }, {
+      name: 'Mississippi Avenue',
+      searchTerms: ['mississippi']
+    }, {
+      name: 'Sandy Boulevard',
+      searchTerms: ['sandy']
+    }, {
+      name: 'Woodstock Boulevard',
+      searchTerms: ['woodstock']
     }]);
 })(window.angular);
