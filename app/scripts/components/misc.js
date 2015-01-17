@@ -69,4 +69,39 @@
         }
       };
     });
+
+  angular.module('portlandcafes')
+    .value('Streets', [{
+      name: 'Alberta Street',
+      searchTerms: ['albera'],
+      slug: 'alberta'
+    }, {
+      name: 'Belmont Street',
+      searchTerms: ['belmont'],
+      slug: 'belmont'
+    }, {
+      name: 'Burnside Street',
+      searchTerms: ['burnside'],
+      slug: 'burnside'
+    }, {
+      name: 'Division Street',
+      searchTerms: ['division'],
+      slug: 'division'
+    }, {
+      name: 'Hawthorne Boulevard',
+      searchTerms: ['hawthorne'],
+      slug: 'hawthorne'
+    }, {
+      name: 'Mississippi Avenue',
+      searchTerms: ['mississippi'],
+      slug: 'mississippi'
+    }, {
+      name: 'Sandy Boulevard',
+      searchTerms: ['sandy'],
+      slug: 'sandy'
+    }, {
+      name: 'Woodstock Boulevard',
+      searchTerms: ['woodstock'],
+      slug: 'woodstock'
+    }]);
 })(window.angular);

@@ -4,6 +4,7 @@
   angular.module('portlandcafes')
     .value('Regions', [{
       name: 'Downtown Portland',
+      slug: 'downtown',
       bounds: [
         { latitude: 45.522691, longitude: -122.685923 },
         { latitude: 45.521819, longitude: -122.685537 },
@@ -28,7 +29,8 @@
         { latitude: 45.523047, longitude: -122.677406 }
       ]
     }, {
-      name: 'North',
+      name: 'North Portland',
+      slug: 'north',
       bounds: [
         { latitude: 45.617843, longitude: -122.791335 },
         { latitude: 45.585175, longitude: -122.765242 },
@@ -58,7 +60,8 @@
         { latitude: 45.618023, longitude: -122.791592 }
       ]
     }, {
-      name: 'Northwest',
+      name: 'Northwest Portland',
+      slug: 'northwest',
       // @todo This overlaps the Downtown area
       bounds: [
         { latitude: 45.523041, longitude: -122.667390 },
@@ -82,7 +85,8 @@
         { latitude: 45.523062, longitude: -122.685817 }
       ]
     }, {
-      name: 'Northeast',
+      name: 'Northeast Portland',
+      slug: 'northeast',
       bounds: [
         { latitude: 45.609707, longitude: -122.643606 },
         { latitude: 45.601840, longitude: -122.645322 },
@@ -121,7 +125,8 @@
         { latitude: 45.609647, longitude: -122.643284 }
       ]
     }, {
-      name: 'Southeast',
+      name: 'Southeast Portland',
+      slug: 'southeast',
       bounds: [
         { latitude: 45.523041, longitude: -122.667390 },
         { latitude: 45.523523, longitude: -122.623101 },
@@ -138,7 +143,8 @@
         { latitude: 45.501208, longitude: -122.664557 }
       ]
     }, {
-      name: 'Southwest',
+      name: 'Southwest Portland',
+      slug: 'southwest',
       bounds: [
         // Todo: These overlap downtown a bit
         { latitude: 45.523041, longitude: -122.667390 },
