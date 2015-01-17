@@ -69,4 +69,22 @@
         }
       };
     });
+
+  angular.module('portlandcafes')
+    .value('Streets', [{
+      name: 'Alberta Street',
+      searchTerms: ['albera']
+    }, {
+      name: 'Belmont Street',
+      searchTerms: ['belmont']
+    }, {
+      name: 'Burnside Street',
+      searchTerms: ['burnside']
+    }, {
+      name: 'Division Street',
+      searchTerms: ['division']
+    }, {
+      name: 'Hawthorne Boulevard',
+      searchTerms: ['hawthorne']
+    }]);
 })(window.angular);

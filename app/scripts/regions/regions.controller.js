@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('portlandcafes')
-    .controller('RegionCtrl', ['$scope', 'Locations', 'Regions', 'Geolib', function ($scope, Locations, Regions, Geolib) {
+    .controller('RegionCtrl', ['$scope', 'Locations', 'Regions', 'Geolib', 'Streets', function ($scope, Locations, Regions, Geolib, Streets) {
       var isMatch = function (term, searchTerms) {
         if (Array.isArray(searchTerms) && searchTerms.length) {
           for (var i = 0; i < searchTerms.length; i++) {
@@ -15,27 +15,13 @@
         return false;
       };
 
-      $scope.streets = [{
-        name: 'Alberta Street',
-        searchTerms: ['albera'],
-        locations: []
-      }, {
-        name: 'Belmont Street',
-        searchTerms: ['belmont'],
-        locations: []
-      }, {
-        name: 'Burnside Street',
-        searchTerms: ['burnside'],
-        locations: []
-      }, {
-        name: 'Division Street',
-        searchTerms: ['division'],
-        locations: []
-      }, {
-        name: 'Hawthorne Boulevard',
-        searchTerms: ['hawthorne'],
-        locations: []
-      }];
+      $scope.streets = Streets.map(function (street) {
+        return {
+          name: street.name,
+          searchTerms: street.searchTerms,
+          locations: []
+        };
+      });
 
       $scope.regions = Regions.map(function (region) {
         return {
