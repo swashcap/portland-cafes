@@ -104,6 +104,7 @@ module Coffeeshop
 			set_options
 			place_ids = load_place_ids
 			place_ids.each do |place|
+				break if @details && !valid_details_request?
 				details(params.merge!(place_id: place[:place_id]))
 				write_results if output
 			end
