@@ -16,19 +16,15 @@
       };
 
       $scope.streets = Streets.map(function (street) {
-        return {
-          name: street.name,
-          searchTerms: street.searchTerms,
-          locations: []
-        };
+        street.locations = [];
+
+        return street;
       });
 
       $scope.regions = Regions.map(function (region) {
-        return {
-          name: region.name,
-          bounds: region.bounds,
-          locations: []
-        };
+        region.locations = [];
+
+        return region;
       });
 
       Locations.getAll().then(function (locations) {

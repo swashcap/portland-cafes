@@ -73,27 +73,35 @@
   angular.module('portlandcafes')
     .value('Streets', [{
       name: 'Alberta Street',
-      searchTerms: ['albera']
+      searchTerms: ['albera'],
+      slug: 'alberta'
     }, {
       name: 'Belmont Street',
-      searchTerms: ['belmont']
+      searchTerms: ['belmont'],
+      slug: 'belmont'
     }, {
       name: 'Burnside Street',
-      searchTerms: ['burnside']
+      searchTerms: ['burnside'],
+      slug: 'burnside'
     }, {
       name: 'Division Street',
-      searchTerms: ['division']
+      searchTerms: ['division'],
+      slug: 'division'
     }, {
       name: 'Hawthorne Boulevard',
-      searchTerms: ['hawthorne']
+      searchTerms: ['hawthorne'],
+      slug: 'hawthorne'
     }, {
       name: 'Mississippi Avenue',
-      searchTerms: ['mississippi']
+      searchTerms: ['mississippi'],
+      slug: 'mississippi'
     }, {
       name: 'Sandy Boulevard',
-      searchTerms: ['sandy']
+      searchTerms: ['sandy'],
+      slug: 'sandy'
     }, {
       name: 'Woodstock Boulevard',
-      searchTerms: ['woodstock']
+      searchTerms: ['woodstock'],
+      slug: 'woodstock'
     }]);
 })(window.angular);
