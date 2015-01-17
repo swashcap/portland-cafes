@@ -10,6 +10,10 @@ Now you should be close to running. You'll need access the [Google Developer Con
 
 `API_KEY='your api key here'`
 
+You also need to start up a list of places you want to ignore in the results. You'll inevitably have _some_. This is achieved by adding to your .env file:
+
+`UNDESIRABLE_LOCATIONS=McDonalds,Starbucks`
+
 All you have to do is set up the database and it's ready to go. Just run `rake db:create` and `rake db:schema`. Your database is set and you can run `rake radar`. This will generate the results.json file in the base of the Angular application. Go wild.
 
 _Rake everywhere_
@@ -68,7 +72,7 @@ The application is based on [Yeoman’s _gulp-webapp_ generator](https://github.
 > ```
 >
 > This will fire up a local web server, open http://localhost:9000 in your default browser and watch files for changes, reloading the browser automatically via [LiveReload](https://github.com/intesso/connect-livereload).
-> 
+>
 > To make a production-ready build of the app, run:
 >
 > ```shell
