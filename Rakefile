@@ -16,8 +16,8 @@ end
 desc 'List env vars'
 task :add_undesirable_location, :location do |t, args|
 	location = args[:location]
-	if File.exists?(File.expand_path('./.env', __FILE__)) && !location.nil?
-		env_file = File.expand_path('./.env', __FILE__)
+	if File.exists?(File.expand_path('../.env', __FILE__)) && !location.nil?
+		env_file = File.expand_path('../.env', __FILE__)
 		location_index = File.read(env_file).index("UNDESIRABLE_LOCATIONS=") + "UNDESIRABLE_LOCATIONS=".size
 		to_write = location + "," + File.read(env_file).slice(location_index, File.read(env_file).size - location_index)
 		File.write(env_file, to_write, location_index)
