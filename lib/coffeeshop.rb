@@ -58,7 +58,7 @@ module Coffeeshop
 
 		def is_undesired_establishment?
 			undesirables = ['Starbucks','McDonald\'s']
-			undesirables.include?(@details.parsed_response["result"]["name"] == 'Starbucks')
+			undesirables.include?(@details.parsed_response["result"]["name"])
 		end
 
 		def valid_details_request?
