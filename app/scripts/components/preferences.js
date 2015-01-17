@@ -5,7 +5,7 @@
     .service('Preferences', ['Storage', function (Storage) {
       var defaults = {
         hideClosed: false,
-        distanceRange: 0
+        distanceRange: 1
       };
       var preferences;
 
