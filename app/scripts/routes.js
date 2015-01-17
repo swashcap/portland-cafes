@@ -17,6 +17,10 @@
           templateUrl: 'scripts/regions/regions.html',
           controller: 'RegionCtrl'
         })
+        .when('/regions/:regionName', {
+          templateUrl: 'scripts/region-single/region-single.html',
+          controller: 'RegionSingleCtrl'
+        })
         .when('/regions/streets/:streetName', {
           templateUrl: 'scripts/region-street/region-street.html',
           controller: 'RegionStreetCtrl'
