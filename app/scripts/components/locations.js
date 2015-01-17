@@ -10,7 +10,7 @@
         if ('data' in data && Array.isArray(data.data)) {
           /*jshint camelcase: false */
           return data.data.map(function (data) {
-            var result = data.result;
+            var result = data;
 
             var output = {
               address: result.adr_address,
