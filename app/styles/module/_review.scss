@@ -1,0 +1,30 @@
+/* ==========================================================================
+   Review
+   ========================================================================== */
+
+.review {
+  margin-bottom: 1em;
+
+  @media (min-width: $screen-sm) {
+    margin-bottom: 2em;
+  }
+
+  header {
+    padding-right: 120px;
+    position: relative;
+
+    span[class*='rating'] {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+  .entry-content {
+    margin-bottom: .5em;
+  }
+  footer {
+    color: $gray-light;
+    font-size: $font-size-small;
+    line-height: $line-height-small;
+  }
+}
