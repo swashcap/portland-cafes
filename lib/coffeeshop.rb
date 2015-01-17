@@ -39,11 +39,15 @@ module Coffeeshop
 		end
 
 		def write_results
-			if valid_details_request? && !is_undesired_establishment?
-				File.open(@file, 'a+') do |file|
-					@details = remove_unused_detail_properties
-					file.write(jsonified_results + ",")
+			if valid_details_request?
+				unless is_undesired_establishment?
+					File.open(@file, 'a+') do |file|
+						@details = remove_unused_detail_properties
+						file.write(jsonified_results + ",")
+					end
 				end
+			else
+				puts 'You\'re receiving an invalid request error!'
 			end
 		end
 
