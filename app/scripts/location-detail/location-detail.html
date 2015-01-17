@@ -60,9 +60,19 @@
     </a>
 
     <h3>Reviews</h3>
-    <div ng-repeat="review in location.reviews">
+    <div
+      ng-repeat="review in location.reviews | orderBy:'time':true | limitTo:reviewLimit"
+      class="review">
       <h4><a ng-href="{{review.author_url}}">{{review.author_name}}</a></h4>
+      <p class="text-muted">{{review.time + '000' | date}}</p>
+      <span ng-bind-html="review.rating | toStars"></span>
       <div>{{review.text}}</div>
     </div>
+    <button
+      ng-click="toggleReviewLimit()"
+      class="btn btn-default btn-block btn-sm">
+      <span ng-show="reviewLimit == 2">More reviews</span>
+      <span ng-hide="reviewLimit == 2">Less reviews</span>
+    </button>
   </div>
 </div><!-- .row -->

@@ -14,6 +14,14 @@
           return '';
         }
       };
+      $scope.reviewLimit = 2;
+      $scope.toggleReviewLimit = function () {
+        if ($scope.reviewLimit === 2) {
+          $scope.reviewLimit = $scope.location.reviews.length;
+        } else {
+          $scope.reviewLimit = 2;
+        }
+      };
 
       // Initialize
       Locations.get($routeParams.locationId).then(function (location) {
