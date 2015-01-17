@@ -39,7 +39,7 @@ module Coffeeshop
 		end
 
 		def write_results
-			if valid_details_request? && !is_undesired_establishment?
+			unless is_undesired_establishment?
 				File.open(@file, 'a+') do |file|
 					@details = remove_unused_detail_properties
 					file.write(jsonified_results + ",")
@@ -57,8 +57,7 @@ module Coffeeshop
 		end
 
 		def is_undesired_establishment?
-			undesirables = ENV["UNDESIRABLE_LOCATIONS"].split(',')
-			undesirables.include?(@details.parsed_response["result"]["name"])
+			@undesirables.include?(@details.parsed_response["result"]["name"])
 		end
 
 		def valid_details_request?
@@ -84,11 +83,25 @@ module Coffeeshop
 			@db = Database.new.load_all_places
 		end
 
-		def get_details params, output=false
+		def set_path
 			@file = File.expand_path('../../app/results.json', __FILE__)
+		end
+
+		def set_undesired_locations
+			@undesirables = ENV["UNDESIRABLE_LOCATIONS"].split(',')
+		end
+
+		def set_options
+			set_path
+			set_undesired_locations
+		end
+
+		def get_details params, output=false
+			set_options
 			place_ids = load_place_ids
 			place_ids.each do |place|
 				details(params.merge!(place_id: place[:place_id]))
+				break if !valid_details_request?
 				write_results if output
 			end
 			format_output if output
