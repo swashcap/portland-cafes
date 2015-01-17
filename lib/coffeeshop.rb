@@ -66,20 +66,14 @@ module Coffeeshop
 		end
 
 		def format_output
-			file_name = @file
-			snip_trailing_comma file_name
-			wrap_object_in_array file_name
+			wrap_object_in_array
 		end
 
-		def snip_trailing_comma file_name
-			File.truncate(file_name, File.size(file_name) - 1)
-		end
-
-		def wrap_object_in_array file_name
-			contents = File.read(file_name)
-			contents = contents.gsub(/\A/,'[')
-			contents = contents.gsub(/\z/,']')
-			File.open(file_name, 'w') { |file| file.puts contents }
+		def wrap_object_in_array
+			contents = File.read(@file)
+			# snips trailing comma as well
+			contents = contents.gsub(/\A/,'[').gsub(/,\z/,']')
+			File.open(@file, 'w') { |file| file.puts contents }
 		end
 
 		def load_coords
