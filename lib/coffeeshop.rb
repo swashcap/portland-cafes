@@ -91,7 +91,7 @@ module Coffeeshop
 		end
 
 		def get_details params, output=false
-			@file = './app/results.json' if output
+			@file = File.expand_path('../../app/results.json', __FILE__)
 			place_ids = load_place_ids
 			place_ids.each do |place|
 				details(params.merge!(place_id: place[:place_id]))
