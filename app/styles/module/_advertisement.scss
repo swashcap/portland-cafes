@@ -1,0 +1,17 @@
+/* ==========================================================================
+   Advertisement
+   ========================================================================== */
+
+.advertisement {
+  background: $gray-lighter;
+  color: $gray;
+  text-align: center;
+}
+.advertisement h1 {
+  margin: 0;
+  padding: 3em 0;
+
+  @media (min-width: $screen-sm) {
+    padding: 5em 0;
+  }
+}

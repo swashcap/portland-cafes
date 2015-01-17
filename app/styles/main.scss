@@ -4,130 +4,20 @@ $icon-font-path: '../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "../../bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+@import 'base/defaults';
+
+@import 'module/advertisement';
+@import 'module/footer';
+@import 'module/info-window';
+@import 'module/pc-map';
+@import 'module/rating';
+@import 'module/table-sortable';
+
+@import 'layout/location-detail';
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
   color: #000;
   padding: 0.2em 0;
-}
-
-/* Space out content a bit */
-body {
-  padding-top: 15px;
-}
-
-@media (min-width: $screen-sm) {
-  .navbar-right {
-    margin: 0;
-  }
-}
-
-pc-map {
-  display: block;
-  height: 300px;
-  width: 100%;
-}
-
-/* Advertisements */
-.advertisement {
-  background: $gray-lighter;
-  color: $gray;
-  text-align: center;
-}
-.advertisement h1 {
-  margin: 0;
-  padding: 3em 0;
-
-  @media (min-width: $screen-sm) {
-    padding: 5em 0;
-  }
-}
-
-/* Footer */
-footer[role='contentinfo'] {
-  padding: .5rem 0;
-}
-footer[role='contentinfo'] small {
-  color: $gray-light;
-  display: block;
-  padding-top: 1.4rem;
-}
-
-/* Sortable table */
-.table-sortable th {
-  color: $gray-light;
-  cursor: pointer;
-
-  .caret {
-    border-top-color: mix($gray-light, $gray-lighter);
-  }
-
-  &.is-active {
-    color: $gray-darker;
-
-    .caret {
-      border-top-color: $gray-darker;
-    }
-  }
-  &.is-active.is-reverse .caret {
-    transform: rotate(180deg);
-  }
-}
-
-/* Ratings */
-span[class*='rating'] {
-  background: url(../images/star@2x.png) repeat-x;
-  background-size: 20px auto;
-  color: transparent;
-  display: inline-block;
-  font-size: 0;
-  height: 20px;
-  line-height: 0;
-  vertical-align: top;
-}
-
-@for $i from 0 through 50 {
-  .rating-#{$i * 2} {
-    width: ceil($i * 2px);
-  }
-}
-
-/* Info Window */
-
-.info-window {
-  font-family: $font-family-base;
-  font-size: $font-size-base;
-  line-height: $line-height-base;
-
-  h2 {
-    font-size: $font-size-large;
-    line-height: $line-height-large;
-    margin: 0;
-  }
-}
-.info-window__address {
-
-}
-.info-window__hours {
-  @include clearfix;
-
-  h5 {
-    float: left;
-    width: 50%;
-  }
-}
-
-/* Location Detail */
-.location-detail {
-  .vcard {
-    color: $gray;
-    font-size: $font-size-large;
-    line-height: $line-height-large;
-    margin: 0 0 1em;
-
-    .locality:before {
-      content: '';
-      display: block;
-    }
-  }
 }

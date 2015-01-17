@@ -1,0 +1,12 @@
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+footer[role='contentinfo'] {
+  padding: .5rem 0;
+}
+footer[role='contentinfo'] small {
+  color: $gray-light;
+  display: block;
+  padding-top: 1.4rem;
+}
