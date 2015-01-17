@@ -1,0 +1,19 @@
+<a href="#/regions"><span class="glyphicon glyphicon-arrow-left"></span> Back to Regions</a>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-6">
+    <h1>{{street.name}}</h1>
+    <pc-map locations="{{locations}}"></pc-map>
+  </div>
+  <div class="col-xs-12 col-sm-6">
+    <ul class="list-group">
+      <li ng-repeat="location in locations | orderBy:reverseSort:'rating'" class="list-group-item">
+        <a ng-href="#/location/{{location.id}}">
+          {{location.name}}
+          <span ng-bind-html="location.rating | toStars"></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div><!-- .row -->
+
