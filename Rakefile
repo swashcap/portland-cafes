@@ -13,6 +13,22 @@ task :radar do
 	Rake::Task["details"].execute
 end
 
+desc 'List env vars'
+task :add_undesirable_location, :location do |t, args|
+	location = args[:location]
+	if File.exists?(File.expand_path('./.env', __FILE__)) && !location.nil?
+		env_file = File.expand_path('./.env', __FILE__)
+		location_index = File.read(env_file).index("UNDESIRABLE_LOCATIONS=") + "UNDESIRABLE_LOCATIONS=".size
+		to_write = location + "," + File.read(env_file).slice(location_index, File.read(env_file).size - location_index)
+		File.write(env_file, to_write, location_index)
+	elsif location.nil?
+		puts "You didn't specify a location to ignore!"
+	else
+		puts ".env file doesn't exist yet!"
+	end
+end
+
+
 namespace :db do
 
 	desc 'Create base database'

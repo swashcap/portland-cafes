@@ -57,7 +57,7 @@ module Coffeeshop
 		end
 
 		def is_undesired_establishment?
-			undesirables = ['Starbucks','McDonald\'s']
+			undesirables = ENV["UNDESIRABLE_LOCATIONS"].split(',')
 			undesirables.include?(@details.parsed_response["result"]["name"])
 		end
 
