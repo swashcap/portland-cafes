@@ -26,4 +26,10 @@ namespace :db do
 		Database.new
 	end
 
+	desc 'List stored places'
+	task :list do
+		data = Database.new
+		puts data.list
+	end
+
 end

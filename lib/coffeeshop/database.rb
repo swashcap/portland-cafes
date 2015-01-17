@@ -35,4 +35,8 @@ class Database
 		@db.select(:place_id)
 	end
 
+	def list
+		@db.all
+	end
+
 end
