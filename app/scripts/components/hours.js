@@ -169,7 +169,7 @@
       var closeTime = strToTime(((period).close || {}).time || 0);
 
       if (currentTime < closeTime || index === array.length - 1) {
-        return true
+        return true;
       }
     }).map(function (period) {
       return strToTime(period.open.time);
@@ -189,8 +189,8 @@
       return 0;
     }
 
-    var currentDay = this.getCurrentDay();
-    var currentTime = this.getCurrentTime();
+    currentDay = this.getCurrentDay();
+    currentTime = this.getCurrentTime();
 
     /** @todo `getOpenTime` shares these filters' code. Remove duplication. */
     return periods.filter(function (period) {
@@ -199,7 +199,7 @@
       var closeTime = strToTime(((period).close || {}).time || 0);
 
       if (currentTime < closeTime || index === array.length - 1) {
-        return true
+        return true;
       }
     }).map(function (period) {
       return strToTime(period.close.time);
@@ -240,7 +240,7 @@
    * @return {Boolean}         [description]
    */
   var isClosingSoon = function (periods, margin) {
-    margin = margin || .25;
+    margin = margin || 0.25;
 
     var currentTime = this.getCurrentTime();
     var closeTime = this.getCloseTime(periods);
