@@ -104,10 +104,12 @@
         getPosition: function () {
           var storedPosition = Storage.getPosition();
 
-          return {
-            latitude: latitude(storedPosition),
-            longitude: longitude(storedPosition)
-          };
+          if (storedPosition) {
+            return {
+              latitude: latitude(storedPosition),
+              longitude: longitude(storedPosition)
+            };
+          }
         },
         getAddress: function () {
           return Storage.getAddress();
