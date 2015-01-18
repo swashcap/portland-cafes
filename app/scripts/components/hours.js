@@ -72,11 +72,35 @@
   /**
    * Is a location open 24 hours, every day?
    *
+   * Google's Details API returns a specific `opening_hours.periods` property
+   * when a place is open 24 hours a day, 7 days a week. There will only be one
+   * child object, and it will *not* contain a `close` property. Example:
+   *
+   *     ...
+   *     periods: [{
+   *       open: {
+   *         day: 0,
+   *         time: '0000'
+   *       }
+   *     }]
+   *     ...
+   *
+   * @{@link  https://developers.google.com/places/documentation/details#PlaceDetailsResults}
+   *
    * @param  {Object}  periods API's `opening_hours.periods` object
    * @return {Boolean}         Whether place is open 24 hours a day, every day
    */
   var isAlwaysOpen = function (periods) {
-    return true;
+    if (
+      periods.length === 1 &&
+      (((periods[0]).open || {}).day || 0) === 0 &&
+      (((periods[0]).open || {}).time || '') === '0000' &&
+      ! ('close' in periods[0])
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   /**
