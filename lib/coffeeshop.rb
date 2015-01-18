@@ -57,7 +57,11 @@ module Coffeeshop
 		end
 
 		def is_undesired_establishment?
-			@undesirables.include?(@details.parsed_response["result"]["name"])
+			begin
+				@undesirables.include?(@details.parsed_response["result"]["name"])
+			rescue NoMethodError
+				true # cause we don't want a broken establishment, right?
+			end
 		end
 
 		def valid_details_request?
@@ -66,6 +70,7 @@ module Coffeeshop
 
 		def format_output
 			wrap_object_in_array
+			@formatted = true
 		end
 
 		def wrap_object_in_array
