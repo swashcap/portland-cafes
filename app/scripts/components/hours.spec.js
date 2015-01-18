@@ -31,6 +31,13 @@ describe('The Hours component', function () {
    */
   var samplePeriods;
 
+  /**
+   * Sample `periods` for a place that is open 24 hours a day, 7 days a week.
+   *
+   * @{@link  https://developers.google.com/places/documentation/details#PlaceDetailsResults}
+   */
+  var sampleAlwaysOpenPeriods;
+
   /** Reset `samplePeriods` to avoid side effects. */
   beforeEach(function () {
     samplePeriods = [{
@@ -133,6 +140,13 @@ describe('The Hours component', function () {
         'time': '1700'
       }
     }];
+
+    sampleAlwaysOpenPeriods = [{
+      open: {
+        day: 0,
+        time: '0000'
+      }
+    }];
   });
 
   it('should return correct day names', inject(function (Hours) {
@@ -163,14 +177,7 @@ describe('The Hours component', function () {
   }));
 
   it('should determine if place is always open', inject(function (Hours) {
-    var alwaysOpenPeriods = [{
-      open: {
-        day: 0,
-        time: '0000'
-      }
-    }];
-
-    expect(Hours.isAlwaysOpen(alwaysOpenPeriods)).toBe(true);
+    expect(Hours.isAlwaysOpen(sampleAlwaysOpenPeriods)).toBe(true);
     expect(Hours.isAlwaysOpen(samplePeriods)).toBe(false);
   }));
 
@@ -260,6 +267,14 @@ describe('The Hours component', function () {
 
       jasmine.clock().mockDate(new Date(2015, 0, 1, 23, 46));
       expect(Hours.isClosingSoon(samplePeriods, 0.25)).toBe(true);
+    }));
+
+    it('should output correct times for 24 hour places', inject(function (Hours) {
+      jasmine.clock().mockDate(new Date(2015, 0, 1));
+
+      expect(Hours.isOpen(sampleAlwaysOpenPeriods)).toBe(true);
+      expect(Hours.getOpenTime(sampleAlwaysOpenPeriods)).toBe(0);
+      expect(Hours.getCloseTime(sampleAlwaysOpenPeriods)).toBe(0);
     }));
   });
 });
