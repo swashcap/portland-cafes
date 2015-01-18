@@ -70,6 +70,16 @@
   };
 
   /**
+   * Is a location open 24 hours, every day?
+   *
+   * @param  {Object}  periods API's `opening_hours.periods` object
+   * @return {Boolean}         Whether place is open 24 hours a day, every day
+   */
+  var isAlwaysOpen = function (periods) {
+    return true;
+  };
+
+  /**
    * [getCurrentDay description]
    * @return {[type]} [description]
    */
@@ -215,7 +225,8 @@
         getOpenTime: getOpenTime,
         getCloseTime: getCloseTime,
         isOpen: isOpen,
-        isClosingSoon: isClosingSoon
+        isClosingSoon: isClosingSoon,
+        isAlwaysOpen: isAlwaysOpen
       };
     });
 })(window.angular);

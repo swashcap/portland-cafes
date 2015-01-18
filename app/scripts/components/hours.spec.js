@@ -162,6 +162,18 @@ describe('The Hours component', function () {
       .toEqual('9:00 AM - 3:00 PM, 5:00 PM - 12:00 AM');
   }));
 
+  it('should determine if place is always open', inject(function (Hours) {
+    var alwaysOpenPeriods = [{
+      open: {
+        day: 0,
+        time: '0000'
+      }
+    }];
+
+    expect(Hours.isAlwaysOpen(alwaysOpenPeriods)).toBe(true);
+    expect(Hours.isAlwaysOpen(samplePeriods)).toBe(false);
+  }));
+
   /**
    * Use Jasmine's clock to test methods that are tied to `Date`.
    * @{@link http://jasmine.github.io/edge/introduction.html#section-Jasmine_Clock}
