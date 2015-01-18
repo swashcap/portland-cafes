@@ -4,6 +4,16 @@
 
   angular.module('portlandcafes')
     .controller('RegionSingleCtrl', ['$scope', '$routeParams', 'Regions', 'Locations', 'Geolib', function ($scope, $routeParams, Regions, Locations, Geolib) {
+
+      var getCenterObject = function (center) {
+        return {
+          coords: {
+            latitude: center.latitude,
+            longitude: center.longitude
+          }
+        };
+      };
+
       $scope.region = Regions.filter(function (region) {
         return region.slug === $routeParams.regionName;
       }).shift();
@@ -18,6 +28,14 @@
 
             return Geolib.isPointInside(coords, $scope.region.bounds);
           });
+          $scope.center = getCenterObject(Geolib.getCenter($scope.locations.map(function (location) {
+            return {
+              latitude: location.coords.latitude,
+              longitude: location.coords.longitude
+            };
+          })));
+
+          console.log($scope.center);
         });
       } else {
         /** @todo  Add in-application message */
