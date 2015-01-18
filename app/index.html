@@ -31,23 +31,39 @@
         class="navbar navbar-default"
         role="navigation">
         <div class="navbar-header">
+          <button
+            ng-click="toggleNavbar()"
+            type="button"
+            class="navbar-toggle collapsed"
+            data-toggle="collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
           <a class="navbar-brand" href="#/" rel="home">Portland Cafés</a>
         </div>
-        <div class="collapse navbar-collapse">
+        <div ng-class="{'collapse': ! navbarOpen}" class="navbar-collapse">
           <ul class="nav navbar-nav">
-            <li ng-class="{active: isActive('/location')}">
+            <li
+              ng-click="toggleNavbar()"
+              ng-class="{active: isActive('/location')}">
               <a href="#/">
                 <span class="glyphicon glyphicon-th-list"></span>
                 All Locations
               </a>
             </li>
-            <li ng-class="{active: isActive('/regions')}">
+            <li
+              ng-click="toggleNavbar()"
+              ng-class="{active: isActive('/regions')}">
               <a href="#/regions">
                 <span class="glyphicon glyphicon-th-large"></span>
                 Regions
               </a>
             </li>
-            <li ng-class="{active: isActive('/map')}">
+            <li
+              ng-click="toggleNavbar()"
+              ng-class="{active: isActive('/map')}">
               <a href="#/map">
                 <span class="glyphicon glyphicon-map-marker"></span>
                 Map

@@ -11,6 +11,7 @@
 
       $scope.address = false;
       $scope.toggleDropdown = false;
+      $scope.navbarOpen = false;
       $scope.isActive = function (route) {
         if (
           $location.path().indexOf(route) !== -1 ||
@@ -34,6 +35,9 @@
               console.log(error);
             });
         }
+      };
+      $scope.toggleNavbar = function () {
+        $scope.navbarOpen = ! $scope.navbarOpen;
       };
 
       // Initialize
