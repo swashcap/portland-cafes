@@ -73,7 +73,7 @@
         <td ng-bind-html="location.rating | toStars"></td>
         <td ng-class="{'text-danger': !location.isOpen, 'text-warning': location.isClosingSoon}">{{location.todayHours.open | humanTime}}</td>
         <td ng-class="{'text-danger': !location.isOpen, 'text-warning': location.isClosingSoon}">{{location.todayHours.close | humanTime}}</td>
-        <td>{{location.distance}} mi.</td>
+        <td>{{location.distance}} <span ng-show="location.distance">mi.</span></td>
       </tr>
     </tbody>
   </table>
