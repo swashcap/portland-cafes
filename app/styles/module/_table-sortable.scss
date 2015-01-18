@@ -1,0 +1,23 @@
+/* ==========================================================================
+   Table Sortable
+   ========================================================================== */
+
+.table-sortable th {
+  color: $gray-light;
+  cursor: pointer;
+
+  .caret {
+    border-top-color: mix($gray-light, $gray-lighter);
+  }
+
+  &.is-active {
+    color: $gray-darker;
+
+    .caret {
+      border-top-color: $gray-darker;
+    }
+  }
+  &.is-active.is-reverse .caret {
+    transform: rotate(180deg);
+  }
+}

@@ -60,9 +60,25 @@
     </a>
 
     <h3>Reviews</h3>
-    <div ng-repeat="review in location.reviews">
-      <h4><a ng-href="{{review.author_url}}">{{review.author_name}}</a></h4>
-      <div>{{review.text}}</div>
-    </div>
+    <article
+      ng-repeat="review in location.reviews | orderBy:'time':true | limitTo:reviewLimit"
+      class="review hentry">
+      <header>
+        <h4><a ng-href="{{review.author_url}}">{{review.author_name}}</a></h4>
+        <span ng-bind-html="review.rating | toStars"></span>
+      </header>
+      <div class="entry-content">
+        {{review.text}}
+      </div>
+      <footer>
+        <time datetime="{{review.time + '000'}}" class="published">{{review.time + '000' | date}}</time>
+      </footer>
+    </article>
+    <button
+      ng-click="toggleReviewLimit()"
+      class="btn btn-default btn-block btn-sm">
+      <span ng-show="reviewLimit == 2">More reviews</span>
+      <span ng-hide="reviewLimit == 2">Less reviews</span>
+    </button>
   </div>
 </div><!-- .row -->
