@@ -153,8 +153,15 @@
    * @return {Number}
    */
   var getOpenTime = function (periods) {
-    var currentDay = this.getCurrentDay();
-    var currentTime = this.getCurrentTime();
+    var currentDay;
+    var currentTime;
+
+    if (isAlwaysOpen(periods)) {
+      return 0;
+    }
+
+    currentDay = this.getCurrentDay();
+    currentTime = this.getCurrentTime();
 
     return periods.filter(function (period) {
       return (((period).open || {}).day || 0) === currentDay;
@@ -175,6 +182,13 @@
    * @return {Number}
    */
   var getCloseTime = function (periods) {
+    var currentDay;
+    var currentTime;
+
+    if (isAlwaysOpen(periods)) {
+      return 0;
+    }
+
     var currentDay = this.getCurrentDay();
     var currentTime = this.getCurrentTime();
 
@@ -198,9 +212,17 @@
    * @return {Boolean}
    */
   var isOpen = function (periods) {
-    var currentTime = this.getCurrentTime();
-    var openTime = this.getOpenTime(periods);
-    var closeTime = this.getCloseTime(periods);
+    var currentTime;
+    var openTime;
+    var closeTime;
+
+    if (isAlwaysOpen(periods)) {
+      return true;
+    }
+
+    currentTime = this.getCurrentTime();
+    openTime = this.getOpenTime(periods);
+    closeTime = this.getCloseTime(periods);
 
     closeTime = (closeTime === 0) ? 24 : closeTime;
 
