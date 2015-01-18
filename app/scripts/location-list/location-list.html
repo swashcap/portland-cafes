@@ -66,9 +66,9 @@
     <tbody>
       <tr
         ng-repeat="location in locations | orderBy:orderByField:reverseSort | filter:searchText | filter:maybeHideClosed | filter:rangeFilter">
-        <td>
-          <strong><a ng-href="#/location/{{location.id}}">{{location.name}}</a></strong>
-          <div ng-bind-html="location.address"></div>
+        <td class="vcard">
+          <strong class="org"><a ng-href="#/location/{{location.id}}">{{location.name}}</a></strong>
+          <div class="adr" ng-bind-html="location.address"></div>
         </td>
         <td ng-bind-html="location.rating | toStars"></td>
         <td ng-class="{'text-danger': !location.isOpen, 'text-warning': location.isClosingSoon}">{{location.todayHours.open | humanTime}}</td>
