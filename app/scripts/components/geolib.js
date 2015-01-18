@@ -16,6 +16,9 @@
         },
         metersToMiles: function (distance) {
           return geolib.convertUnit('mi', distance, 2);
+        },
+        getCenter: function (coords) {
+          return geolib.getCenter(coords);
         }
       };
     });
