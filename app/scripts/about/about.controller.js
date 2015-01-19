@@ -2,5 +2,5 @@
   'use strict';
 
   angular.module('portlandcafes')
-    .controller('AboutCtrl', []);
+    .controller('AboutCtrl', [function () {}]);
 })(window.angular);
