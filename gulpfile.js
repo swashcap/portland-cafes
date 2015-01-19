@@ -23,6 +23,7 @@ gulp.task('injectScripts', function () {
   var scripts = gulp.src([
     'app/scripts/*.js',
     'app/scripts/**/*.js',
+    '.tmp/scripts/**/*.js',
     '!app/scripts/**/*spec.js'
   ], {read: false});
 
@@ -38,7 +39,31 @@ gulp.task('jshint', function () {
     .pipe($.jshint.reporter('fail'));
 });
 
-gulp.task('html', ['styles'], function () {
+/**
+ * Add application templates to a script to reduce HTTP requests.
+ *
+ * @{@link  https://www.npmjs.com/package/gulp-angular-templatecache}
+ */
+gulp.task('templates', function () {
+  return gulp.src('app/scripts/**/*.html')
+    .pipe($.plumber())
+    .pipe($.minifyHtml({
+      empty: true,
+      spare: true,
+      quotes: true
+    }))
+    .pipe($.angularTemplatecache('templates.js', {
+      base: function (file) {
+        return file.relative;
+      },
+      module: 'portlandcafes',
+      root: 'scripts/'
+    }))
+    .pipe(gulp.dest('.tmp/inject/'))
+    .pipe($.size())
+});
+
+gulp.task('html', ['styles', 'injectScripts', 'templates'], function () {
   var lazypipe = require('lazypipe');
   var cssChannel = lazypipe()
     .pipe($.csso)
@@ -46,6 +71,11 @@ gulp.task('html', ['styles'], function () {
   var assets = $.useref.assets({searchPath: '{.tmp,app}'});
 
   return gulp.src('app/*.html')
+    .pipe($.inject(gulp.src('.tmp/inject/templates.js', {read: false}), {
+      starttag: '<!-- inject:templates -->',
+      ignorePath: '.tmp',
+      addRootSlash: false
+    }))
     .pipe(assets)
     .pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', cssChannel()))
@@ -124,9 +154,10 @@ gulp.task('watch', ['connect'], function () {
 
   // watch for changes
   gulp.watch([
-    'app/**/*.html',
+    'app/*.html',
     '.tmp/styles/**/*.css',
     'app/scripts/**/*.js',
+    '.tmp/inject/**/*.js',
     'app/images/**/*'
   ]).on('change', $.livereload.changed);
 
@@ -134,7 +165,7 @@ gulp.task('watch', ['connect'], function () {
   gulp.watch('bower.json', ['wiredep']);
 });
 
-gulp.task('build', ['html', 'images', 'fonts', 'extras'], function () {
+gulp.task('build', ['jshint', 'html', 'images', 'fonts', 'extras'], function () {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
