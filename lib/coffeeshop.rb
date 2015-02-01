@@ -89,7 +89,11 @@ module Coffeeshop
 		end
 
 		def set_path
-			@file = File.expand_path('../../app/results.json', __FILE__)
+			if ENV['CURRENT_ENVIRONMENT'] == 'development'
+				File.expand_path('../../app/results.json', __FILE__)
+			elsif ENV['CURRENT_ENVIRONMENT'] == 'production'
+				File.expand_path('/var/www/portlandcafes.com/results.json', __FILE__)
+			end
 		end
 
 		def set_undesired_locations
@@ -97,7 +101,7 @@ module Coffeeshop
 		end
 
 		def set_options
-			set_path
+			@path = set_path
 			set_undesired_locations
 		end
 
