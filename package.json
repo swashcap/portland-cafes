@@ -41,5 +41,9 @@
     "serve-index": "^1.1.4",
     "serve-static": "^1.4.0",
     "wiredep": "^2.0.0"
+  },
+  "scripts": {
+    "bowerInstall": "bower install",
+    "build": "gulp build"
   }
 }
