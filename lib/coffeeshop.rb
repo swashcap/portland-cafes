@@ -18,7 +18,7 @@ require_relative 'coffeeshop/result_parser'
 require_relative 'coffeeshop/api/search'
 require_relative 'coffeeshop/api/details'
 require_relative 'coffeeshop/api/radar'
-require_relative 'coffeeshop/city/portland'
+require_relative 'coffeeshop/locations/cities'
 
 module Coffeeshop
 
@@ -81,7 +81,7 @@ module Coffeeshop
 		end
 
 		def load_coords
-			Portland::LOCATIONS
+			Cities.const_get(ENV['CURRENT_CITY'])
 		end
 
 		def load_place_ids
