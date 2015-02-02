@@ -8,9 +8,12 @@ _Index of Portland’s many cafés and coffee shops._
 
 You need to have Ruby 2.2.0 installed. Hopefully you have RVM installed so you can just run `rvm install 2.2.0`. Once you've done this, you're going to need to install the application's dependencies by running `bundle install`.
 
-Now you should be close to running. You'll need access the [Google Developer Console]([https://console.developers.google.com) in order to turn on access to the Places API. Create your key and place it in a file at the root of the project named .env. It should look like this:
+Now you should be close to running. You'll need access the [Google Developer Console]([https://console.developers.google.com) in order to turn on access to the Places API. Create your key and place it in a file at the root of the project named .env. You should also make sure to populate it with whatever environment you're currently working in. It should look like this:
 
-`API_KEY='your api key here'`
+```
+API_KEY='your api key here'
+CURRENT_ENVIRONMENT='development'
+```
 
 You also need to start up a list of places you want to ignore in the results. You'll inevitably have _some_. This is achieved by adding to your .env file:
 
