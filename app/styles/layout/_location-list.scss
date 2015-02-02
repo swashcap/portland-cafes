@@ -2,26 +2,6 @@
    Location List
    ========================================================================== */
 
-.location-list {
-  @media (max-width: $screen-sm) {
-    .table > thead > tr > th,
-    .table > tbody > tr > td {
-      padding-right: 4px;
-      padding-left: 4px;
-    }
-    .table thead {
-      font-size: $font-size-small;
-      line-height: $line-height-small;
-    }
-    .table tr > *:nth-of-type(2) {
-      display: none;
-    }
-    .adr {
-      font-size: $font-size-small;
-      line-height: $line-height-small;
-    }
-  }
-}
 .location-list__controls .col-sm-6  {
   @media (min-width: $screen-sm) {
     margin-top: 2em;

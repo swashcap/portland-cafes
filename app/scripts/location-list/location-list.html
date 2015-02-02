@@ -28,53 +28,62 @@
     </div>
   </form>
 
-  <table class="table table-striped table-responsive table-sortable">
-    <thead>
-      <tr>
-        <th
-          ng-class="{'is-active': orderByField == 'name', 'is-reverse': reverseSort}"
-          ng-click="orderByField = 'name'; reverseSort = !reverseSort;">
-          Name
-          <span class="caret"></span>
-        </th>
-        <th
-          ng-class=""
-          ng-click="orderByField = 'rating'; reverseSort = !reverseSort;">
-          Rating
-          <span class="caret"></span>
-        </th>
-        <th
-          ng-class="{'is-active': orderByField == 'todayHours.open', 'is-reverse': reverseSort}"
-          ng-click="orderByField = 'todayHours.open'; reverseSort = !reverseSort;">
-          Open
-          <span class="caret"></span>
-        </th>
-        <th
-          ng-class="{'is-active': orderByField == 'todayHours.close', 'is-reverse': reverseSort}"
-          ng-click="orderByField = 'todayHours.close'; reverseSort = !reverseSort;">
-          Closed
-          <span class="caret"></span>
-        </th>
-        <th
-          ng-class="{'is-active': orderByField == 'distance', 'is-reverse': reverseSort}"
-          ng-click="orderByField = 'distance'; reverseSort = !reverseSort;">
-          Distance
-          <span class="caret"></span>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        ng-repeat="location in locations | orderBy:orderByField:reverseSort | filter:searchText | filter:maybeHideClosed | filter:rangeFilter">
-        <td class="vcard">
-          <strong class="org"><a ng-href="#/location/{{location.id}}">{{location.name}}</a></strong>
-          <div class="adr" ng-bind-html="location.address"></div>
-        </td>
-        <td ng-bind-html="location.rating | toStars"></td>
-        <td ng-class="{'text-danger': !location.isOpen, 'text-warning': location.isClosingSoon}">{{location.todayHours.open | humanTime}}</td>
-        <td ng-class="{'text-danger': !location.isOpen, 'text-warning': location.isClosingSoon}">{{location.todayHours.close | humanTime}}</td>
-        <td>{{location.distance}} <span ng-show="location.distance">mi.</span></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <div class="location-list__header">
+    <span
+      ng-class="{'is-active': orderByField == 'name', 'is-reverse': reverseSort}"
+      ng-click="orderByField = 'name'; reverseSort = !reverseSort;"
+      class="location-list__item__header">
+      Café
+      <span class="caret"></span>
+    </span>
+    <span
+      ng-class="{'is-active': orderByField =='rating', 'is-reverse': reverseSort}"
+      ng-click="orderByField = 'rating'; reverseSort = !reverseSort;"
+      class="location-list__item__stars">
+      Rating
+      <span class="caret"></span>
+    </span>
+    <span
+      ng-class="{'is-active': orderByField == 'todayHours.open', 'is-reverse': reverseSort}"
+      ng-click="orderByField = 'todayHours.open'; reverseSort = !reverseSort;"
+      class="location-list__item__open">
+      Open
+      <span class="caret"></span>
+    </span>
+    <span
+      ng-class="{'is-active': orderByField == 'todayHours.close', 'is-reverse': reverseSort}"
+      ng-click="orderByField = 'todayHours.close'; reverseSort = !reverseSort;"
+      class="location-list__item__close">
+      Close
+      <span class="caret"></span>
+    </span>
+    <span
+      ng-class="{'is-active': orderByField == 'distance', 'is-reverse': reverseSort}"
+      ng-click="orderByField = 'distance'; reverseSort = !reverseSort;"
+      class="location-list__item__distance">
+      Distance
+      <span class="caret"></span>
+    </span>
+  </div>
+  <div class="location-list__items">
+    <div
+      ng-repeat="location in locations | orderBy:orderByField:reverseSort | filter:searchText | filter:maybeHideClosed | filter:rangeFilter"
+      class="location-list__item vcard">
+        <a ng-href="#/location/{{location.id}}">
+          <div class="location-list__item__header">
+            <h2 class="location-list__item__name org">{{location.name}}</h2>
+            <div class="location-list__item__address adr" ng-bind-html="location.address"></div>
+          </div>
+          <span class="location-list__item__stars">
+            <span ng-bind-html="location.rating | toStars"></span>
+          </span>
+          <span class="location-list__item__open" ng-class="{'text-danger': !location.isOpen, 'text-warning': location.isClosingSoon}">{{location.todayHours.open | humanTime}}</span>
+          <span class="location-list__item__close" ng-class="{'text-danger': !location.isOpen, 'text-warning': location.isClosingSoon}">{{location.todayHours.close | humanTime}}</span>
+          <span class="location-list__item__distance">
+            {{location.distance}}
+            <span ng-show="location.distance">mi.</span>
+          </span>
+        </a>
+    </div><!-- .location.vcard -->
+  </div><!-- .locations__items -->
+</div><!-- .location-list -->
