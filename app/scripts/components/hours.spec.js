@@ -167,6 +167,7 @@ describe('The Hours component', function () {
     expect(Hours.formatTime(0)).toEqual('12:00 AM');
     expect(Hours.formatTime(23.22)).toEqual('11:13 PM');
     expect(Hours.formatTime(18)).toEqual('6:00 PM');
+    expect(Hours.formatTime(12)).toEqual('12:00 PM');
   }));
 
 
