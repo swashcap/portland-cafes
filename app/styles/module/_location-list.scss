@@ -1,0 +1,218 @@
+/* ==========================================================================
+   Location List
+   ========================================================================== */
+
+/* Header
+   ========================================================================== */
+
+.location-list__header {
+  color: $gray-light;
+  display: none;
+
+  > span {
+    cursor: pointer;
+    white-space: nowrap;
+
+    &:focus,
+    &:hover {
+      color: $brand-primary;
+
+      .caret {
+        border-top-color: $brand-primary;
+      }
+    }
+  }
+  > .is-active {
+    color: $gray-darker;
+
+    .caret {
+      border-top-color: $gray-darker;
+    }
+  }
+  .is-active.is-reverse {
+    .caret {
+      border-color: transparent transparent $gray-darker;
+      border-width: 0 .4em .4em;
+    }
+
+    &:focus .caret,
+    &:hover .caret {
+      border-bottom-color: $brand-primary;
+    }
+  }
+
+  .caret {
+    border-color: $gray-light transparent transparent;
+    border-style: solid;
+    border-width: .4em .4em 0;
+    content: '';
+    display: inline-block;
+    height: 0;
+    margin: -.12em 0 0 .1em;
+    vertical-align: middle;
+    width: 0;
+  }
+
+  @media (min-width: $screen-sm) {
+    display: table;
+    padding: 1rem 0;
+    width: 100%;
+  }
+  @media (min-width: $screen-md) {
+    padding-top: 1.5rem;
+    padding-bottom: 2.5rem;
+  }
+}
+
+/* Items
+   ========================================================================== */
+
+.location-list__item {
+
+  position: relative;
+
+
+  &:nth-of-type(odd) a {
+    background: $gray-lighter;
+  }
+  a {
+    color: $gray-darker;
+    display: block;
+    text-decoration: none;
+    padding: 1rem 2rem;
+
+    &:focus,
+    &:hover {
+      background: $brand-primary;
+
+      &,
+      .location-list__item__distance,
+      .location-list__item__address .street-address {
+        color: #fff;
+      }
+    }
+
+    @media (min-width: $screen-sm) {
+      display: table;
+      padding-right: 0;
+      padding-left: 0;
+      width: 100%;
+    }
+    @media (min-width: $screen-md) {
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+  }
+}
+.location-list__item__header {
+
+}
+.location-list__item__name {
+  font-size: $font-size-large;
+  line-height: $line-height-large;
+  margin: 0 0 .25rem;
+  padding-right: 5.5rem;
+
+  @media (min-width: $screen-sm) {
+    padding-right: 0;
+  }
+}
+.location-list__item__address {
+  color: transparent;
+  font-size: 0;
+  line-height: 0;
+
+  .street-address {
+    color: $gray-light;
+    display: block;
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+    margin: 0 0 .25rem;
+
+    @media (min-width: $screen-sm) {
+      margin-bottom: 0;
+    }
+  }
+}
+.location-list__item__stars {
+  display: none;
+}
+.location-list__item__open {
+
+}
+.location-list__item__close {
+  &:before {
+    content: '—\0020';
+    display: inline;
+  }
+
+  @media (min-width: $screen-sm) {
+    &:before {
+      content: '';
+      display: none;
+    }
+  }
+}
+.location-list__item__distance {
+  color: $gray-light;
+  font-size: $font-size-small;
+  line-height: 2;
+  display: inline-block;
+  position: absolute;
+  right: 2rem;
+  text-align: right;
+  top: 1rem;
+  width: 4.5rem;
+
+  @media (min-width: $screen-sm) {
+    color: $gray-dark;
+    font-size: 100%;
+    line-height: inherit;
+    position: static;
+  }
+}
+
+@media (min-width: $screen-sm) {
+  .location-list__item__header,
+  .location-list__item__stars,
+  .location-list__item__open,
+  .location-list__item__close,
+  .location-list__item__distance {
+    display: table-cell;
+    padding: 0 2rem;
+    vertical-align: middle;
+  }
+  .location-list__item__header {
+    width: 52%;
+  }
+  .location-list__item__stars {
+    display: none;
+  }
+  .location-list__item__open,
+  .location-list__item__close,
+  .location-list__item__distance {
+    text-align: right;
+    width: 16%;
+  }
+}
+@media (min-width: $screen-md) {
+  .location-list__item__header,
+  .location-list__item__stars,
+  .location-list__item__open,
+  .location-list__item__close,
+  .location-list__item__distance {
+    padding: 0 3rem;
+  }
+  .location-list__item__stars {
+    display: table-cell;
+  }
+  .location-list__item__header {
+    width: 40%;
+  }
+  .location-list__item__stars,
+  .location-list__item__open,
+  .location-list__item__close,
+  .location-list__item__distance {
+    width: 15%;
+  }
+}
