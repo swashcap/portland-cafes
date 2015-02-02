@@ -101,7 +101,7 @@ module Coffeeshop
 		end
 
 		def set_options
-			@path = set_path
+			@file = set_path
 			set_undesired_locations
 		end
 
