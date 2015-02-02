@@ -3,18 +3,33 @@
    ========================================================================== */
 
 span[class*='rating'] {
-  background: url(../images/star@2x.png) repeat-x;
-  background-size: 20px auto;
+  background: url(../images/stars.png) no-repeat 0 0;
+  background-size: 100px auto;
   color: transparent;
   display: inline-block;
   font-size: 0;
   height: 20px;
   line-height: 0;
+  position: relative;
   vertical-align: top;
+  width: 100px;
+
+  &:after {
+    background: url(../images/stars.png) no-repeat 0 100%;
+    background-size: 100px auto;
+    content: '';
+    display: block;
+    height: 20px;
+    left: 0;
+    position: absolute;
+    top: 0;
+  }
 }
 
 @for $i from 0 through 50 {
   .rating-#{$i * 2} {
-    width: ceil($i * 2px);
+    &:after {
+      width: ceil($i * 2px);
+    }
   }
 }
