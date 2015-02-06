@@ -28,6 +28,9 @@
       $scope.hideClosed = Preferences.hideClosed();
       $scope.distanceRange = Preferences.distanceRange();
 
+      $scope.hideFilter = true;
+      $scope.ratingFloor = null;
+
       $scope.maybeHideClosed = function (location) {
         if ($scope.hideClosed && ! location.isOpen) {
           return false;
@@ -47,6 +50,13 @@
         } else {
           return true;
         }
+      };
+
+      $scope.ratingFilter = function (location) {
+        return (
+          $scope.ratingFloor === null ||
+          ('rating' in location && location.rating > $scope.ratingFloor)
+        );
       };
 
       // Persist UI controls back to preferences

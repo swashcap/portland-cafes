@@ -7,6 +7,7 @@
 
 .location-list__header {
   color: $gray-light;
+  clear: both;
   display: none;
 
   > span {
@@ -64,8 +65,157 @@
   }
 }
 
+/* Count
+   ========================================================================== */
+
+.location-list__count {
+  float: left;
+  padding: 6px 0;
+  margin: 0 0 1rem;
+
+  @media (min-width: $screen-sm) {
+    margin-bottom: 0;
+  }
+}
+
+/* Filter
+   ========================================================================== */
+
+.location-list__filter {
+  float: right;
+  margin: 0 0 1rem;
+  position: relative;
+  text-align: right;
+  z-index: $zindex-dropdown;
+
+  @media (min-width: $screen-sm) {
+    margin-bottom: 0;
+  }
+}
+.location-list__filter__controls {
+  background: #fff;
+  box-shadow: 0 1px 4px rgba($gray-darker, .5);
+  border-radius: $border-radius-base;
+  display: none;
+  min-width: 12em;
+  position: absolute;
+  right: 0;
+  top: 3.25rem;
+  text-align: center;
+
+  @media (min-width: $screen-sm) {
+    min-width: 16em;
+  }
+
+  .controls-1 label,
+  .controls-2 label,
+  .controls-3 {
+    padding: .5rem 1rem;
+
+    @media (min-width: $screen-sm) {
+      padding: 1rem 2rem;
+    }
+  }
+
+  label {
+    cursor: pointer;
+    display: block;
+    font-weight: 400;
+  }
+  .controls__name {
+    display: block;
+    margin: 0 0 .5rem;
+
+    @media (min-width: $screen-sm) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .controls-1 {
+    border-bottom: thin solid $gray-lighter;
+  }
+  .controls-2 {
+    border-bottom: thin solid $gray-lighter;
+
+  }
+  .controls-3 {
+    font-size: 0;
+    text-align: center;
+
+    .controls__name {
+      font-size: $font-size-base;
+      line-height: $line-height-base;
+      margin: 0 0 .5rem;
+    }
+
+    input {
+      display: none;
+    }
+
+    label {
+      display: inline-block;
+
+      span {
+        background: url(../images/stars.png) no-repeat 0 0;
+        background-size: 100px auto;
+        color: transparent;
+        display: inline-block;
+        font-size: 0;
+        height: 20px;
+        line-height: 0;
+        position: relative;
+        vertical-align: top;
+        width: 20px;
+
+        &:after {
+          background: none no-repeat 0 -20px;
+          background-size: 100px auto;
+          height: 20px;
+          content: '';
+          display: inline-block;
+          width: 20px;
+        }
+      }
+    }
+
+    button {
+      background: none;
+      border: none;
+      display: inline-block;
+      font-size: $font-size-base;
+      height: 20px;
+      line-height: 20px;
+      vertical-align: top;
+      text-align: center;
+      width: 20px;
+    }
+  }
+
+  // 'Open' State
+  &.is-active {
+    display: block;
+  }
+
+  /**
+   * 'Active' state for rating stars.
+   *
+   * @todo  This is super confusing. Improve.
+   */
+  @for $i from 1 through 5 {
+    @for $j from 1 through $i {
+      .is-rating-#{$i} input[value='#{$j}'] + label span:after {
+        background-image: url(../images/stars.png);
+      }
+    }
+  }
+}
+
 /* Items
    ========================================================================== */
+
+.location-list__items {
+  clear: both;
+}
 
 .location-list__item {
 
@@ -89,6 +239,13 @@
       .location-list__item__distance,
       .location-list__item__address .street-address {
         color: #fff;
+      }
+      .rating {
+        background-position: 0 -40px;
+
+        &:after {
+          background-position: 0 -60px;
+        }
       }
     }
 
