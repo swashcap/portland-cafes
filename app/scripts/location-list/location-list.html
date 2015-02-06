@@ -3,34 +3,71 @@
     <strong>{{filtered.length}}</strong> of {{locations.length}} cafés
   </div>
 
-  <form class="location-list__controls row">
-    <div class="col-xs-12 col-sm-4 form-group">
-      <label for="location-list-search">Search:</label>
-      <input
-        ng-model="searchText"
-        type="search"
-        id="location-list-search"
-        class="form-control input-sm" />
+  <div class="location-list__filter">
+    <button ng-click="hideFilter = !hideFilter" class="btn btn-default">Filter List</button>
+    <div class="location-list__filter__controls" ng-class="{'is-active': hideFilter == false}">
+      <div class="controls-1">
+        <label>
+          <input ng-model="hideClosed" type="checkbox" /> Hide closed cafés
+        </label>
+      </div>
+      <div class="controls-2">
+        <label for="location-list-range">
+          <span class="controls__name">Only show within:</span>
+          <select
+            ng-model="distanceRange"
+            id="location-list-range"
+            class="form-control input-sm">
+            <option value="1">1.0 miles</option>
+            <option value="2">2.0 miles</option>
+            <option value="5">5.0 miles</option>
+            <option value="10">10.0 miles</option>
+            <option value="0">No limit</option>
+          </select>
+        </label>
+      </div>
+      <div class="controls-3" ng-class="'is-rating-' + ratingFloor">
+          <span class="controls__name">Limit Rating:</span>
+
+          <input
+            ng-model="ratingFloor"
+            type="radio"
+            value="1"
+            id="location-list-rating-1" />
+          <label for="location-list-rating-1"><span>1 star</span></label>
+
+          <input
+            ng-model="ratingFloor"
+            type="radio"
+            value="2"
+            id="location-list-rating-2" />
+          <label for="location-list-rating-2"><span>2 stars</span></label>
+
+          <input
+            ng-model="ratingFloor"
+            type="radio"
+            value="3"
+            id="location-list-rating-3" />
+          <label for="location-list-rating-3"><span>3 stars</span></label>
+
+          <input
+            ng-model="ratingFloor"
+            type="radio"
+            value="4"
+            id="location-list-rating-4" />
+          <label for="location-list-rating-4"><span>4 stars</span></label>
+
+          <input
+            ng-model="ratingFloor"
+            type="radio"
+            value="5"
+            id="location-list-rating-5" />
+          <label for="location-list-rating-5"><span>5 stars</span></label>
+
+          <button ng-click="ratingFloor = null" title="Clear limit">&times;</button>
+      </div>
     </div>
-    <div class="col-xs-12 col-sm-6 text-right checkbox">
-      <label>
-        <input ng-model="hideClosed" type="checkbox" /> Hide closed cafés
-      </label>
-    </div>
-    <div class="col-xs-12 col-sm-2 form-group">
-      <label for="location-list-range">Only show within:</label>
-      <select
-        ng-model="distanceRange"
-        id="location-list-range"
-        class="form-control input-sm">
-        <option value="1">1.0 miles</option>
-        <option value="2">2.0 miles</option>
-        <option value="5">5.0 miles</option>
-        <option value="10">10.0 miles</option>
-        <option value="0">No limit</option>
-      </select>
-    </div>
-  </form>
+  </div><!-- .location-list__filter -->
 
   <div class="location-list__header">
     <span
@@ -71,7 +108,7 @@
   </div>
   <div class="location-list__items">
     <div
-      ng-repeat="location in filtered = ( locations | orderBy:orderByField:reverseSort | filter:searchText | filter:maybeHideClosed | filter:rangeFilter)"
+      ng-repeat="location in filtered = ( locations | orderBy:orderByField:reverseSort | filter:searchText | filter:maybeHideClosed | filter:rangeFilter | filter:ratingFilter)"
       class="location-list__item vcard">
         <a ng-href="#/location/{{location.id}}">
           <div class="location-list__item__header">
