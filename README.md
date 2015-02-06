@@ -1,6 +1,6 @@
 [![Code Climate](https://codeclimate.com/github/swashcap/portland-cafes/badges/gpa.svg)](https://codeclimate.com/github/swashcap/portland-cafes)
 
-# Portland Cafes
+# [Portland Cafes](http://portlandcafes.com/)
 
 _Index of Portland’s many cafés and coffee shops._
 
