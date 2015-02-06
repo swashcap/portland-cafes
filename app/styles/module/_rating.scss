@@ -2,7 +2,7 @@
    Rating
    ========================================================================== */
 
-span[class*='rating'] {
+.rating {
   background: url(../images/stars.png) no-repeat 0 0;
   background-size: 100px auto;
   color: transparent;
@@ -15,7 +15,7 @@ span[class*='rating'] {
   width: 100px;
 
   &:after {
-    background: url(../images/stars.png) no-repeat 0 100%;
+    background: url(../images/stars.png) no-repeat 0 -20px;
     background-size: 100px auto;
     content: '';
     display: block;
