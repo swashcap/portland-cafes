@@ -90,6 +90,13 @@
       .location-list__item__address .street-address {
         color: #fff;
       }
+      .rating {
+        background-position: 0 -40px;
+
+        &:after {
+          background-position: 0 -60px;
+        }
+      }
     }
 
     @media (min-width: $screen-sm) {
