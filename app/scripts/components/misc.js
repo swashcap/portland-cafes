@@ -63,7 +63,7 @@
         var rating = Math.round(parseFloat(input) * 10) * 2;
 
         if (rating) {
-          return '<span class="rating-' + rating + '" title="' + input + ' stars">' + input + '</span>';
+          return '<span class="rating rating-' + rating + '" title="' + input + ' stars">' + input + '</span>';
         } else {
           return input;
         }
