@@ -18,9 +18,7 @@
         getItem: function (key) {
           return cache.get(key);
         },
-        length: (function () {
-          return cache.info().size;
-        }()),
+        length: cache.info().size,
         removeItem: function (key) {
           return cache.remove(key);
         },
