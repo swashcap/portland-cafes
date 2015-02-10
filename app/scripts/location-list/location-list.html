@@ -106,6 +106,11 @@
       <span class="caret"></span>
     </span>
   </div>
+
+  <div class="location-list__loading-indicator" ng-show="isLoading">
+    <span></span>Loading…
+  </div>
+
   <div class="location-list__items">
     <div
       ng-repeat="location in filtered = ( locations | orderBy:orderByField:reverseSort | filter:searchText | filter:maybeHideClosed | filter:rangeFilter | filter:ratingFilter)"

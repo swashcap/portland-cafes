@@ -25,6 +25,7 @@
       $scope.locations = [];
       $scope.orderByField = 'name';
       $scope.reverseSort = false;
+      $scope.isLoading = true;
       $scope.hideClosed = Preferences.hideClosed();
       $scope.distanceRange = Preferences.distanceRange();
 
@@ -79,6 +80,7 @@
       // Initialize
       Locations.getAll().then(function (locations) {
         $scope.locations = locations;
+        $scope.isLoading = false;
 
         // Set distance if available
         if (Position.getPosition()) {

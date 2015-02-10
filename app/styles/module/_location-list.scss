@@ -375,3 +375,47 @@
     width: 15%;
   }
 }
+
+/* Location Loading Indicator
+   ========================================================================== */
+
+.location-list__loading-indicator {
+  color: $gray-light;
+  clear: both;
+  display: block;
+  margin: 1em 0;
+  text-align: center;
+
+  @media (min-width: $screen-sm) {
+    margin: 2em 0;
+  }
+
+  span {
+    animation: locationListLoader 1000ms ease-in-out infinite alternate;
+    border-radius: 100%;
+    background-image:
+      linear-gradient(
+        $gray-lighter 0,
+        $gray-lighter 50%,
+        mix($gray-lighter, $gray-light) 50%,
+        mix($gray-lighter, $gray-light) 100%
+      );
+    background-position: 0 -30px;
+    background-repeat: no-repeat;
+    background-size: 60px 120px;
+    content: '';
+    display: block;
+    height: 60px;
+    margin: 0 auto 1em;
+    width: 60px;
+  }
+}
+
+@keyframes locationListLoader {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 -60px;
+  }
+}
