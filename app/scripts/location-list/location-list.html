@@ -1,6 +1,7 @@
 <div class="location-list">
   <div class="location-list__count">
-    <strong>{{filtered.length}}</strong> of {{locations.length}} cafés
+    <strong>{{(currentPage - 1) * locationsPerPage + 1}}&ndash;{{currentPage * locationsPerPage}}</strong>
+    of {{filtered.length}} cafés
   </div>
 
   <div class="location-list__filter">
@@ -133,7 +134,7 @@
 
   <div class="location-list__items">
     <div
-      ng-repeat="location in filtered = ( locations | orderBy:orderByField:reverseSort | filter:searchText | filter:maybeHideClosed | filter:rangeFilter | filter:ratingFilter)"
+      ng-repeat="location in filtered = ( locations | orderBy:orderByField:reverseSort | filter:searchText | filter:maybeHideClosed | filter:rangeFilter | filter:ratingFilter) | paginate:currentPage:locationsPerPage"
       class="location-list__item vcard">
         <a ng-href="#/location/{{location.id}}">
           <div class="location-list__item__header">
@@ -152,4 +153,23 @@
         </a>
     </div><!-- .location.vcard -->
   </div><!-- .locations__items -->
+
+  <nav class="location-list__pagination">
+    <ul class="pagination">
+      <li ng-class="{'disabled': currentPage == 1}">
+        <a ng-href="{{getPageLink(1)}}" title="First page" aria-label="First page"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li
+        ng-repeat="page in getPages()"
+        ng-class="{'active': page == currentPage}">
+        <a ng-href="{{getPageLink(page)}}">
+          {{page}}
+          <span ng-if="page == currentPage" class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li ng-class="{'disabled': currentPage + 1 == totalPages}">
+        <a ng-href="{{getPageLink()}}" title="Last page" aria-label="Last page"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+    </ul>
+  </nav>
 </div><!-- .location-list -->

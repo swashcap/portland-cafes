@@ -9,6 +9,10 @@
           templateUrl: 'scripts/location-list/location-list.html',
           controller: 'LocationListCtrl'
         })
+        .when('/page/:pageNumber', {
+          templateUrl: 'scripts/location-list/location-list.html',
+          controller: 'LocationListCtrl'
+        })
         .when('/location/:locationId', {
           templateUrl: 'scripts/location-detail/location-detail.html',
           controller: 'LocationDetailCtrl'

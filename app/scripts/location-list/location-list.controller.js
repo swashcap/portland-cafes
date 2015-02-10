@@ -4,12 +4,12 @@
   angular.module('portlandcafes')
     .controller('LocationListCtrl', [
       '$scope',
+      '$routeParams',
       'Locations',
       'Position',
       'Preferences',
       'Geolib',
-      function ($scope, Locations, Position, Preferences, Geolib) {
-
+      function ($scope, $routeParams, Locations, Position, Preferences, Geolib) {
       var setDistances = function (latitude, longitude) {
         $scope.locations.forEach(function (location) {
           location.distance = Geolib.getDistance({
@@ -22,12 +22,51 @@
         });
       };
 
+      $scope.filtered = [];
       $scope.locations = [];
       $scope.orderByField = 'name';
       $scope.reverseSort = false;
       $scope.isLoading = true;
       $scope.hideClosed = Preferences.hideClosed();
       $scope.distanceRange = Preferences.distanceRange();
+
+      /** Pagination */
+      $scope.locationsPerPage = 10;
+      $scope.currentPage = $routeParams.pageNumber || 1;
+      $scope.getPages = function () {
+        var currentPage = parseInt($scope.currentPage, 10);
+        var totalPages = Math.ceil($scope.filtered.length / $scope.locationsPerPage);
+        var pages = [];
+        var start;
+
+        if (currentPage < 3) {
+          start = 1;
+        } else if (currentPage + 3 >= totalPages) {
+          start = totalPages - 4;
+        } else {
+          start = currentPage - 2;
+        }
+
+        for (var i = start; i < start + 5; i++) {
+          pages.push(i);
+        }
+
+        return pages;
+      };
+
+      $scope.getPageLink = function (page) {
+        var output = '';
+
+        page = parseInt(page, 10);
+
+        if (isNaN(page)) {
+          output = 'page/' + Math.ceil($scope.filtered.length / $scope.locationsPerPage);
+        } else if (page !== 1) {
+          output = 'page/' + page;
+        }
+
+        return '#/' + output;
+      };
 
       $scope.hideFilter = true;
       $scope.ratingFloor = null;

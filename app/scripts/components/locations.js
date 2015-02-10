@@ -23,6 +23,7 @@
           });
         });
       };
+
       this.get = function (id) {
         return $q(function (resolve, reject) {
           locations.then(function (locations) {

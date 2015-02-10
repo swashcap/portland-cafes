@@ -1,6 +1,17 @@
 (function (angular) {
   'use strict';
 
+  /** @{@link  http://stackoverflow.com/a/14796206} */
+  angular.module('portlandcafes')
+    .filter('paginate', function () {
+      return function (array, pageNumber, itemsPerPage) {
+        pageNumber = pageNumber || 1;
+        itemsPerPage = itemsPerPage || 20;
+
+        return (array || []).slice((pageNumber - 1) * itemsPerPage, pageNumber * itemsPerPage);
+      };
+    });
+
   angular.module('portlandcafes')
     .value('locationPresets', [{
       slug: 'north',
