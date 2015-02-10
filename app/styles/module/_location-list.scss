@@ -109,7 +109,8 @@
 
   .controls-1 label,
   .controls-2 label,
-  .controls-3 {
+  .controls-3,
+  .controls-4 {
     padding: 2rem 1rem;
 
     @media (min-width: $screen-md) {
@@ -125,10 +126,6 @@
   .controls__name {
     display: block;
     margin: 0 0 1rem;
-
-    // @media (min-width: $screen-sm) {
-    //   margin-bottom: 1rem;
-    // }
   }
 
   .controls-1 {
@@ -136,11 +133,15 @@
   }
   .controls-2 {
     border-bottom: thin solid $gray-lighter;
-
   }
   .controls-3 {
+    border-bottom: thin solid $gray-lighter;
     font-size: 0;
     text-align: center;
+
+    @media (min-width: $screen-sm) {
+      border-bottom: none;
+    }
 
     .controls__name {
       font-size: $font-size-base;
@@ -224,6 +225,15 @@
       .is-rating-#{$i} input[value='#{$j}'] + label span:after {
         background-image: url(../images/stars.png);
       }
+    }
+  }
+
+  .controls-4 {
+    label {
+      margin-bottom: 1rem;
+    }
+    @media (min-width: $screen-sm) {
+      display: none;
     }
   }
 }

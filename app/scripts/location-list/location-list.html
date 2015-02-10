@@ -17,7 +17,7 @@
           <select
             ng-model="distanceRange"
             id="location-list-range"
-            class="form-control input-sm">
+            class="form-control">
             <option value="1">1.0 miles</option>
             <option value="2">2.0 miles</option>
             <option value="5">5.0 miles</option>
@@ -65,6 +65,26 @@
           <label for="location-list-rating-5"><span>5 stars</span></label>
 
           <button ng-click="ratingFloor = null" title="Clear limit">&times;</button>
+      </div>
+      <div class="controls-4">
+        <label for="location-list-order">
+          <span class="controls__name">Order by:</span>
+            <select
+              ng-model="orderByField"
+              id="location-list-order"
+              class="form-control">
+              <option value="name">Name</option>
+              <option value="rating">Rating</option>
+              <option value="todayHours.open">Opening time</option>
+              <option value="todayHours.close">Closing time</option>
+              <option value="distance">Distance</option>
+            </select>
+          </label>
+          <button ng-click="reverseSort = !reverseSort" class="btn btn-default">
+            <span class="glyphicon glyphicon-sort"></span>
+            <span ng-if="reverseSort">Reverse Order</span>
+            <span ng-if="!reverseSort">Normal Order</span>
+          </button>
       </div>
     </div>
   </div><!-- .location-list__filter -->
