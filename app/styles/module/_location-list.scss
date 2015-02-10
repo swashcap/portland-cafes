@@ -237,7 +237,9 @@
 
       &,
       .location-list__item__distance,
-      .location-list__item__address .street-address {
+      .location-list__item__address .street-address,
+      .text-warning,
+      .text-danger {
         color: #fff;
       }
       .rating {
