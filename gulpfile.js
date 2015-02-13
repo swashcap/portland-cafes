@@ -8,7 +8,9 @@ gulp.task('styles', function () {
   return $.rubySass('app/styles/main.scss',{
       sourcemap: true,
       style: 'expanded',
-      precision: 10
+      precision: 10,
+      verbose: true,
+      version: true
     })
     .on('error', function (err) {
       console.error('Error!', err.message);
