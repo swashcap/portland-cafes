@@ -46,6 +46,8 @@
        * @return {Array}
        */
       $scope.getPages = function (currentPage, itemsCount) {
+        currentPage = parseInt(currentPage, 10);
+
         var totalPages = Math.ceil(itemsCount / LOCATIONS_PER_PAGE);
         var pages = [];
         var start, end;
