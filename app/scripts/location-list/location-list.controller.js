@@ -33,21 +33,30 @@
       /** Pagination */
       $scope.locationsPerPage = 10;
       $scope.currentPage = $routeParams.pageNumber || 1;
-      $scope.getPages = function () {
-        var currentPage = parseInt($scope.currentPage, 10);
-        var totalPages = Math.ceil($scope.filtered.length / $scope.locationsPerPage);
-        var pages = [];
-        var start;
 
-        if (currentPage < 3) {
+      $scope.getPages = function (currentPage, itemsCount, itemsPerPage, maxPages) {
+        itemsPerPage = itemsPerPage || 10;
+        maxPages = maxPages || 5;
+
+        var totalPages = Math.ceil(itemsCount / itemsPerPage);
+        var pages = [];
+        var start, end;
+
+        if (totalPages < maxPages) {
           start = 1;
-        } else if (currentPage + 3 >= totalPages) {
-          start = totalPages - 4;
+          end = totalPages;
+        } else if (currentPage < Math.ceil(maxPages / 2)) {
+          start = 1;
+          end = maxPages;
+        } else if (currentPage + Math.floor(maxPages / 2) > totalPages) {
+          start = totalPages - maxPages + 1;
+          end = totalPages;
         } else {
-          start = currentPage - 2;
+          start = currentPage - Math.floor(maxPages / 2);
+          end = currentPage + Math.floor(maxPages / 2);
         }
 
-        for (var i = start; i < start + 5; i++) {
+        for (var i = start; i <= end; i++) {
           pages.push(i);
         }
 

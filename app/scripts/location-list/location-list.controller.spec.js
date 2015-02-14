@@ -19,22 +19,9 @@ describe('LocationList Controller', function () {
   }));
 
   it('should paginate correctly', inject(function () {
-    $scope.locationsPerPage = 10;
-    $scope.currentPage = 1;
-    $scope.filtered = Array(10);
-
-    expect($scope.getPages()).toEqual([1, 2, 3, 4, 5]);
-
-    $scope.currentPage = 10;
-    expect($scope.getPages()).toEqual([6, 7, 8, 9, 10]);
-
-
-    $scope.filtered = Array(4);
-    $scope.currentPage = 2;
-    expect($scope.getPages()).toEqual([1, 2, 3, 4]);
-
-    $scope.filtered = Array(20);
-    $scope.currentPage = 10;
-    expect($scope.getPages()).toEqual([8, 9, 10, 11, 12]);
+    expect($scope.getPages(1, 100)).toEqual([1, 2, 3, 4, 5]);
+    expect($scope.getPages(10, 100)).toEqual([6, 7, 8, 9, 10]);
+    expect($scope.getPages(2, 38)).toEqual([1, 2, 3, 4]);
+    expect($scope.getPages(10, 198)).toEqual([8, 9, 10, 11, 12]);
   }));
 });

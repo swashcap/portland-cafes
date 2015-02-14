@@ -160,7 +160,7 @@
         <a ng-href="{{getPageLink(1)}}" title="First page" aria-label="First page"><span aria-hidden="true">&laquo;</span></a>
       </li>
       <li
-        ng-repeat="page in getPages()"
+        ng-repeat="page in getPages(currentPage, filtered.length)"
         ng-class="{'active': page == currentPage}">
         <a ng-href="{{getPageLink(page)}}">
           {{page}}
