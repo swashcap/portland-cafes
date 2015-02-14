@@ -24,4 +24,10 @@ describe('LocationList Controller', function () {
     expect($scope.getPages(2, 38)).toEqual([1, 2, 3, 4]);
     expect($scope.getPages(10, 198)).toEqual([8, 9, 10, 11, 12]);
   }));
+
+  it('should show page ranges', inject(function () {
+    expect($scope.getPagesRange(1, 35)).toEqual([1, 10]);
+    expect($scope.getPagesRange(2, 35)).toEqual([11, 20]);
+    expect($scope.getPagesRange(4, 35)).toEqual([31, 35]);
+  }));
 });

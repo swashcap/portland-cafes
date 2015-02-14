@@ -31,29 +31,37 @@
       $scope.distanceRange = Preferences.distanceRange();
 
       /** Pagination */
-      $scope.locationsPerPage = 10;
+
+      var LOCATIONS_PER_PAGE = 10;
+      var MAX_PAGES = 5;
+
       $scope.currentPage = $routeParams.pageNumber || 1;
+      $scope.locationsPerPage = LOCATIONS_PER_PAGE;
 
-      $scope.getPages = function (currentPage, itemsCount, itemsPerPage, maxPages) {
-        itemsPerPage = itemsPerPage || 10;
-        maxPages = maxPages || 5;
-
-        var totalPages = Math.ceil(itemsCount / itemsPerPage);
+      /**
+       * Get the pagination page numbers to output.
+       *
+       * @param  {Number} currentPage Current page
+       * @param  {Number} itemsCount  Total number of items to paginate over
+       * @return {Array}
+       */
+      $scope.getPages = function (currentPage, itemsCount) {
+        var totalPages = Math.ceil(itemsCount / LOCATIONS_PER_PAGE);
         var pages = [];
         var start, end;
 
-        if (totalPages < maxPages) {
+        if (totalPages < MAX_PAGES) {
           start = 1;
           end = totalPages;
-        } else if (currentPage < Math.ceil(maxPages / 2)) {
+        } else if (currentPage < Math.ceil(MAX_PAGES / 2)) {
           start = 1;
-          end = maxPages;
-        } else if (currentPage + Math.floor(maxPages / 2) > totalPages) {
-          start = totalPages - maxPages + 1;
+          end = MAX_PAGES;
+        } else if (currentPage + Math.floor(MAX_PAGES / 2) > totalPages) {
+          start = totalPages - MAX_PAGES + 1;
           end = totalPages;
         } else {
-          start = currentPage - Math.floor(maxPages / 2);
-          end = currentPage + Math.floor(maxPages / 2);
+          start = currentPage - Math.floor(MAX_PAGES / 2);
+          end = currentPage + Math.floor(MAX_PAGES / 2);
         }
 
         for (var i = start; i <= end; i++) {
@@ -63,6 +71,32 @@
         return pages;
       };
 
+      /**
+       * Get a human-readable range for pages.
+       *
+       * @param  {Number} currentPage Current page
+       * @param  {Number} itemsCount  Total number of items to paginate over
+       * @return {Array}              Range's start and end wrapped in an array
+       */
+      $scope.getPagesRange = function (currentPage, itemsCount) {
+        var start = (currentPage - 1) * LOCATIONS_PER_PAGE + 1;
+        var end;
+
+        if (currentPage * LOCATIONS_PER_PAGE > itemsCount) {
+          end = itemsCount;
+        } else {
+          end = currentPage * LOCATIONS_PER_PAGE;
+        }
+
+        return [start, end];
+      };
+
+      /**
+       * Get a page's link.
+       *
+       * @param  {Number} page Page's number, starting at 1
+       * @return {String}
+       */
       $scope.getPageLink = function (page) {
         var output = '';
 

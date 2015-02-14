@@ -1,6 +1,6 @@
 <div class="location-list">
   <div class="location-list__count">
-    <strong>{{(currentPage - 1) * locationsPerPage + 1}}&ndash;{{currentPage * locationsPerPage}}</strong>
+    <strong>{{range = getPagesRange(currentPage, filtered.length); range[0]}}&ndash;{{range[1]}}</strong>
     of {{filtered.length}} cafés
   </div>
 
