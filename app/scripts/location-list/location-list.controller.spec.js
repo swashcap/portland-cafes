@@ -22,6 +22,7 @@ describe('LocationList Controller', function () {
     expect($scope.getPages(1, 100)).toEqual([1, 2, 3, 4, 5]);
     expect($scope.getPages(10, 100)).toEqual([6, 7, 8, 9, 10]);
     expect($scope.getPages(2, 38)).toEqual([1, 2, 3, 4]);
+    expect($scope.getPages(3, 138)).toEqual([1, 2, 3, 4, 5]);
     expect($scope.getPages(10, 198)).toEqual([8, 9, 10, 11, 12]);
   }));
 
