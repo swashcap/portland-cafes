@@ -21,7 +21,6 @@
               name: result.name,
               placeId: result.place_id,
               rating: result.rating,
-              reviews: result.reviews,
               types: result.types,
               url: result.url,
               vicinity: result.vicinity,
