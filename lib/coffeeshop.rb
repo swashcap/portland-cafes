@@ -52,7 +52,7 @@ module Coffeeshop
 		end
 
 		def remove_unused_detail_properties
-			unused_properties = ['formatted_address','icon','international_phone_number','reference','scope','user_ratings_total','utc_offset','address_components','price_level','photos']
+			unused_properties = ['formatted_address','icon','international_phone_number','reference','scope','user_ratings_total','utc_offset','address_components','price_level','photos','reviews']
 			@details.parsed_response["result"].reject { |k,v| unused_properties.include?(k) }
 		end
 
