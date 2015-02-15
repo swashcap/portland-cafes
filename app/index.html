@@ -71,6 +71,33 @@
               </a>
             </li>
           </ul>
+
+          <form ng-controller="SearchCtrl" class="search-form navbar-form navbar-left" role="search">
+            <div class="form-group">
+              <input type="text" ng-model="searchText" class="form-control" placeholder="Search…">
+            </div>
+            <button
+              ng-click="clearSearch()"
+              ng-show="searchText.length > 0"
+              ng-cloak=""
+              type="reset"
+              class="btn btn-link"
+              aria-label="Cancel search">
+              <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+            </button>
+            <div ng-cloak="" ng-show="results.length > 0" class="search-form__results">
+              <div ng-repeat="location in results | limitTo:4" class="vcard">
+                <a ng-href="#/location/{{location.id}}">
+                  <h4 class="org">{{location.name}}</h4>
+                  <div class="adr" ng-bind-html="location.address"></div>
+                </a>
+              </div>
+            </div><!-- .search-form__results -->
+            <div ng-cloak="" ng-show="message.length > 0" class="search-form__message">
+              {{message}}
+            </div>
+          </form>
+
           <ul class="nav navbar-nav navbar-right">
             <li ng-class="{'open': toggleDropdown}" class="dropdown">
               <a
@@ -158,13 +185,15 @@
     <!-- build:js scripts/main.js -->
     <!-- inject:js -->
     <script src="scripts/app.js"></script>
+    <script src="scripts/search/search.controller.js"></script>
     <script src="scripts/regions/regions.controller.js"></script>
-    <script src="scripts/region-street/region-street.controller.js"></script>
-    <script src="scripts/region-single/region-single.controller.js"></script>
     <script src="scripts/navigation/navigation.controller.js"></script>
+    <script src="scripts/region-street/region-street.controller.js"></script>
+    <script src="scripts/about/about.controller.js"></script>
+    <script src="scripts/region-single/region-single.controller.js"></script>
     <script src="scripts/map/map.controller.js"></script>
-    <script src="scripts/location-list/location-list.controller.js"></script>
     <script src="scripts/location-detail/location-detail.controller.js"></script>
+    <script src="scripts/location-list/location-list.controller.js"></script>
     <script src="scripts/components/storage.js"></script>
     <script src="scripts/components/regions.js"></script>
     <script src="scripts/components/preferences.js"></script>
@@ -174,7 +203,6 @@
     <script src="scripts/components/locations.js"></script>
     <script src="scripts/components/hours.js"></script>
     <script src="scripts/components/geolib.js"></script>
-    <script src="scripts/about/about.controller.js"></script>
     <script src="scripts/routes.js"></script>
     <!-- endinject -->
 
