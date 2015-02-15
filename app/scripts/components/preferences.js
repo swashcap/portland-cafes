@@ -5,7 +5,10 @@
     .service('Preferences', ['Storage', function (Storage) {
       var defaults = {
         hideClosed: false,
-        distanceRange: 1
+        distanceRange: 1,
+        ratingLimit: 0,
+        filterProperty: 'name',
+        filterReverse: false
       };
       var preferences;
 
@@ -41,6 +44,30 @@
         }
 
         return preferences.hideClosed;
+      };
+      this.ratingLimit = function (rating) {
+        if (typeof rating !== 'undefined' && typeof parseFloat(rating) === 'number') {
+          preferences.ratingLimit = parseFloat(rating);
+          save();
+        }
+
+        return preferences.ratingLimit;
+      };
+      this.filterProperty = function (property) {
+        if (typeof property === 'string') {
+          preferences.filterProperty = property;
+          save();
+        }
+
+        return preferences.filterProperty;
+      };
+      this.filterReverse = function (reverse) {
+        if (typeof reverse === 'boolean') {
+          preferences.filterReverse = reverse;
+          save();
+        }
+
+        return preferences.filterReverse;
       };
     }]);
 })(window.angular);

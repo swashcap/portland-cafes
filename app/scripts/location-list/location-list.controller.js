@@ -22,13 +22,9 @@
         });
       };
 
+      $scope.isLoading = true;
       $scope.filtered = [];
       $scope.locations = [];
-      $scope.orderByField = 'name';
-      $scope.reverseSort = false;
-      $scope.isLoading = true;
-      $scope.hideClosed = Preferences.hideClosed();
-      $scope.distanceRange = Preferences.distanceRange();
 
       /** Pagination */
 
@@ -139,7 +135,7 @@
 
       $scope.ratingFilter = function (location) {
         return (
-          $scope.ratingFloor === null ||
+          $scope.ratingFloor === 0 ||
           ('rating' in location && location.rating > $scope.ratingFloor)
         );
       };
@@ -163,16 +159,56 @@
         }
       };
 
-      // Persist UI controls back to preferences
-      $scope.$watch('hideClosed', function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-          Preferences.hideClosed($scope.hideClosed);
+      /**
+       * Scope to preferences map.
+       *
+       * This is a property-to-method map. The object's keys will be set on the
+       * controller's `$scope`. The keys' values correspond to method names on
+       * the `Preferences` component.
+       *
+       * @todo  Avoid tight coupling with the `Preferences` component.
+       *
+       * @type {Object}
+       */
+      var scopePropertyMap = {
+        orderByField: 'filterProperty',
+        reverseSort: 'filterReverse',
+        hideClosed: 'hideClosed',
+        distanceRange: 'distanceRange',
+        ratingFloor: 'ratingLimit'
+      };
+
+      /**
+       * Initialize preferences.
+       *
+       * Loop over `scopePropertyMap` and set its keys as properties on the
+       * controller's `$scope`. Set these properties equal to the corresponding
+       * `Preferences` methods' results.
+       */
+      for (var prop in scopePropertyMap) {
+        if (
+          scopePropertyMap.hasOwnProperty(prop) &&
+          scopePropertyMap[prop] in Preferences
+        ) {
+          $scope[prop] = Preferences[scopePropertyMap[prop]]();
         }
-      });
-      $scope.$watch('distanceRange', function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-          Preferences.distanceRange($scope.distanceRange);
-        }
+      }
+
+      /**
+       * Persist UI controls back to preferences.
+       *
+       * @{@link  https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$watchGroup}
+       */
+      $scope.$watchGroup(Object.keys(scopePropertyMap), function (newValues, oldValues) {
+        var scopeProperties = Object.keys(scopePropertyMap);
+
+          for (var i = 0, il = newValues.length; i < il; i++) {
+            if (newValues[i] !== oldValues[i]) {
+              if (scopePropertyMap[scopeProperties[i]] in Preferences) {
+                Preferences[scopePropertyMap[scopeProperties[i]]](newValues[i]);
+              }
+            }
+          }
       });
 
       // Listen and react to new positions
