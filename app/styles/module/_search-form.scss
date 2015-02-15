@@ -1,0 +1,95 @@
+/* ==========================================================================
+   Search Form
+   ========================================================================== */
+
+.search-form {
+  position: relative;
+
+  .form-control {
+    @media (min-width: $screen-sm) {
+      width: 10em;
+    }
+    @media (min-width: $screen-md) {
+      width: 15em;
+    }
+  }
+  .btn {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+
+    @media (min-width: $screen-sm) {
+      top: 1px;
+    }
+  }
+}
+
+%search-form__output {
+  @media (min-width: $screen-sm) {
+    background: #fff;
+    border: thin solid $gray-lighter;
+    border-radius: $border-radius-base;
+    box-shadow: 0 1px 3px rgba($gray-darker, .1);
+    left: 15px;
+    overflow: hidden;
+    position: absolute;
+    right: 15px;
+    top: 35px;
+    z-index: $zindex-navbar;
+  }
+}
+
+/* Results
+   ========================================================================== */
+
+.search-form__results {
+  @extend %search-form__output;
+
+  .vcard:nth-of-type(even) {
+    background: $gray-lighter;
+  }
+  a {
+    color: $gray-darker;
+    display: block;
+    padding: 1rem;
+
+    &:focus,
+    &:hover,
+    &:active {
+      background: $brand-primary;
+      text-decoration: none;
+
+      &,
+      .street-address {
+        color: #fff;
+      }
+    }
+  }
+  h4 {
+    margin: 0;
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+  }
+  .adr {
+    color: transparent;
+    font-size: 0;
+    line-height: 0;
+
+  }
+  .street-address {
+    color: $gray;
+    font-size: $font-size-small;
+    line-height: $line-height-small;
+  }
+}
+
+/* Message
+   ========================================================================== */
+
+.search-form__message {
+  @extend %search-form__output;
+
+  color: $gray;
+  padding: 1rem;
+  text-align: center;
+}
