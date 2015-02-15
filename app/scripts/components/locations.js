@@ -41,5 +41,23 @@
           });
         });
       };
+
+      this.search = function (search) {
+        return $q(function (resolve, reject) {
+          if (typeof search !== 'string' || search.length === 0) {
+            reject('Invalid search.');
+          }
+
+          locations.then(function (locations) {
+            var results = locations.filter(function (location) {
+              return location.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+            });
+
+            resolve(results);
+          }).catch(function (err) {
+            reject(err);
+          });
+        });
+      };
     }]);
 })(window.angular);
