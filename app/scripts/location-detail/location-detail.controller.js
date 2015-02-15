@@ -3,7 +3,9 @@
   'use strict';
 
   angular.module('portlandcafes')
-    .controller('LocationDetailCtrl', ['$scope', '$routeParams', 'Locations', function ($scope, $routeParams, Locations) {
+    .controller('LocationDetailCtrl',
+      ['$scope', '$routeParams', 'Locations', 'Reviews',
+      function ($scope, $routeParams, Locations, Reviews) {
 
       $scope.days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       $scope.currentDay = (new Date()).getDay();
@@ -26,6 +28,10 @@
       // Initialize
       Locations.get($routeParams.locationId).then(function (location) {
         $scope.location = location;
+
+        Reviews.get(location.placeId).then(function (reviews) {
+          $scope.location.reviews = reviews;
+        });
       }).catch(function (error) {
         console.log(error);
       });
