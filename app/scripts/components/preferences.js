@@ -46,7 +46,7 @@
         return preferences.hideClosed;
       };
       this.ratingLimit = function (rating) {
-        if (typeof rating !== 'undefined' && parseFloat(rating)) {
+        if (typeof rating !== 'undefined' && typeof parseFloat(rating) === 'number') {
           preferences.ratingLimit = parseFloat(rating);
           save();
         }
