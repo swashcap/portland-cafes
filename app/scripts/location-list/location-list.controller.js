@@ -144,6 +144,25 @@
         );
       };
 
+      /**
+       * [maybeHideUnsetHours description]
+       * @param  {Object}  location [description]
+       * @return {Boolean}
+       */
+      $scope.maybeHideUnsetLocations = function (location) {
+        var open = (((location).todayHours || {}).open || undefined);
+        var close = (((location).todayHours || {}).close || undefined);
+
+        if (
+          ($scope.orderByField !== 'name' && (open === undefined || close === undefined)) ||
+          ($scope.orderByField === 'rating' && location.rating === undefined)
+        ) {
+          return false;
+        } else {
+          return true;
+        }
+      };
+
       // Persist UI controls back to preferences
       $scope.$watch('hideClosed', function (newValue, oldValue) {
         if (newValue !== oldValue) {
