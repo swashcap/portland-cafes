@@ -2,7 +2,7 @@
 (function (angular) {
   'use strict';
 
-  angular.module('portlandcafes', ['ngRoute', 'ngSanitize'])
+  angular.module('portlandcafes', ['pcStorage', 'ngRoute', 'ngSanitize'])
     .run(['$http', 'Hours', 'Locations', function ($http, Hours, Locations) {
       $http.get('results.json').then(function (data) {
         var results = [];
