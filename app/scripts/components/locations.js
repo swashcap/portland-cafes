@@ -91,5 +91,21 @@
           });
         });
       };
+
+      /**
+       * Get locations by their region.
+       *
+       * @param  {string} region Region's slug
+       * @return {object}        $q-style Promise
+       */
+      this.getByRegion = function (region) {
+        return $q(function (resolve, reject) {
+          IndexedDB.query('region', region).then(function (locations) {
+            resolve(locations);
+          }).catch(function (err) {
+            reject(err);
+          });
+        });
+      };
     }]);
 })(window.angular);
