@@ -13,6 +13,7 @@
       var POSITION_KEY = 'pc-position';
       var ADDRESS_KEY = 'pc-address';
       var PREFERENCES_KEY = 'pc-preferences';
+      var STORAGE_TIMESTAMP_KEY = 'pc-storage-timestamp';
 
       var _getPreferences = function () {
         return $localStorage.getObject(PREFERENCES_KEY);
@@ -100,6 +101,16 @@
 
         return _getPref('filterReverse');
       };
+      var getStorageTimestamp = function () {
+        return $localStorage.get(STORAGE_TIMESTAMP_KEY);
+      };
+      var setStorageTimestamp = function (timestamp) {
+        timestamp = timestamp || (new Date()).getTime();
+
+        $localStorage.set(STORAGE_TIMESTAMP_KEY, timestamp);
+
+        return getStorageTimestamp();
+      };
 
 
       /**
@@ -118,7 +129,9 @@
         hideClosed: hideClosed,
         ratingLimit: ratingLimit,
         filterProperty: filterProperty,
-        filterReverse: filterReverse
+        filterReverse: filterReverse,
+        getStorageTimestamp: getStorageTimestamp,
+        setStorageTimestamp: setStorageTimestamp
       };
     }]);
 })(window.angular);
