@@ -1,3 +1,4 @@
+/* global google */
 (function (angular) {
   'use strict';
 
@@ -35,6 +36,30 @@
             }).catch(function (err) {
               reject(err);
             });
+        });
+      };
+
+      /**
+       * Retrieve a location's reviews from Google's Places Details API.
+       *
+       * @{@link https://developers.google.com/maps/documentation/javascript/places#place_details}
+       */
+      this.getReviews = function (placeId) {
+        return $q(function (resolve, reject) {
+          if (typeof placeId === 'undefined') {
+            reject('Invalid ID');
+          }
+
+          var service = new google.maps.places.PlacesService(document.createElement('div'));
+
+          service.getDetails({ placeId: placeId }, function (place, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+              var reviews = place.reviews || [];
+              resolve(reviews);
+            } else {
+              reject('Places API failure:' + status.toString());
+            }
+          });
         });
       };
     }]);
