@@ -1,4 +1,4 @@
-/* global console */
+/* jshint devel:true */
 (function (angular) {
   'use strict';
 
@@ -29,9 +29,11 @@
       Locations.get($routeParams.locationId).then(function (location) {
         $scope.location = location;
 
-        Locations.getReviews(location.placeId).then(function (reviews) {
-          $scope.location.reviews = reviews;
-        });
+        if (! ('reviews' in location)) {
+          Locations.getReviews(location.placeId).then(function (reviews) {
+            $scope.location.reviews = reviews;
+          });
+        }
       }).catch(function (error) {
         console.log(error);
       });

@@ -16,6 +16,24 @@
         }
       };
 
+      var getLocationByPlaceId = function (placeId) {
+        var deferred = $q.defer();
+
+        IndexedDB.query('placeId', placeId).then(function (locations) {
+          var location = locations.shift();
+
+          if (location) {
+            deferred.resolve(location);
+          } else {
+            deferred.reject('No location with placeId ' + placeId.toString() + ' found');
+          }
+        }).catch(function (err) {
+          deferred.reject(err);
+        });
+
+        return deferred.promise;
+      };
+
       this.getAll = function () {
         return IndexedDB.getAll();
       };
@@ -30,7 +48,7 @@
             reject('Invalid search.');
           }
 
-          IndexedDB.query('name', nameFilter.bind(search))
+          IndexedDB.filter('name', nameFilter.bind(search))
             .then(function (results) {
               resolve(results);
             }).catch(function (err) {
@@ -55,6 +73,17 @@
           service.getDetails({ placeId: placeId }, function (place, status) {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
               var reviews = place.reviews || [];
+
+              // Persist reviews to IndexedDB for future requests
+              getLocationByPlaceId(placeId).then(function (location) {
+                IndexedDB.put(angular.extend(location, { reviews: reviews }))
+                  .then(function (location) {
+                    resolve(location);
+                  }).catch(function (err) {
+                    reject(err);
+                  });
+              });
+
               resolve(reviews);
             } else {
               reject('Places API failure:' + status.toString());

@@ -4,7 +4,7 @@
 
   angular.module('pcStorage')
     .factory('IndexedDB', ['$q', function ($q) {
-      var DB_VERSION = 1;
+      var DB_VERSION = 2;
       var STORE_NAME = 'pc-locations';
 
       var store = $q(function (resolve, reject) {
@@ -15,6 +15,9 @@
           indexes: [{
             name: 'name',
             unique: false
+          }, {
+            name: 'placeId',
+            unique: true
           }],
           onStoreReady: function () {
             resolve(idbStore);
@@ -92,7 +95,7 @@
             );
           });
         },
-        query: function (index, callback) {
+        filter: function (index, callback) {
           return new IndexedDBResponse(function (store) {
             var that = this;
             var items = [];
@@ -105,6 +108,21 @@
             store.iterate(itemFilter, {
               index: index,
               onEnd: that.successHandler.bind(that, items),
+              onError: that.errorHandler.bind(that)
+            });
+          });
+        },
+        query: function (index, id) {
+          /**
+           * @todo This only queries by a single key. Expand to offer more query
+           *       options.
+           */
+          return new IndexedDBResponse(function (store) {
+            var that = this;
+            store.query(
+              that.successHandler.bind(that), {
+              index: index,
+              keyRange: store.keyRange.only(id),
               onError: that.errorHandler.bind(that)
             });
           });
