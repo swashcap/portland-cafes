@@ -4,7 +4,7 @@
 
   angular.module('pcStorage')
     .factory('IndexedDB', ['$q', function ($q) {
-      var DB_VERSION = 2;
+      var DB_VERSION = 3;
       var STORE_NAME = 'pc-locations';
 
       var store = $q(function (resolve, reject) {
@@ -18,6 +18,9 @@
           }, {
             name: 'placeId',
             unique: true
+          }, {
+            name: 'region',
+            unique: false
           }],
           onStoreReady: function () {
             resolve(idbStore);
@@ -44,12 +47,19 @@
 
 
       return {
-        count: function () {
+        count: function (index, keyRange) {
+          index = index || null;
+          keyRange = keyRange || null;
+
           return new IndexedDBResponse(function (store) {
             var that = this;
             store.count(
               that.successHandler.bind(that),
-              { onError: that.errorHandler.bind(that) }
+              {
+                index: index,
+                keyRange: keyRange,
+                onError: that.errorHandler.bind(that)
+              }
             );
           });
         },

@@ -19,6 +19,12 @@
         },
         getCenter: function (coords) {
           return geolib.getCenter(coords);
+        },
+        preparePolygonForIsPointInsideOptimized: function (coords) {
+          return geolib.preparePolygonForIsPointInsideOptimized(coords);
+        },
+        isPointInsideWithPreparedPolygon: function (latlng, preparedCoords) {
+          return geolib.isPointInsideWithPreparedPolygon(latlng, preparedCoords);
         }
       };
     });
