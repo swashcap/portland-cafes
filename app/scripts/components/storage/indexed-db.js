@@ -53,6 +53,16 @@
             );
           });
         },
+        clear: function () {
+          return new IndexedDBResponse(function (store) {
+            var that = this;
+
+            store.clear(
+              that.successHandler.bind(that),
+              that.errorHandler.bind(that)
+            );
+          });
+        },
         put: function (data) {
           // return $q(function (resolve) {
           //   resolve(data);
