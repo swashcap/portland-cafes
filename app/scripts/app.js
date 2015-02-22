@@ -4,14 +4,35 @@
 
   angular.module('portlandcafes', ['pcStorage', 'ngRoute', 'ngSanitize'])
     .run([
-      'IndexedDB', '$http', 'Hours', '$route', 'Preferences', '$q',
-      function (IndexedDB, $http, Hours, $route, Preferences, $q) {
+      'IndexedDB', '$http', 'Hours', '$route', 'Preferences', '$q', 'Regions', 'Geolib',
+      function (IndexedDB, $http, Hours, $route, Preferences, $q, Regions, Geolib) {
+        var getRegions = function () {
+          return Regions.map(function (region) {
+            Geolib.preparePolygonForIsPointInsideOptimized(region.bounds);
+
+            return {
+              slug: region.slug,
+              polygon: region.bounds
+            };
+          });
+        };
+        var getLocationRegion = function (location, regions) {
+          var latlng = location.coords;
+
+          for (var i = 0, il = regions.length; i < il; i++) {
+            if (Geolib.isPointInsideWithPreparedPolygon(latlng, regions[i].polygon)) {
+              return regions[i].slug;
+            }
+          }
+        };
+
         var getResults = function () {
           var deferred = $q.defer();
 
           console.log('Fetching results.json...');
 
           $http.get('results.json').then(function (data) {
+            var regions = getRegions();
             var results = [];
 
             if ('data' in data && Array.isArray(data.data)) {
@@ -33,6 +54,9 @@
                   vicinity: result.vicinity,
                   website: result.website
                 };
+
+                // Add `region` property
+                output.region = getLocationRegion(output, regions);
 
                 var periods = (((result).opening_hours || {}).periods || []);
 
