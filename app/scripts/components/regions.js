@@ -27,7 +27,8 @@
         { latitude: 45.531833, longitude: -122.674123 },
         { latitude: 45.529879, longitude: -122.677717 },
         { latitude: 45.523047, longitude: -122.677406 }
-      ]
+      ],
+      center: { latitude: 45.518583, longitude: -122.678532 }
     }, {
       name: 'North Portland',
       slug: 'north',
@@ -58,7 +59,8 @@
         { latitude: 45.637350, longitude: -122.784554 },
         { latitude: 45.632669, longitude: -122.790047 },
         { latitude: 45.618023, longitude: -122.791592 }
-      ]
+      ],
+      center: { latitude: 45.590936, longitude: -122.717692 }
     }, {
       name: 'Northwest Portland',
       slug: 'northwest',
@@ -83,7 +85,8 @@
         { latitude: 45.518973, longitude: -122.723067 },
         { latitude: 45.524145, longitude: -122.703155 },
         { latitude: 45.523062, longitude: -122.685817 }
-      ]
+      ],
+      center: { latitude: 45.532473, longitude: -122.699121 }
     }, {
       name: 'Northeast Portland',
       slug: 'northeast',
@@ -123,7 +126,8 @@
         { latitude: 45.568863, longitude: -122.525782 },
         { latitude: 45.597517, longitude: -122.586722 },
         { latitude: 45.609647, longitude: -122.643284 }
-      ]
+      ],
+      center: { latitude: 45.566493, longitude: -122.679294 }
     }, {
       name: 'Southeast Portland',
       slug: 'southeast',
@@ -141,7 +145,8 @@
         { latitude: 45.457516, longitude: -122.660781 },
         { latitude: 45.477140, longitude: -122.665759 },
         { latitude: 45.501208, longitude: -122.664557 }
-      ]
+      ],
+      center: { latitude: 45.505290, longitude: -122.601703 }
     }, {
       name: 'Southwest Portland',
       slug: 'southwest',
@@ -158,6 +163,7 @@
         { latitude: 45.519725, longitude: -122.727023 },
         { latitude: 45.523874, longitude: -122.707025 },
         { latitude: 45.522852, longitude: -122.686082 }
-      ]
+      ],
+      center: { latitude: 45.478346, longitude: -122.701232 }
     }]);
 })(window.angular);
