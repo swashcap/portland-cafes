@@ -2,44 +2,25 @@
   'use strict';
 
   angular.module('portlandcafes')
-    .service('Locations', ['$rootScope', '$q', function ($rootScope, $q) {
-      var deferred = new $q.defer();
-      var locations = deferred.promise;
-
-      this._setLocations = function (values) {
-        if (Array.isArray(values) && values.length) {
-          deferred.resolve(values);
+    .service('Locations', ['$q', 'IndexedDB', function ($q, IndexedDB) {
+      var nameFilter = function (location) {
+        if (
+          location instanceof Object &&
+          'name' in location &&
+          location.name.toLowerCase().indexOf(this.toLowerCase()) !== -1
+        ) {
+          return true;
         } else {
-          deferred.reject('No locations available');
+          return false;
         }
       };
 
       this.getAll = function () {
-        return $q(function (resolve, reject) {
-          locations.then(function (locations) {
-            resolve(locations);
-          }).catch(function (err) {
-            reject(err);
-          });
-        });
+        return IndexedDB.getAll();
       };
 
       this.get = function (id) {
-        return $q(function (resolve, reject) {
-          locations.then(function (locations) {
-            var result = locations.filter(function (location) {
-              return location.id === id;
-            }).shift();
-
-            if (result) {
-              resolve(result);
-            } else {
-              reject('Couldn\'t find requested ID.');
-            }
-          }).catch(function (err) {
-            reject(err);
-          });
-        });
+        return IndexedDB.get(id);
       };
 
       this.search = function (search) {
@@ -48,15 +29,12 @@
             reject('Invalid search.');
           }
 
-          locations.then(function (locations) {
-            var results = locations.filter(function (location) {
-              return location.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+          IndexedDB.query('name', nameFilter.bind(search))
+            .then(function (results) {
+              resolve(results);
+            }).catch(function (err) {
+              reject(err);
             });
-
-            resolve(results);
-          }).catch(function (err) {
-            reject(err);
-          });
         });
       };
     }]);
