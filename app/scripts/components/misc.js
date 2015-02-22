@@ -5,10 +5,11 @@
   angular.module('portlandcafes')
     .filter('paginate', function () {
       return function (array, pageNumber, itemsPerPage) {
+        array = Array.isArray(array) ? array : [];
         pageNumber = pageNumber || 1;
         itemsPerPage = itemsPerPage || 20;
 
-        return (array || []).slice((pageNumber - 1) * itemsPerPage, pageNumber * itemsPerPage);
+        return array.slice((pageNumber - 1) * itemsPerPage, pageNumber * itemsPerPage);
       };
     });
 
