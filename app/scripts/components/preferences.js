@@ -107,7 +107,7 @@
        *
        * @{@link  https://docs.angularjs.org/api/ng/function/angular.extend}
        */
-      _setPreferences(angular.extend(_getPreferences(), DEFAULT_PREFERENCES));
+      _setPreferences(angular.extend({}, DEFAULT_PREFERENCES, _getPreferences()));
 
       return {
         getPosition: getPosition,
