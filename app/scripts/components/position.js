@@ -3,7 +3,7 @@
   'use strict';
 
   angular.module('portlandcafes')
-    .factory('Position', ['$rootScope', '$q', 'Storage', 'locationPresets', function ($rootScope, $q, Storage, locationPresets) {
+    .factory('Position', ['$rootScope', '$q', 'Preferences', 'locationPresets', function ($rootScope, $q, Preferences, locationPresets) {
       var geolocationOptions = {
         enableHighAccuracy: true,
         timeout: 5 * 1000,
@@ -17,14 +17,14 @@
         return parseFloat((((position || {}).coords || {}).longitude || {}));
       };
       var setPosition = function (position) {
-        Storage.setPosition(JSON.stringify(position));
+        Preferences.setPosition(position);
 
         /**
          * Broadcast a location-set event to the application. Other
          * components can subscribe to this event and use the data.
          *
          * @todo  Roll this into a component or possibly integrate on
-         *        the `Storage` layer.
+         *        the `Preferences` layer.
          */
         $rootScope.$broadcast('pc.newPosition', {
           latitude: latitude(position),
@@ -32,9 +32,9 @@
         });
       };
       var setAddress = function (address) {
-        Storage.setAddress(address);
+        Preferences.setAddress(address);
 
-        /** @todo  Integrate in separate component or `Storage` */
+        /** @todo  Integrate in separate component or `Preferences` */
         $rootScope.$broadcast(
           'pc.newAddress',
           address
@@ -102,7 +102,7 @@
       // Public API
       return {
         getPosition: function () {
-          var storedPosition = Storage.getPosition();
+          var storedPosition = Preferences.getPosition();
 
           if (storedPosition) {
             return {
@@ -112,7 +112,7 @@
           }
         },
         getAddress: function () {
-          return Storage.getAddress();
+          return Preferences.getAddress();
         },
         updatePosition: function () {
           /** @todo Figure out how to not nest all this garbage. */
