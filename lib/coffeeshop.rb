@@ -81,7 +81,7 @@ module Coffeeshop
 		end
 
 		def load_coords
-			Cities.const_get(ENV['CURRENT_CITY'])
+			Locations::Cities.const_get(ENV['CURRENT_CITY'])
 		end
 
 		def load_place_ids
