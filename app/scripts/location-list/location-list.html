@@ -136,7 +136,7 @@
     <div
       ng-repeat="location in filtered = (locations | orderBy:orderByField:reverseSort | filter:maybeHideClosed | filter:rangeFilter | filter:ratingFilter | filter:maybeHideUnsetLocations) | paginate:currentPage:locationsPerPage"
       class="location-list__item vcard">
-        <a ng-href="#/location/{{location.id}}">
+        <a ng-href="/location/{{location.id}}">
           <div class="location-list__item__header">
             <h2 class="location-list__item__name org">{{location.name}}</h2>
             <div class="location-list__item__address adr" ng-bind-html="location.address"></div>

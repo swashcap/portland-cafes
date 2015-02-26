@@ -43,8 +43,8 @@
             <span class="icon-bar"></span>
           </button>
           <h1 class="navbar-brand">
-            <a href="#/" rel="home">Portland Cafés</a>
-            <a href="#/about/" class="beta-link">Beta</a>
+            <a href="/" rel="home">Portland Cafés</a>
+            <a href="/about/" class="beta-link">Beta</a>
           </h1>
         </div>
         <div ng-class="{'collapse': ! navbarOpen}" class="navbar-collapse">
@@ -52,7 +52,7 @@
             <li
               ng-click="toggleNavbar()"
               ng-class="{active: isActive('/location')}">
-              <a href="#/">
+              <a href="/">
                 <span class="glyphicon glyphicon-th-list"></span>
                 All Locations
               </a>
@@ -60,7 +60,7 @@
             <li
               ng-click="toggleNavbar()"
               ng-class="{active: isActive('/regions')}">
-              <a href="#/regions">
+              <a href="/regions">
                 <span class="glyphicon glyphicon-th-large"></span>
                 Regions
               </a>
@@ -68,7 +68,7 @@
             <li
               ng-click="toggleNavbar()"
               ng-class="{active: isActive('/map')}">
-              <a href="#/map">
+              <a href="/map">
                 <span class="glyphicon glyphicon-map-marker"></span>
                 Map
               </a>
@@ -90,7 +90,7 @@
             </button>
             <div ng-cloak="" ng-show="results.length > 0" class="search-form__results">
               <div ng-repeat="location in results | limitTo:4" class="vcard">
-                <a ng-href="#/location/{{location.id}}">
+                <a ng-href="/location/{{location.id}}">
                   <h4 class="org">{{location.name}}</h4>
                   <div class="adr" ng-bind-html="location.address"></div>
                 </a>
@@ -154,7 +154,7 @@
         <div class="row">
           <div class="col-xs-12 col-sm-6">
             <ul class="nav nav-pills">
-              <li role="presentation"><a href="#/about/">About</a></li>
+              <li role="presentation"><a href="/about/">About</a></li>
             </ul>
           </div>
           <div class="col-xs-12 col-sm-6 text-right">

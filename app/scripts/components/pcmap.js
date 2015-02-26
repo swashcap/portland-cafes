@@ -63,7 +63,7 @@
       /** @todo Figure out to use `$compile` */
       var infoWindowTemplate = function (location) {
         return '<div class="info-window">' +
-          '<h2><a href="#/location/' + getProp('id', location) + '">' + getProp('name', location) + '</a></h2>' +
+          '<h2><a href="/location/' + getProp('id', location) + '">' + getProp('name', location) + '</a></h2>' +
           '<div class="info-window__address">' + getProp('address', location) + '</div>' +
           '<div class="info-window__hours">' +
             '<h5><small>Open:</small> ' + Hours.formatTime(getProp('todayHours.open', location)) + '</h5>' +
