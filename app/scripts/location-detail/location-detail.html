@@ -1,8 +1,5 @@
-<div class="location-detail row">
-  <div class="col-xs-12 col-sm-6">
-    <h1>{{location.name}}</h1>
-    <div ng-bind-html="location.address" class="vcard"></div>
-
+<article class="location-detail">
+  <div class="location-detail__intro">
     <div
       ng-if="!location.isOpen"
       class="alert alert-danger"
@@ -16,19 +13,43 @@
       <strong>Warning!</strong> This café closes soon.
     </div>
 
-    <div class="row">
-      <div class="col-xs-6">
-        <h3><small>Open:</small> {{location.todayHours.open | humanTime}}</h3>
-      </div>
-      <div class="col-xs-6">
-        <h3><small>Close:</small> {{location.todayHours.close | humanTime}}</h3>
-      </div>
-    </div><!-- .row -->
+    <div class="vcard">
+      <h1 class="org n">{{location.name}}</h1>
+      <div ng-bind-html="location.address" class="adr"></div>
+    </div><!-- .vcard -->
 
+    <div class="location-detail__hours-today">
+      <h2>Hours Today</h2>
+      <p>
+        {{location.todayHours.open | humanTime}} &ndash;
+        {{location.todayHours.close | humanTime}}
+      </p>
+    </div>
+  </div><!-- .location-detail__intro -->
+
+  <div class="location-detail__map">
+    <pc-map
+      center="{{location}}"
+      locations="{{location}}"
+      zoom="14"></pc-map>
+
+    <div class="location-detail__map__buttons">
+      <a ng-href="{{getMapsLink(location)}}" class="btn btn-default">
+        <span class="glyphicon glyphicon-globe"></span> Directions
+      </a>
+      <a
+        ng-if="location.website"
+        ng-href="{{location.website}}"
+        class="btn btn-default"
+        target="_blank">
+        <span class="glyphicon glyphicon-new-window"></span> Café Website
+      </a>
+    </div>
+  </div><!-- .location-detail__map -->
+
+  <div class="location-detail__hours">
+    <h3>Hours</h3>
     <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Hours</h3>
-      </div>
       <table class="table">
         <tbody>
           <tr
@@ -41,46 +62,28 @@
       </table>
     </div><!-- .panel -->
   </div>
-  <div class="col-xs-12 col-sm-6">
-    <pc-map
-      center="{{location}}"
-      locations="{{location}}"
-      zoom="14"></pc-map>
 
-    <br />
-    <a ng-href="{{getMapsLink(location)}}" class="btn btn-default btn-sm">
-      <span class="glyphicon glyphicon-globe"></span> Directions
-    </a>
-    <a
-      ng-if="location.website"
-      ng-href="{{location.website}}"
-      class="btn btn-default btn-sm"
-      target="_blank">
-      <span class="glyphicon glyphicon-new-window"></span> Café Website
-    </a>
-
-    <div ng-show="location.reviews.length">
-      <h3>Reviews</h3>
-      <article
-        ng-repeat="review in location.reviews | orderBy:'time':true | limitTo:reviewLimit"
-        class="review hentry">
-        <header>
-          <h4><a ng-href="{{review.author_url}}">{{review.author_name}}</a></h4>
-          <span ng-bind-html="review.rating | toStars"></span>
-        </header>
-        <div class="entry-content">
-          {{review.text}}
-        </div>
-        <footer>
-          <time datetime="{{review.time + '000'}}" class="published">{{review.time + '000' | date}}</time>
-        </footer>
-      </article>
-      <button
-        ng-click="toggleReviewLimit()"
-        class="btn btn-default btn-block btn-sm">
-        <span ng-show="reviewLimit == 2">More reviews</span>
-        <span ng-hide="reviewLimit == 2">Less reviews</span>
-      </button>
-    </div>
+  <div ng-show="location.reviews.length" class="location-detail__reviews">
+    <h3>Reviews</h3>
+    <article
+      ng-repeat="review in location.reviews | orderBy:'time':true | limitTo:reviewLimit"
+      class="review hentry">
+      <header>
+        <h4><a ng-href="{{review.author_url}}">{{review.author_name}}</a></h4>
+        <span ng-bind-html="review.rating | toStars"></span>
+      </header>
+      <div class="entry-content">
+        {{review.text}}
+      </div>
+      <footer>
+        <time datetime="{{review.time + '000'}}" class="published">{{review.time + '000' | date}}</time>
+      </footer>
+    </article>
+    <button
+      ng-click="toggleReviewLimit()"
+      class="btn btn-default btn-block btn-sm">
+      <span ng-show="reviewLimit == 2">More reviews</span>
+      <span ng-hide="reviewLimit == 2">Less reviews</span>
+    </button>
   </div>
-</div><!-- .row -->
+</article><!-- .location-detail.row -->
