@@ -46,5 +46,8 @@
   "scripts": {
     "bowerInstall": "bower install",
     "build": "gulp build"
+  },
+  "dependencies": {
+    "connect-rewrite": "0.0.1"
   }
 }
