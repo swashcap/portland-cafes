@@ -6,7 +6,7 @@
    *
    * @{@link  http://learn.ionicframework.com/formulas/localstorage/#angularjs-service}
    */
-  angular.module('pcStorage', [])
+  angular.module('pcStorage')
     .factory('$localStorage', function () {
       var localStorage = window.localStorage;
 
