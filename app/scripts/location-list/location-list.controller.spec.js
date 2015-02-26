@@ -1,4 +1,4 @@
-/* global describe, it, expect, beforeEach, module, inject */
+/* global module,inject */
 describe('LocationList Controller', function () {
   'use strict';
 
