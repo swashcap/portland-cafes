@@ -43,11 +43,11 @@
     }]);
 
   // Enable HTML5 history
-  // angular.module('portlandcafes')
-  //   .config(['$locationProvider', function ($locationProvider) {
-  //     $locationProvider.html5Mode({
-  //       enabled: true,
-  //       requireBase: false
-  //     });
-  //   }]);
+  angular.module('portlandcafes')
+    .config(['$locationProvider', function ($locationProvider) {
+      $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: true
+      });
+    }]);
 })(window.angular);
