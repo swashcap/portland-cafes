@@ -116,7 +116,12 @@ gulp.task('clean', require('del').bind(null, ['.tmp', 'dist']));
 gulp.task('connect', ['styles', 'injectScripts'], function () {
   var serveStatic = require('serve-static');
   var serveIndex = require('serve-index');
+  var modRewrite = require('connect-modrewrite');
+
   var app = require('connect')()
+    // Use rewriting for non-existent files
+    // http://stackoverflow.com/a/20553608
+    .use(modRewrite(['!\\.html|\\.js|\\.svg|\\.css|\\.png|\\.eot|\\.ttf|\\.woff$ /index.html [L]']))
     .use(require('connect-livereload')({port: 35729}))
     .use(serveStatic('.tmp'))
     .use(serveStatic('app'))
