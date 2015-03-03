@@ -25,7 +25,9 @@ gulp.task('injectScripts', function () {
   var scripts = gulp.src([
     'app/scripts/**/*.js',
     '!app/scripts/**/*spec.js'
-  ]).pipe($.angularFilesort());
+  ])
+    .pipe($.naturalSort())
+    .pipe($.angularFilesort());
 
   return gulp.src('./app/index.html')
     .pipe($.inject(scripts, {relative: true}))
