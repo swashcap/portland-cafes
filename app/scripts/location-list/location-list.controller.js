@@ -106,7 +106,7 @@
           output = 'page/' + page;
         }
 
-        return '#/' + output;
+        return output;
       };
 
       $scope.hideFilter = true;
