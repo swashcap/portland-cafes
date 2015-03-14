@@ -84,11 +84,9 @@
             if (status == google.maps.GeocoderStatus.OK) {
             /*jshint eqeqeq: true */
               if (results[1]) {
-                /*jshint camelcase: false */
-                setAddress(results[1].formatted_address);
+                setAddress(results[1].formatted_address); // jshint ignore:line
 
-                resolve(results[1].formatted_address);
-                /*jshint camelcase: true */
+                resolve(results[1].formatted_address); // jshint ignore:line
               } else {
                 reject('No address found.');
               }

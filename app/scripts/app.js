@@ -15,18 +15,17 @@
             var results = [];
 
             if ('data' in data && Array.isArray(data.data)) {
-              /*jshint camelcase: false */
               results = data.data.map(function (result) {
                 var output = {
-                  address: result.adr_address,
-                  phoneNumber: result.formatted_phone_number,
+                  address: result.adr_address, // jshint ignore:line
+                  phoneNumber: result.formatted_phone_number, // jshint ignore:line
                   coords: {
                     latitude: result.geometry.location.lat,
                     longitude: result.geometry.location.lng
                   },
                   id: result.id,
                   name: result.name,
-                  placeId: result.place_id,
+                  placeId: result.place_id, // jshint ignore:line
                   rating: result.rating,
                   region: result.region,
                   types: result.types,
@@ -35,7 +34,7 @@
                   website: result.website
                 };
 
-                var periods = (((result).opening_hours || {}).periods || []);
+                var periods = (((result).opening_hours || {}).periods || []); // jshint ignore:line
 
                 if (periods.length) {
                   output.isOpen = Hours.isOpen(periods);
@@ -50,7 +49,6 @@
                     output.hours.push(Hours.getHoursByDay(periods, number));
                   });
                 }
-                /*jshint camelcase: true */
 
                 return output;
               });
