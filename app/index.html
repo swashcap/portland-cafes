@@ -176,6 +176,18 @@
       ga('create','UA-57884785-1');ga('require','linkid','linkid.js');ga('send','pageview');
     </script>
 
+    <script>
+      // Set Prerender.io readiness
+      window.prerenderReady = false;
+
+      (function () {
+        var t = setTimeout(function () {
+          window.prerenderReady = true;
+          clearTimeout(t);
+        }, 5000);
+      })();
+    </script>
+
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="../bower_components/jquery/dist/jquery.js"></script>
