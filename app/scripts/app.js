@@ -116,27 +116,5 @@
             Preferences.setStorageTimestamp(now);
           }
         }).catch(errorHandler);
-
-        /**
-         * Handle migration to IndexedDB `region` index.
-         *
-         * @todo Remove this once databases naturally refresh, after 24 hours.
-         */
-        IndexedDB.count('region').then(function (count) {
-          var regions = getRegions();
-
-          if (count === 0) {
-            IndexedDB.getAll().then(function (locations) {
-              locations.forEach(function (location) {
-                location.region = getLocationRegion(location, regions);
-              });
-
-              IndexedDB.put(locations).then(function (transaction) {
-                console.log('Added "region" property to all locations', transaction);
-                $route.reload();
-              }).catch(errorHandler);
-            }).catch(errorHandler);
-          }
-        }).catch(errorHandler);
     }]);
 })(window.angular);
