@@ -18,11 +18,16 @@ require_relative 'coffeeshop/result_parser'
 require_relative 'coffeeshop/api/search'
 require_relative 'coffeeshop/api/details'
 require_relative 'coffeeshop/api/radar'
-require_relative 'coffeeshop/locations/cities'
+require_relative 'coffeeshop/locations/coordinates'
+require_relative 'coffeeshop/locations/cities/portland'
+require_relative 'coffeeshop/locations/regions/portland'
+require_relative 'coffeeshop/locations/helper_methods'
 
 module Coffeeshop
 
+
 	class << self
+	include Locations::Helpers
 
 		def search(params={})
 			@places = Search.new(params).send_query
@@ -48,7 +53,8 @@ module Coffeeshop
 		end
 
 		def jsonified_results
-			@details.to_json
+			@details.merge!(region: get_region(@details["geometry"]["location"].values))
+			results = @details.to_json
 		end
 
 		def remove_unused_detail_properties
