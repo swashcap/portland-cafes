@@ -5,7 +5,7 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
 gulp.task('styles', function () {
-  return $.rubySass('app/styles/main.scss',{
+  return $.rubySass('app/styles/',{
       sourcemap: true,
       style: 'expanded',
       precision: 10
