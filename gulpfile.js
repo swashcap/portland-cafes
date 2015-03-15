@@ -5,15 +5,19 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
 gulp.task('styles', function () {
-  return $.rubySass('app/styles/',{
-      sourcemap: true,
-      style: 'expanded',
-      precision: 10
-    })
-    .on('error', function (err) {
-      console.error('Error!', err.message);
-    })
-    .pipe($.autoprefixer({browsers: ['last 1 version']}))
+  return gulp.src('app/styles/menu.scss')
+    .pipe($.sourcemaps.init())
+    .pipe($.sass({
+      includePaths: ['bower_components'],
+      precision: 10,
+      onError: function (err) {
+        console.error.bind(console, 'Sass error:');
+      }
+    }))
+    .pipe($.postcss([
+      require('autoprefixer-core')({browsers: ['last 1 version']})
+    ]))
+    .pipe($.sourcemaps.write('.tmp/styles'))
     .pipe(gulp.dest('.tmp/styles'));
 });
 
