@@ -12,6 +12,12 @@ desc 'Get radar results'
 task :radar do
 	Coffeeshop.get_radar({})
 	Rake::Task["details"].execute
+	Rake::Task["sitemap"].execute
+end
+
+desc 'Generate sitemap'
+task :sitemap do
+	Coffeeshop.generate_sitemap
 end
 
 desc 'List env vars'
