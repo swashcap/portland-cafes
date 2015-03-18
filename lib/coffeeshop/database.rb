@@ -31,7 +31,12 @@ class Database
 		@db.insert(place_id: place_id)
 	end
 
-	def load_all_places
+	def self.connect
+		self.new
+	end
+
+	def all
+		connect unless @db
 		@db.select(:place_id)
 	end
 
