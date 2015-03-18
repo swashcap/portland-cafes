@@ -6,6 +6,7 @@ require 'byebug'
 require 'json'
 require 'sequel'
 require 'sqlite3'
+require 'nokogiri'
 
 Dotenv.load
 
@@ -22,6 +23,7 @@ require_relative 'coffeeshop/locations/coordinates'
 require_relative 'coffeeshop/locations/cities/portland'
 require_relative 'coffeeshop/locations/regions/portland'
 require_relative 'coffeeshop/locations/helper_methods'
+require_relative 'coffeeshop/sitemap/xml'
 
 module Coffeeshop
 
@@ -45,11 +47,18 @@ module Coffeeshop
 
 		def write_results
 			unless is_undesired_establishment?
-				File.open(@file, 'a+') do |file|
+				File.open("#{@file}/results.json", 'a+') do |file|
 					@details = remove_unused_detail_properties
 					file.write(jsonified_results + ",")
 				end
 			end
+		end
+
+		def generate_sitemap
+			load_place_ids
+			set_options
+			@sitemap = Sitemap::XML.new(@places, @file)
+			@sitemap.save_to_disk
 		end
 
 		def jsonified_results
@@ -80,10 +89,10 @@ module Coffeeshop
 		end
 
 		def wrap_object_in_array
-			contents = File.read(@file)
+			contents = File.read("#{@file}/results.json")
 			# snips trailing comma as well
 			contents = contents.gsub(/\A/,'[').gsub(/,\z/,']')
-			File.open(@file, 'w') { |file| file.puts contents }
+			File.open("#{@file}/results.json", 'w') { |file| file.puts contents }
 		end
 
 		def load_coords
@@ -91,14 +100,19 @@ module Coffeeshop
 		end
 
 		def load_place_ids
-			@db = Database.new.load_all_places
+			connect_to_db unless @db
+			@places = @db.list
+		end
+
+		def connect_to_db
+			@db = Database.connect
 		end
 
 		def set_path
 			if ENV['CURRENT_ENVIRONMENT'] == 'development'
-				File.expand_path('../../app/results.json', __FILE__)
+				File.expand_path('../../app/', __FILE__)
 			elsif ENV['CURRENT_ENVIRONMENT'] == 'production'
-				File.expand_path('/var/www/portlandcafes.com/results.json', __FILE__)
+				File.expand_path('/var/www/portlandcafes.com/', __FILE__)
 			end
 		end
 
@@ -113,8 +127,7 @@ module Coffeeshop
 
 		def get_details params, output=false
 			set_options
-			place_ids = load_place_ids
-			place_ids.each do |place|
+			@places.all.each do |place|
 				details(params.merge!(place_id: place[:place_id]))
 				break if !valid_details_request?
 				write_results if output
