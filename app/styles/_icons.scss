@@ -1,0 +1,289 @@
+@mixin icon {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  position: relative;
+}
+
+.icon-geolocation {
+  @include icon;
+
+  height: 28px;
+  width: 28px;
+
+  &:before,
+  &:after {
+    content: '';
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+  }
+  &:before {
+    border: 4px solid #fff;
+    border-radius: 50%;
+    height: 22px;
+    margin: -11px 0 0 -11px;
+    width: 22px;
+  }
+  .bar-1,
+  .bar-2 {
+    &:before,
+    &:after {
+      background: #fff;
+      border-radius: 1px;
+      content: '';
+      display: block;
+      position: absolute;
+    }
+    &:before {
+      height: 4px;
+      margin-top: -2px;
+      top: 50%;
+      width: 10px;
+    }
+    &:after {
+      height: 10px;
+      left: 50%;
+      margin-left: -2px;
+      width: 4px;
+    }
+  }
+  .bar-1 {
+    &:before {
+      left: 0;
+    }
+    &:after {
+      top: 0;
+    }
+  }
+  .bar-2 {
+    &:before {
+      right: 0;
+
+    }
+    &:after {
+      bottom: 0;
+    }
+  }
+}
+
+.icon-search {
+  @include icon;
+
+  height: 25px;
+  width: 25px;
+
+  &:before,
+  &:after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+  }
+  &:before {
+    border: 4px solid #fff;
+    border-radius: 50%;
+    height: 20px;
+    left: 0;
+    top: 0;
+    width: 20px;
+  }
+  &:after {
+    background: #fff;
+    border-radius: 1px;
+    height: 10px;
+    left: 14px;
+    transform: rotate(-45deg);
+    transform-origin: 50% 0;
+    top: 16px;
+    width: 4px;
+  }
+}
+
+.icon-locations {
+  @include icon;
+
+  height: 36px;
+  width: 36px;
+
+  &:before,
+  &:after,
+  .bar-1:before,
+  .bar-1:after,
+  .bar-2:before,
+  .bar-2:after {
+    background: #fff;
+    border-radius: 1px;
+    content: '';
+    display: inline-block;
+    position: absolute;
+  }
+  &:before,
+  .bar-1:before,
+  .bar-2:before {
+    height: 4px;
+    left: 0;
+    width: 4px;
+  }
+  &:after,
+  .bar-1:after,
+  .bar-2:after {
+    height: 4px;
+    left: 8px;
+    width: 28px;
+  }
+
+  &:before,
+  &:after {
+    top: 8px;
+  }
+  .bar-1:before,
+  .bar-1:after {
+    top: 16px;
+  }
+  .bar-2:before,
+  .bar-2:after {
+    top: 24px;
+  }
+}
+
+.icon-map {
+  @include icon;
+
+  height: 36px;
+  width: 36px;
+
+  &:before,
+  &:after {
+    background: #fff;
+    border-radius: 1px;
+    content: '';
+    display: block;
+    height: 32px;
+    position: absolute;
+    transform: skewY(-20deg);
+    top: 2px;
+    width: 12px;
+  }
+  &:before {
+    left: 0;
+  }
+  &:after {
+    left: 24px;
+    transform: skewY(-20deg);
+  }
+  .area-1 {
+    border-color: #fff;
+    border-style: solid;
+    border-radius: 1px;
+    border-width: 4px 0;
+    display: block;
+    height: 32px;
+    left: 12px;
+    position: absolute;
+    top: 2px;
+    transform: skewY(20deg);
+    width: 14px;
+  }
+}
+
+.icon-regions {
+  @include icon;
+
+  height: 36px;
+  width: 36px;
+
+  &:before,
+  &:after,
+  .dots-1,
+  .dots-1:before,
+  .dots-1:after,
+  .dots-2,
+  .dots-2:before,
+  .dots-2:after {
+    background: #fff;
+    border-radius: 50%;
+    content: '';
+    display: inline-block;
+    height: 8px;
+    position: absolute;
+    width: 8px;
+  }
+  &:before {
+    left: 10px;
+    top: 2px;
+  }
+  &:after {
+    left: 26px;
+    top: 2px;
+  }
+  .dots-1 {
+    left: 2px;
+    top: 10px;
+
+    &:before {
+      left: 16px;
+      top: 0;
+    }
+    &:after {
+      left: 8px;
+      top: 8px;
+    }
+  }
+  .dots-2 {
+    left: 26px;
+    top: 18px;
+
+    &:before {
+      left: -24px;
+      top: 8px;
+    }
+    &:after {
+      left: -8px;
+      top: 8px;
+    }
+  }
+}
+
+.icon-streets {
+  @include icon;
+
+  height: 36px;
+  width: 36px;
+
+  &:before,
+  &:after,
+  .bar-1:before,
+  .bar-1:after {
+    background: #fff;
+    border-radius: 1px;
+    content: '';
+    position: absolute;
+  }
+
+  &:before,
+  &:after {
+    top: 2px;
+    height: 32px;
+    width: 4px;
+  }
+  .bar-1:before,
+  .bar-1:after {
+    height: 4px;
+    left: 2px;
+    width: 32px;
+  }
+
+  &:before {
+    left: 10px;
+  }
+  &:after {
+    left: 22px;
+  }
+  .bar-1:before {
+    top: 10px;
+  }
+  .bar-1:after {
+    top: 22px;
+  }
+}

@@ -37,25 +37,76 @@
 
       <div class="site-menu">
         <div class="site-menu-wrapper">
+          <div class="site-menu-location">
+            <a href="#" title="Edit current location" class="location-toggler">
+              <span class="icon-geolocation" aria-hidden="true">
+                <span class="bar-1"></span>
+                <span class="bar-2"></span>
+              </span>
+              <span class="current-location">SE Morrison &amp; 15th. Avenue</span>
+              <span class="edit">Edit</span>
+            </a>
+            <div class="locations">
+              <button>Use Current Location</button>
+              <ul>
+                <li><a href="#">Downtown</a></li>
+                <li><a href="#">North</a></li>
+                <li><a href="#">Northeast</a></li>
+                <li><a href="#">Northwest</a></li>
+                <li><a href="#">Southeast</a></li>
+                <li><a href="#">Southwest</a></li>
+              </ul>
+            </div>
+          </div>
           <nav class="site-menu-links" role="navigation">
             <ul>
-              <li><a href="#" class="is-active">Locations</a></li>
-              <li><a href="#">Map</a></li>
-              <li><a href="#">Regions</a></li>
-              <li><a href="#">Streets</a></li>
+              <li>
+                <a href="#" class="is-active">
+                  <span class="icon-locations" aria-hidden="true">
+                    <span class="bar-1"></span>
+                    <span class="bar-2"></span>
+                  </span>
+                  Locations
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span class="icon-map" aria-hidden="true">
+                    <span class="area-1"></span>
+                  </span>
+                  Map
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span class="icon-regions" aria-hidden="true">
+                    <span class="dots-1"></span>
+                    <span class="dots-2"></span>
+                  </span>
+                  Regions
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span class="icon-streets" aria-hidden="true">
+                    <span class="bar-1"></span>
+                  </span>
+                  Streets
+                </a>
+              </li>
             </ul>
           </nav>
 
-          <form class="site-menu-search" role="search">
+          <form class="search-form" role="search">
             <label class="sr-only">Search:</label>
-            <input type="search" role="Search…">
+            <input type="search" placeholder="Search…">
             <button class="search-toggler" type="reset">Cancel Search</button>
           </form>
 
-          <div class="site-menu-footer">
-            <button class="search-toggler">Search</button>
-            <a href="#" class="location-toggler">SE Hawthorne &amp; 44th</a>
-          </div>
+          <button class="search-thingy search-toggler">
+            <span class="icon-search"></span>
+            Search
+          </button>
         </div>
       </div><!-- .site-menu -->
 
@@ -70,9 +121,12 @@
     </div><!-- .site -->
 
     <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/fastclick/lib/fastclick.js"></script>
     <script>
       (function ($) {
         'use strict';
+
+        FastClick.attach(document.body);
 
         var $site = $('.site');
         var $menuTogglers = $('.menu-toggler, .site-menu-trigger');
@@ -92,10 +146,12 @@
             $menu.removeClass('is-search');
           }
         });
+
         $('.location-toggler').click(function (e) {
+          e.preventDefault();
+
           $menu.toggleClass('is-location');
         });
-
       })(jQuery);
     </script>
   </body>
