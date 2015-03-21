@@ -8,7 +8,8 @@
     "angular-route": "~1.3.8",
     "angular-sanitize": "~1.3.8",
     "idbwrapper": "~1.4.1",
-    "Geolib": "git://github.com/manuelbieh/Geolib#e45b97"
+    "Geolib": "git://github.com/manuelbieh/Geolib#e45b97",
+    "fastclick": "~1.0.6"
   },
   "overrides": {
     "bootstrap-sass-official": {
