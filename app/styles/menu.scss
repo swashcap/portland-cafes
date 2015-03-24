@@ -8,7 +8,8 @@
 }
 
 html {
-  font-family: 'Avenir Next', sans-serif;
+  font-family: sans-serif;
+  line-height: 1.4;
 }
 
 @import 'icons';
@@ -148,7 +149,7 @@ html {
 
 .site-menu-location {
   border-bottom: thin solid #666;
-  transition: opacity 250ms, transform 250ms;
+  transition: opacity 250ms, transform 250ms, visibility 0 250ms;
 
   > a {
     color: #fff;
@@ -156,15 +157,6 @@ html {
     padding: .75em 3em .75em 3em;
     position: relative;
     text-decoration: none;
-
-    &:focus,
-    &:hover {
-      color: red;
-
-      .edit {
-        background: red;
-      }
-    }
   }
   .icon-geolocation {
     position: absolute;
@@ -317,6 +309,8 @@ html {
   .site-menu-links {
     opacity: 0;
     transform: translateY(200px);
+    transition: opacity 125ms, transform 125ms, visibility 0 125ms;
+    visibility: hidden;
   }
   .search-form {
     transform: translateY(0);
@@ -324,10 +318,11 @@ html {
 }
 
 .is-location {
-  /** @todo  This is still clickable. */
   .site-menu-links {
     opacity: 0;
     transform: translateY(200px);
+    transition: opacity 125ms, transform 125ms, visibility 0 125ms;
+    visibility: hidden;
   }
   .locations {
     max-height: 20em;
