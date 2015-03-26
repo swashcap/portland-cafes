@@ -11,7 +11,7 @@ gulp.task('styles', function () {
       includePaths: ['bower_components'],
       precision: 10,
       onError: function (err) {
-        console.error.bind(console, 'Sass error:');
+        console.error('Sass error:', err);
       }
     }))
     .pipe($.postcss([
