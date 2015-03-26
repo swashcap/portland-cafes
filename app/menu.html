@@ -37,6 +37,15 @@
 
       <div class="site-menu">
         <div class="site-menu-wrapper">
+          <div class="site-menu-header">
+            <a href="/" rel="home">Portland Cafés</a>
+
+            <button class="search-thingy search-toggler">
+              <span class="icon-search"></span>
+              Search
+            </button>
+          </div><!-- .site-menu-header -->
+
           <div class="site-menu-location">
             <a href="#" title="Edit current location" class="location-toggler">
               <span class="icon-geolocation" aria-hidden="true">
@@ -45,16 +54,47 @@
               </span>
               <span class="current-location">SE Morrison &amp; 15th. Avenue</span>
               <span class="edit">Edit</span>
+              <span class="icon-cancel"></span>
             </a>
             <div class="locations">
               <button>Use Current Location</button>
               <ul>
-                <li><a href="#">Downtown</a></li>
-                <li><a href="#">North</a></li>
-                <li><a href="#">Northeast</a></li>
-                <li><a href="#">Northwest</a></li>
-                <li><a href="#">Southeast</a></li>
-                <li><a href="#">Southwest</a></li>
+                <li>
+                  <a href="#">
+                    <span class="icon-downtown"></span>
+                    Downtown
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span class="icon-north"></span>
+                    North
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span class="icon-northeast"></span>
+                    Northeast
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span class="icon-northwest"></span>
+                    Northwest
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span class="icon-southeast"></span>
+                    Southeast
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span class="icon-southwest"></span>
+                    Southwest
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -100,13 +140,11 @@
           <form class="search-form" role="search">
             <label class="sr-only">Search:</label>
             <input type="search" placeholder="Search…">
-            <button class="search-toggler" type="reset">Cancel Search</button>
+            <button class="search-toggler" type="reset">
+              <span class="icon-cancel"></span>
+              Cancel Search
+            </button>
           </form>
-
-          <button class="search-thingy search-toggler">
-            <span class="icon-search"></span>
-            Search
-          </button>
         </div>
       </div><!-- .site-menu -->
 

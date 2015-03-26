@@ -33,36 +33,6 @@ html {
   }
 }
 
-// State
-.is-menu {
-  .site-menu {
-    transform: translateX(0);
-  }
-
-  .site-guard {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .menu-toggler {
-    background: none;
-
-    span {
-      background: #fff;
-    }
-
-    span:nth-of-type(1) {
-      transform: rotate(45deg);
-    }
-    span:nth-of-type(2) {
-      opacity: 0;
-    }
-    span:nth-of-type(3) {
-      transform: rotate(-45deg);
-    }
-  }
-}
-
 /* ==========================================================================
    Menu
    ========================================================================== */
@@ -89,6 +59,64 @@ html {
   position: relative;
   z-index: 2;
 }
+
+/**
+ * Menu header.
+ */
+.site-menu-header {
+  @include clearfix;
+
+  padding: 0 50px 0;
+  position: relative;
+  text-align: center;
+
+  a[rel='home'] {
+    color: #666;
+    display: block;
+    line-height: 60px;
+    font-weight: 700;
+    text-decoration: none;
+
+    &:focus,
+    &:hover,
+    &:active {
+      color: #fff;
+    }
+  }
+  button {
+    left: 0;
+    position: absolute;
+    top: 0;
+  }
+}
+
+/** @todo  Rename this guy */
+.search-thingy {
+  background: none;
+  border: 0;
+  font-size: 0;
+  line-height: 0;
+  outline: none;
+  padding: 1.05rem .5rem .75rem;
+  vertical-align: top;
+  width: 44px;
+
+
+  .icon-search {
+    &:before {
+      border-color: #808080;
+      transition: border-color 125ms;
+    }
+    &:after {
+      background: #808080;
+      transition: background 125ms;
+    }
+  }
+}
+
+/**
+ * Link.
+ */
 .site-menu-links {
   transition: opacity 125ms, transform 125ms;
 
@@ -144,28 +172,47 @@ html {
   }
 }
 
-/* Menu Location
-   ========================================================================== */
+/**
+ * Menu Location.
+ */
 
 .site-menu-location {
-  border-bottom: thin solid #666;
-  transition: opacity 250ms, transform 250ms, visibility 0 250ms;
+  border-color: #666;
+  border-style: solid;
+  border-width: thin 0;
+  position: relative;
+  transition: opacity 125ms, transform 125ms;
+  width: 100%;
 
   > a {
     color: #fff;
     display: block;
-    padding: .75em 3em .75em 3em;
+    padding: 0 3em;
     position: relative;
     text-decoration: none;
   }
   .icon-geolocation {
     position: absolute;
     left: .5em;
-    top: .8em;
+    top: 1em;
+
+    &:before {
+      border-color: #808080;
+      transition: border-color 125ms;
+    }
+    .bar-1,
+    .bar-2 {
+      &:before,
+      &:after {
+        background: #808080;
+        transition: background 125ms;
+      }
+    }
   }
   .current-location {
     display: inline-block;
     font-size: 14px;
+    line-height: 60px;
     overflow: hidden;
     mask-image:
       linear-gradient(
@@ -173,7 +220,7 @@ html {
         rgba(0, 0, 0, 0) .5em,
         rgba(0, 0, 0, 1) 1.5em
       );
-    padding: .333em 0 0;
+    vertical-align: top;
     white-space: nowrap;
     width: 100%;
   }
@@ -189,67 +236,17 @@ html {
     padding: .4em .6em;
     position: absolute;
     right: 1em;
-    top: 1.8em;
+    top: 2.1em;
     text-transform: uppercase;
+    transition: transform 125ms;
     vertical-align: .25em;
   }
-}
-
-/* Search Form
-   ========================================================================== */
-
-.search-thingy {
-  background: none;
-  border: 0;
-  bottom: 6px;
-  font-size: 0;
-  height: 44px;
-  left: 6px;
-  line-height: 0;
-  padding: 9px 9px 10px 10px;
-  position: absolute;
-  vertical-align: top;
-  width: 44px;
-}
-
-// Footer
-.site-menu-footer {
-  position: relative;
-
-  .search-toggler {
-    background: url(../images/search.png) no-repeat 50% 50%;
-    background-size: 32px auto;
-    border: none;
-    display: block;
-    font-size: 0;
-    height: 44px;
-    line-height: 0;
-    padding: 0;
+  .icon-cancel {
     position: absolute;
-    right: 0;
-    top: 0;
-    vertical-align: top;
-    width: 44px;
-  }
-
-  a {
-    color: #fff;
-    display: block;
-    text-decoration: none;
-    height: 44px;
-    font-size: 14px;
-    line-height: 1;
-    padding: 15px 44px 15px 0;
-
-    &:after {
-      border-color: #999 transparent transparent;
-      border-style: solid;
-      border-width: 6px 5px 0;
-      content: '';
-      display: inline-block;
-      margin-left: 4px;
-      vertical-align: 1px;
-    }
+    right: 1.15rem;
+    top: 1.2rem;
+    transform: translateX(2.5rem);
+    transition: transform 125ms;
   }
 }
 
@@ -272,13 +269,13 @@ html {
   background: #fff;
   border: none;
   border-radius: 50%;
-  bottom: 6px;
   cursor: pointer;
   font-size: 0;
   height: 44px;
   line-height: 0;
   position: fixed;
   right: 6px;
+  top: 6px;
   width: 44px;
   z-index: 3;
 
@@ -302,8 +299,45 @@ html {
   }
 }
 
-// State
+/* ==========================================================================
+   State
+   ========================================================================== */
 
+/**
+ * Menu open.
+ */
+.is-menu {
+  .site-menu {
+    transform: translateX(0);
+  }
+
+  .site-guard {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .menu-toggler {
+    background: none;
+
+    span {
+      background: #fff;
+    }
+
+    span:nth-of-type(1) {
+      transform: rotate(45deg);
+    }
+    span:nth-of-type(2) {
+      opacity: 0;
+    }
+    span:nth-of-type(3) {
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+/**
+ * Menu search.
+ */
 .is-search {
   .site-menu-location,
   .site-menu-links {
@@ -315,8 +349,19 @@ html {
   .search-form {
     transform: translateY(0);
   }
+  .search-thingy .icon-search {
+    &:before {
+      border-color: #fff;
+    }
+    &:after {
+      background: #fff;
+    }
+  }
 }
 
+/**
+ * Menu location.
+ */
 .is-location {
   .site-menu-links {
     opacity: 0;
@@ -324,29 +369,27 @@ html {
     transition: opacity 125ms, transform 125ms, visibility 0 125ms;
     visibility: hidden;
   }
+
+  .icon-geolocation {
+    &:before {
+      border-color: #fff;
+    }
+    .bar-1,
+    .bar-2 {
+      &:before,
+      &:after {
+        background: #fff;
+      }
+    }
+  }
+
   .locations {
-    max-height: 20em;
+    max-height: 30em;
   }
   .edit {
-    background: none;
-    color: transparent;
-
-    &:before,
-    &:after {
-      background: #fff;
-      content: '';
-      display: block;
-      height: 4px;
-      left: 0;
-      width: 20px;
-      position: absolute;
-      top: 0;
-    }
-    &:before {
-      transform: rotate(45deg);
-    }
-    &:after {
-      transform: rotate(-45deg);
-    }
+    transform: translateX(3rem);
+  }
+  .icon-cancel {
+    transform: translateX(0);
   }
 }
