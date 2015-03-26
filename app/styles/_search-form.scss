@@ -30,6 +30,7 @@
     font-size: 0;
     height: 60px;
     line-height: 0;
+    outline: 0;
     padding: 0;
     position: absolute;
     right: 0;
@@ -37,3 +38,58 @@
     width: 60px;
   }
 }
+
+/* Results
+   ========================================================================== */
+
+.search-form__results {
+  display: none;
+
+  .is-search & {
+    display: block;
+  }
+
+  a {
+    border-bottom: thin solid #666;
+    color: #fff;
+    display: block;
+    padding: .6em 1.125em;
+    text-decoration: none;
+
+    &:focus,
+    &:hover {
+      background: #fff;
+      color: #000;
+    }
+  }
+  .name {
+    display: inline-block;
+    float: left;
+  }
+  .distance {
+    float: right;
+    font-size: 87.5%;
+    display: inline-block;
+    opacity: .6;
+    padding-top: .15em;
+  }
+  .street {
+    clear: both;
+    display: block;
+    font-size: 87.5%;
+    mask-image:
+      linear-gradient(
+        to left,
+        rgba(0, 0, 0, 0) .5em,
+        rgba(0, 0, 0, 1) 1.5em
+      );
+    opacity: .333;
+    padding: .15em 0 0;
+    width: 100%;
+    white-space: nowrap;
+  }
+  .hours {
+
+  }
+}
+
