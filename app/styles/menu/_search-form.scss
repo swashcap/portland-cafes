@@ -7,6 +7,10 @@
   width: 100%;
   z-index: 100;
 
+  @media (min-width: $screen-sm) {
+    background: rgba(12, 12, 12, .94);
+  }
+
   label {
     display: none;
   }

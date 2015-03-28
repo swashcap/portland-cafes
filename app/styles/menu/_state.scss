@@ -1,0 +1,160 @@
+/* ==========================================================================
+   State
+   ========================================================================== */
+
+/* Menu
+   ========================================================================== */
+
+.is-menu {
+  .menu {
+    transform: translateX(0);
+  }
+
+  .site__guard {
+    opacity: 1;
+    visibility: visible;
+
+    @media (min-width: $screen-sm) {
+      visibility: hidden;
+    }
+  }
+
+  .site__menu-toggler {
+    background: none;
+
+    span {
+      background: #fff;
+    }
+
+    span:nth-of-type(1) {
+      transform: rotate(45deg);
+    }
+    span:nth-of-type(2) {
+      opacity: 0;
+    }
+    span:nth-of-type(3) {
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+/* Search
+   ========================================================================== */
+
+.is-search {
+  .locations,
+  .menu__links {
+    opacity: 0;
+    transform: translateY(200px);
+    transition: opacity 125ms, transform 125ms, visibility 0 125ms;
+    visibility: hidden;
+
+    @media (min-width: $screen-sm) {
+      opacity: 1;
+      transition: none;
+      visibility: visible;
+    }
+  }
+  @media (min-width: $screen-sm) {
+    .locations {
+      transform: translateX(13em);
+    }
+    .menu__links {
+      transform: none;
+    }
+  }
+  .search-form {
+    transform: translateY(0);
+  }
+  .menu__header__search .icon-search {
+    &:before {
+      border-color: #fff;
+    }
+    &:after {
+      background: #fff;
+    }
+
+    @media (min-width: $screen-sm) {
+      &:before {
+        border-color: #333;
+      }
+      &:after {
+        background: #333;
+      }
+    }
+  }
+
+  @media (min-width: $screen-sm) {
+    .site__guard {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+/* Location
+   ========================================================================== */
+
+.is-location {
+  .menu__links {
+    opacity: 0;
+    transform: translateY(200px);
+    transition: opacity 125ms, transform 125ms, visibility 0 125ms;
+    visibility: hidden;
+
+    @media (min-width: $screen-sm) {
+      opacity: 1;
+      transform: none;
+      transition: none;
+      visibility: visible;
+    }
+  }
+  .locations__toggler {
+    .icon-geolocation {
+      &:before {
+        border-color: #fff;
+      }
+      .bar-1,
+      .bar-2 {
+        &:before,
+        &:after {
+          background: #fff;
+        }
+      }
+    }
+    .edit {
+      transform: translateX(3rem);
+    }
+    .icon-cancel {
+      transform: translateX(0);
+    }
+  }
+  .locations__controls {
+    max-height: 30em;
+
+    @media (min-width: $screen-sm) {
+      max-height: none;
+      opacity: 1;
+      transition: opacity 125ms;
+      visibility: visible;
+    }
+  }
+
+  @media (min-width: $screen-sm) {
+    .locations {
+      transform: translateX(0);
+    }
+    .locations__toggler {
+      background: rgba(12, 12, 12, .94);
+      color: #fff;
+    }
+    .locations__controls {
+      transform: translateX(0);
+    }
+
+    .site__guard {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}

@@ -1,0 +1,206 @@
+/* ==========================================================================
+   Menu
+   ========================================================================== */
+
+.menu {
+  height: 100%;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: transform 125ms;
+  transform: translateX(100%);
+  width: 100%;
+  z-index: 2;
+
+  @media (min-width: 320px) {
+    padding: 0 0 0 56px;
+  }
+  @media (min-width: $screen-sm) {
+    height: auto;
+    padding: 0;
+    position: relative;
+    transform: none;
+    transition: none;
+  }
+}
+
+.menu__wrapper {
+  background: #222;
+  background: rgba(12, 12, 12, .94);
+  color: #ccc;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+
+  @media (min-width: $screen-sm) {
+    background: #f3f3f3;
+    color: #666;
+  }
+}
+
+.menu__header {
+  @include clearfix;
+
+  padding: 0 50px;
+  position: relative;
+  text-align: center;
+
+  @media (min-width: $screen-sm) {
+    float: left;
+    padding: 0;
+    position: static;
+  }
+
+  a[rel='home'] {
+    color: #666;
+    display: block;
+    line-height: 60px;
+    font-weight: 700;
+    text-decoration: none;
+
+    &:focus,
+    &:hover,
+    &:active {
+      color: #fff;
+    }
+
+    @media (min-width: $screen-sm) {
+      color: #333;
+      padding: 0 .5em;
+
+      &:focus,
+      &:hover,
+      &:active {
+        color: #000;
+      }
+    }
+  }
+}
+
+.menu__header__search {
+  background: none;
+  border: 0;
+  font-size: 0;
+  left: 0;
+  line-height: 0;
+  outline: none;
+  padding: 1.05rem .5rem .75rem;
+  position: absolute;
+  top: 0;
+  vertical-align: top;
+  width: 44px;
+
+  @media (min-width: $screen-sm) {
+    height: 60px;
+    left: auto;
+    right: 60px;
+    padding: 0;
+    width: 60px;
+  }
+  @media (min-width: $screen-md) {
+    right: 18rem;
+  }
+
+  .icon-search {
+    &:before {
+      border-color: #808080;
+      transition: border-color 125ms;
+    }
+    &:after {
+      background: #808080;
+      transition: background 125ms;
+    }
+  }
+}
+
+/* Links
+   ========================================================================== */
+
+.menu__links {
+  transition: opacity 125ms, transform 125ms;
+
+  ul {
+    @include clearfix;
+
+    list-style: none;
+    margin: 0;
+    padding: .625em 0 0;
+    text-align: center;
+
+    @media (min-width: $screen-sm) {
+      padding-top: 0;
+    }
+  }
+  li {
+    float: left;
+    width: 50%;
+
+    &:nth-of-type(odd) {
+      clear: left;
+    }
+
+    @media (min-width: $screen-sm) {
+      width: auto;
+
+      &:nth-of-type(odd) {
+        clear: none;
+      }
+    }
+  }
+  a {
+    color: #ccc;
+    display: block;
+    font-weight: 700;
+    line-height: 1.1;
+    padding: 1.25em 0;
+    text-decoration: none;
+
+    &:focus,
+    &:hover,
+    &:active {
+      color: #fff;
+
+      span[class*='icon'] {
+        opacity: .5;
+      }
+    }
+    span[class*='icon'] {
+      margin-bottom: .75em;
+      opacity: .25;
+
+      @media (min-width: $screen-sm) {
+        display: none;
+      }
+    }
+
+    @media (min-width: $screen-sm) {
+      color: #666;
+      line-height: 60px;
+      padding: 0 .5em;
+
+      &:focus,
+      &:hover,
+      &:active {
+        color: #000;
+      }
+    }
+  }
+
+  /** 'Active' state */
+  .is-active {
+    color: #fff;
+
+    &,
+    &:focus,
+    &:hover,
+    &:active {
+      span[class*='icon'] {
+        opacity: 1;
+      }
+    }
+
+    @media (min-width: $screen-sm) {
+      color: #000;
+    }
+  }
+}

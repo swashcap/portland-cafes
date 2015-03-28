@@ -1,0 +1,78 @@
+/* ==========================================================================
+   Site
+   ========================================================================== */
+
+.site {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.site__content {
+  height: 100%;
+  left: 0;
+  top: 0;
+  width: 100%;
+
+  main {
+    padding: 0 20px;
+  }
+}
+
+/* Guard
+   ========================================================================== */
+
+.site__guard {
+  background: rgba(0, 0, 0, .25);
+  display: block;
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  position: fixed;
+  transition: opacity 125ms;
+  top: 0;
+  visibility: hidden;
+  width: 100%;
+  z-index: 1;
+}
+
+/* Menu Toggler
+   ========================================================================== */
+
+.site__menu-toggler {
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0;
+  height: 44px;
+  line-height: 0;
+  position: fixed;
+  right: 6px;
+  top: 6px;
+  width: 44px;
+  z-index: 3;
+
+  @media (min-width: $screen-sm) {
+    display: none;
+  }
+
+  span {
+    background: #333;
+    border-radius: 1px;
+    display: inline-block;
+    height: 4px;
+    left: 11px;
+    position: absolute;
+    transition: opacity 125ms, transform 125ms;
+    top: 20px;
+    width: 22px;
+
+    &:nth-of-type(1) {
+      transform: translateY(-7px);
+    }
+    &:nth-of-type(3) {
+      transform: translateY(7px);
+    }
+  }
+}
