@@ -52,6 +52,9 @@
     padding: 0;
     position: static;
   }
+  @media (min-width: $screen-md) {
+    float: none;
+  }
 
   a[rel='home'] {
     color: #666;
@@ -76,6 +79,12 @@
         color: #000;
       }
     }
+    @media (min-width: $screen-md) {
+      left: 0;
+      line-height: 80px;
+      top: 0;
+      position: absolute;
+    }
   }
 }
 
@@ -96,21 +105,39 @@
     height: 60px;
     left: auto;
     right: 60px;
+    opacity: .25;
     padding: 0;
     width: 60px;
+
+    &:focus,
+    &:hover {
+      opacity: .5;
+
+    }
   }
   @media (min-width: $screen-md) {
+    height: 80px;
+  }
+  @media (min-width: $screen-lg) {
     right: 18rem;
   }
 
   .icon-search {
     &:before {
-      border-color: #808080;
+      border-color: #fff;
       transition: border-color 125ms;
+
+      @media (min-width: $screen-sm) {
+        border-color: #000;
+      }
     }
     &:after {
-      background: #808080;
+      background: #fff;
       transition: background 125ms;
+
+      @media (min-width: $screen-sm) {
+        background: #000;
+      }
     }
   }
 }
@@ -122,8 +149,6 @@
   transition: opacity 125ms, transform 125ms;
 
   @media (min-width: $screen-sm) {
-    float: left;
-    padding-left: .5em;
     transition: none;
   }
 
@@ -137,6 +162,14 @@
 
     @media (min-width: $screen-sm) {
       padding-top: 0;
+      font-size: 0;
+      text-align: left;
+    }
+    @media (min-width: $screen-md) {
+      text-align: center;
+    }
+    @media (min-width: $screen-lg) {
+      padding-right: 11rem;
     }
   }
   li {
@@ -148,11 +181,9 @@
     }
 
     @media (min-width: $screen-sm) {
+      float: none;
+      display: inline-block;
       width: auto;
-
-      &:nth-of-type(odd) {
-        clear: none;
-      }
     }
   }
   a {
@@ -183,14 +214,22 @@
 
     @media (min-width: $screen-sm) {
       color: #666;
+      display: inline-block;
+      font-size: 1rem;
       line-height: 60px;
-      padding: 0 .5em;
+      padding: 0 .75em;
 
       &:focus,
       &:hover,
       &:active {
         color: #000;
       }
+    }
+    @media (min-width: 650px) {
+      padding: 0 1em;
+    }
+    @media (min-width: $screen-md) {
+      line-height: 80px;
     }
   }
 

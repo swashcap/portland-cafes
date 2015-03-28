@@ -62,6 +62,15 @@
     .menu__links {
       transform: none;
     }
+    .site__guard {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  @media (min-width: $screen-md) {
+    .locations {
+      transform: none;
+    }
   }
 
   .search-form {
@@ -88,13 +97,6 @@
       &:after {
         background: #333;
       }
-    }
-  }
-
-  @media (min-width: $screen-sm) {
-    .site__guard {
-      opacity: 1;
-      visibility: visible;
     }
   }
 }
@@ -131,6 +133,10 @@
     }
     .edit {
       transform: translateX(3rem);
+
+      @media (min-width: $screen-lg) {
+        transform: translateX(3.5rem)
+      }
     }
     .icon-cancel {
       transform: translateX(0);
