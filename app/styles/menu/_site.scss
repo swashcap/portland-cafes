@@ -7,13 +7,14 @@
   overflow: hidden;
   position: relative;
   width: 100%;
+
+  @media (min-width: $screen-sm) {
+    height: auto;
+    position: static;
+    width: auto;
+  }
 }
 .site__content {
-  height: 100%;
-  left: 0;
-  top: 0;
-  width: 100%;
-
   main {
     padding: 0 20px;
   }

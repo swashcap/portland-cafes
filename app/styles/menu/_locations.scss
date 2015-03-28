@@ -15,7 +15,7 @@
     position: absolute;
     right: 0;
     top: 0;
-    transform: translateX(15em);
+    transform: translateX(14.25em);
     transition: transform 125ms;
     width: 18em;
   }
@@ -34,6 +34,7 @@
 
   @media (min-width: $screen-sm) {
     color: #333;
+    padding-left: 60px;
   }
 
   .icon-geolocation {
@@ -52,6 +53,10 @@
         background: #808080;
         transition: background 125ms;
       }
+    }
+
+    @media (min-width: $screen-sm) {
+      left: 1em;
     }
   }
   .current-location {

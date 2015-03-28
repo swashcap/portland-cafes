@@ -57,15 +57,22 @@
   }
   @media (min-width: $screen-sm) {
     .locations {
-      transform: translateX(13em);
+      transform: translateX(14.25em);
     }
     .menu__links {
       transform: none;
     }
   }
+
   .search-form {
-    transform: translateY(0);
+    transform: none;
+    visibility: visible;
+
+    @media (min-width: $screen-sm) {
+      display: block;
+    }
   }
+
   .menu__header__search .icon-search {
     &:before {
       border-color: #fff;

@@ -1,16 +1,33 @@
+/* ==========================================================================
+   Search Form
+   ========================================================================== */
+
 .search-form {
+  bottom: 0;
   left: 0;
   position: absolute;
   top: 60px;
   transform: translateY(-120px);
-  transition: transform 200ms;
+  transition: transform 125ms;
+  visibility: hidden;
   width: 100%;
   z-index: 100;
 
   @media (min-width: $screen-sm) {
     background: rgba(12, 12, 12, .94);
+    bottom: auto;
+    display: none;
+    height: 32em;
+    left: auto;
+    right: 0;
+    top: 0;
+    width: 18em;
   }
 
+  form {
+    position: relative;
+    z-index: 2;
+  }
   label {
     display: none;
   }
@@ -47,11 +64,14 @@
    ========================================================================== */
 
 .search-form__results {
-  display: none;
-
-  .is-search & {
-    display: block;
-  }
+  bottom: 0;
+  left: 0;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  position: absolute;
+  top: 60px;
+  width: 100%;
+  z-index: 1;
 
   a {
     border-bottom: thin solid #666;
