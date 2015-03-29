@@ -10,15 +10,6 @@
     transform: translateX(0);
   }
 
-  .site__guard {
-    opacity: 1;
-    visibility: visible;
-
-    @media (min-width: $screen-sm) {
-      visibility: hidden;
-    }
-  }
-
   .site__menu-toggler {
     background: none;
 
@@ -46,7 +37,7 @@
   .menu__links {
     opacity: 0;
     transform: translateY(200px);
-    transition: opacity 125ms, transform 125ms, visibility 0 125ms;
+    transition: opacity $transition-duration, transform $transition-duration, visibility 0 $transition-duration;
     visibility: hidden;
 
     @media (min-width: $screen-sm) {
@@ -61,10 +52,6 @@
     }
     .menu__links {
       transform: none;
-    }
-    .site__guard {
-      opacity: 1;
-      visibility: visible;
     }
   }
   @media (min-width: $screen-md) {
@@ -108,7 +95,7 @@
   .menu__links {
     opacity: 0;
     transform: translateY(200px);
-    transition: opacity 125ms, transform 125ms, visibility 0 125ms;
+    transition: opacity $transition-duration, transform $transition-duration, visibility 0 $transition-duration;
     visibility: hidden;
 
     @media (min-width: $screen-sm) {
@@ -142,19 +129,10 @@
       transform: translateX(0);
     }
   }
-  .locations__controls {
-    max-height: 30em;
-
-    @media (min-width: $screen-sm) {
-      max-height: none;
-      opacity: 1;
-      transition: opacity 125ms;
-      visibility: visible;
-    }
-  }
 
   @media (min-width: $screen-sm) {
     .locations {
+      display: block;
       transform: translateX(0);
     }
     .locations__toggler {
@@ -162,12 +140,13 @@
       color: #fff;
     }
     .locations__controls {
-      transform: translateX(0);
+      max-height: none;
+      transform: none;
     }
-
-    .site__guard {
-      opacity: 1;
-      visibility: visible;
+  }
+  @media (min-width: $screen-lg) {
+    .locations__controls {
+      display: block;
     }
   }
 }

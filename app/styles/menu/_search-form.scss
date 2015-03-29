@@ -8,7 +8,7 @@
   position: absolute;
   top: 60px;
   transform: translateY(-120px);
-  transition: transform 125ms;
+  transition: transform $transition-duration;
   visibility: hidden;
   width: 100%;
   z-index: 100;

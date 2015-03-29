@@ -10,8 +10,8 @@
 
   @media (min-width: $screen-sm) {
     height: auto;
-    overflow: visible;
     position: static;
+    overflow: visible;
     width: auto;
   }
 }
@@ -31,11 +31,39 @@
   left: 0;
   opacity: 0;
   position: fixed;
-  transition: opacity 125ms;
+  transition: opacity $transition-duration, visibility 0 $transition-duration;
   top: 0;
   visibility: hidden;
   width: 100%;
   z-index: 1;
+}
+
+/**
+ * Guard state.
+ *
+ * @todo  Figure out a better location for these rules
+ */
+.is-menu,
+.is-search,
+.is-location {
+  .site__guard {
+    opacity: 1;
+    transition: opacity $transition-duration;
+    visibility: visible;
+  }
+}
+@media (min-width: $screen-sm) {
+  .is-menu .site__guard {
+    visibility: hidden;
+  }
+  .is-search,
+  .is-location {
+    .site__guard {
+      opacity: 1;
+      transition: opacity $transition-duration;
+      visibility: visible;
+    }
+  }
 }
 
 /* Menu Toggler
@@ -66,7 +94,7 @@
     height: 4px;
     left: 11px;
     position: absolute;
-    transition: opacity 125ms, transform 125ms;
+    transition: opacity $transition-duration, transform $transition-duration;
     top: 20px;
     width: 22px;
 

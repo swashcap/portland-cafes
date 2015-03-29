@@ -7,21 +7,20 @@
   border-style: solid;
   border-width: thin 0;
   position: relative;
-  transition: opacity 125ms, transform 125ms;
+  transition: opacity $transition-duration, transform $transition-duration;
   width: 100%;
 
   @media (min-width: $screen-sm) {
     border: none;
+    display: none;
     position: absolute;
     right: 0;
     top: 0;
-    transform: translateX(14.25em);
-    transition: transform 125ms;
+    transition: none;
     width: 18em;
   }
   @media (min-width: $screen-lg) {
-    transform: none;
-    transition: none;
+    display: block;
   }
 }
 
@@ -34,7 +33,7 @@
 
   @media (min-width: $screen-sm) {
     color: #666;
-    overflow-x: hidden;
+    overflow: hidden;
     padding-left: 60px;
 
     &:focus,
@@ -58,7 +57,7 @@
 
     &:before {
       border-color: #808080;
-      transition: border-color 125ms;
+      transition: border-color $transition-duration;
 
       @media (min-width: $screen-sm) {
         border-color: #000;
@@ -69,7 +68,7 @@
       &:before,
       &:after {
         background: #808080;
-        transition: background 125ms;
+        transition: background $transition-duration;
 
         @media (min-width: $screen-sm) {
           background: #000;
@@ -118,7 +117,7 @@
     right: 1em;
     top: 2.1em;
     text-transform: uppercase;
-    transition: transform 125ms;
+    transition: transform $transition-duration;
     vertical-align: .25em;
 
     @media (min-width: $screen-lg) {
@@ -132,7 +131,7 @@
     right: 1.15rem;
     top: 1.2rem;
     transform: translateX(2.5rem);
-    transition: transform 125ms;
+    transition: transform $transition-duration;
 
     @media (min-width: $screen-md) {
       top: 1.8rem;
@@ -151,7 +150,7 @@
   left: 0;
   overflow: hidden;
   text-align: center;
-  transition: max-height 125ms;
+  transition: max-height $transition-duration;
   position: absolute;
   top: 60px;
   width: 100%;
@@ -160,16 +159,15 @@
     background: rgba(12, 12, 12, .94);
     left: auto;
     max-height: none;
-    opacity: 0;
     padding: 1em .5em;
     right: 0;
-    transition: opacity 125ms, visibility 0 125ms;
-    visibility: hidden;
+    transition: opacity $transition-duration, visibility 0 $transition-duration;
   }
   @media (min-width: $screen-md) {
     top: 80px;
   }
   @media (min-width: $screen-lg) {
+    display: none;
     padding: .5em 1em 1em;
   }
 
