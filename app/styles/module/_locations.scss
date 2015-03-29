@@ -17,7 +17,7 @@
     right: 0;
     top: 0;
     transition: none;
-    width: 18em;
+    width: 288px;
   }
   @media (min-width: $screen-lg) {
     display: block;
@@ -29,10 +29,17 @@
   display: block;
   padding: 0 3em;
   position: relative;
+  text-align: center;
   text-decoration: none;
 
+  &:focus,
+  &:hover,
+  &:active {
+    color: #fff;
+  }
+
   @media (min-width: $screen-sm) {
-    color: #666;
+    color: $gray-light;
     overflow: hidden;
     padding-left: 60px;
 
@@ -51,14 +58,13 @@
   }
 
   .icon-geolocation {
-    position: absolute;
     left: .5em;
-    top: 1em;
+    opacity: .5;
+    position: absolute;
+    top: 1.1em;
+    transition: opacity $transition-duration;
 
     &:before {
-      border-color: #808080;
-      transition: border-color $transition-duration;
-
       @media (min-width: $screen-sm) {
         border-color: #000;
       }
@@ -67,9 +73,6 @@
     .bar-2 {
       &:before,
       &:after {
-        background: #808080;
-        transition: background $transition-duration;
-
         @media (min-width: $screen-sm) {
           background: #000;
         }
@@ -81,7 +84,7 @@
       opacity: .25;
     }
     @media (min-width: $screen-md) {
-      top: 1.65em;
+      top: 1.7em;
     }
   }
   .current-location {
@@ -104,9 +107,9 @@
     }
   }
   .edit {
-    background: #888;
+    background: $gray-light;
     border-radius: 1px;
-    color: #fff;
+    color: $gray-lighter;
     font-size: 10px;
     font-weight: 700;
     display: inline-block;
@@ -122,22 +125,22 @@
 
     @media (min-width: $screen-lg) {
       background: #bababa;
-      right: 1rem;
+      right: 16px;
       top: 3em;
     }
   }
   .icon-cancel {
     position: absolute;
-    right: 1.15rem;
-    top: 1.2rem;
-    transform: translateX(2.5rem);
+    right: 18px;
+    top: 20px;
+    transform: translateX(40px);
     transition: transform $transition-duration;
 
     @media (min-width: $screen-md) {
-      top: 1.8rem;
+      top: 29px;
     }
     @media (min-width: $screen-lg) {
-      right: 1.5rem;
+      right: 24px;
     }
   }
 }
@@ -184,8 +187,8 @@
     &:focus,
     &:hover,
     &:active {
-      background: red;
-      color: #fff;
+      background: #fff;
+      color: $gray-dark;
     }
 
     @media (min-width: $screen-sm) {
@@ -227,6 +230,6 @@
   }
   span[class*='icon'] {
     opacity: .25;
-    margin-bottom: .5rem;
+    margin-bottom: 8px;
   }
 }

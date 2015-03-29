@@ -26,6 +26,7 @@
 
 .site__guard {
   background: rgba(0, 0, 0, .25);
+  cursor: default;
   display: block;
   height: 100%;
   left: 0;
@@ -43,14 +44,10 @@
  *
  * @todo  Figure out a better location for these rules
  */
-.is-menu,
-.is-search,
-.is-location {
-  .site__guard {
-    opacity: 1;
-    transition: opacity $transition-duration;
-    visibility: visible;
-  }
+.is-menu .site__guard {
+  opacity: 1;
+  transition: opacity $transition-duration;
+  visibility: visible;
 }
 @media (min-width: $screen-sm) {
   .is-menu .site__guard {
@@ -70,7 +67,7 @@
    ========================================================================== */
 
 .site__menu-toggler {
-  background: #fff;
+  background: rgba(255, 255, 255, .8);
   border: none;
   border-radius: 50%;
   cursor: pointer;

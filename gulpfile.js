@@ -5,7 +5,7 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
 gulp.task('styles', function () {
-  return gulp.src('app/styles/menu.scss')
+  return gulp.src('app/styles/main.scss')
     .pipe($.sourcemaps.init())
     .pipe($.sass({
       includePaths: ['bower_components'],

@@ -1,9 +1,9 @@
 /* ==========================================================================
-   Defaults
+   Var
    ========================================================================== */
 
-@media (min-width: $screen-sm) {
-  .navbar-right {
-    margin: 0;
-  }
-}
+$screen-sm: 600px;
+$screen-md: 800px;
+$screen-lg: 1000px;
+
+$transition-duration: 125ms;

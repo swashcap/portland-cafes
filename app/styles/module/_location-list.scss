@@ -86,7 +86,7 @@
   margin: 0 0 1rem;
   position: relative;
   text-align: right;
-  z-index: $zindex-dropdown;
+  z-index: 1;
 
   @media (min-width: $screen-sm) {
     margin-bottom: 0;

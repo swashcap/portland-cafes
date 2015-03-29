@@ -69,22 +69,8 @@
     }
   }
 
-  .menu__header__search .icon-search {
-    &:before {
-      border-color: #fff;
-    }
-    &:after {
-      background: #fff;
-    }
-
-    @media (min-width: $screen-sm) {
-      &:before {
-        border-color: #333;
-      }
-      &:after {
-        background: #333;
-      }
-    }
+  .menu__header__search-toggler {
+    opacity: 1;
   }
 }
 
@@ -107,27 +93,21 @@
   }
   .locations__toggler {
     .icon-geolocation {
-      &:before {
-        border-color: #fff;
-      }
-      .bar-1,
-      .bar-2 {
-        &:before,
-        &:after {
-          background: #fff;
-        }
-      }
+      opacity: 1;
     }
     .edit {
-      transform: translateX(3rem);
+      transform: translateX(48px);
 
       @media (min-width: $screen-lg) {
-        transform: translateX(3.5rem)
+        transform: translateX(56px)
       }
     }
     .icon-cancel {
       transform: translateX(0);
     }
+  }
+  .locations__controls {
+    max-height: 30em;
   }
 
   @media (min-width: $screen-sm) {
@@ -138,10 +118,23 @@
     .locations__toggler {
       background: rgba(12, 12, 12, .94);
       color: #fff;
-    }
-    .locations__controls {
-      max-height: none;
-      transform: none;
+
+      .icon-geolocation {
+        &:before {
+          border-color: #fff;
+        }
+        .bar-1,
+        .bar-2 {
+          &:before,
+          &:after {
+            background: #fff;
+          }
+        }
+      }
+      .locations__controls {
+        max-height: none;
+        transform: none;
+      }
     }
   }
   @media (min-width: $screen-lg) {

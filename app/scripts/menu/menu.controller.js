@@ -3,7 +3,7 @@
   'use strict';
 
   angular.module('portlandcafes')
-    .controller('NavigationCtrl', ['$scope', '$location', 'Position', function ($scope, $location, Position) {
+    .controller('MenuCtrl', ['$scope', '$location', 'Position', function ($scope, $location, Position) {
       var ADDRESS_FILLER = '…';
       var setAddress = function () {
         $scope.address = Position.getAddress();

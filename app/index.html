@@ -29,70 +29,132 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <header class="container-fluid" role="banner">
-      <nav
-        ng-controller="NavigationCtrl"
-        class="navbar navbar-default"
-        role="navigation">
-        <div class="navbar-header">
-          <button
-            ng-click="toggleNavbar()"
-            type="button"
-            class="navbar-toggle collapsed"
-            data-toggle="collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <h1 class="navbar-brand">
+    <div class="site">
+      <header ng-controller="MenuCtrl" class="menu" role="banner">
+        <div class="menu__wrapper">
+          <div class="menu__header">
             <a href="/" rel="home">Portland Cafés</a>
-            <a href="/about/" class="beta-link">Beta</a>
-          </h1>
-        </div>
-        <div ng-class="{'collapse': ! navbarOpen}" class="navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li
-              ng-click="toggleNavbar()"
-              ng-class="{active: isActive('/location')}">
-              <a href="/">
-                <span class="glyphicon glyphicon-th-list"></span>
-                All Locations
-              </a>
-            </li>
-            <li
-              ng-click="toggleNavbar()"
-              ng-class="{active: isActive('/regions')}">
-              <a href="/regions">
-                <span class="glyphicon glyphicon-th-large"></span>
-                Regions
-              </a>
-            </li>
-            <li
-              ng-click="toggleNavbar()"
-              ng-class="{active: isActive('/map')}">
-              <a href="/map">
-                <span class="glyphicon glyphicon-map-marker"></span>
-                Map
-              </a>
-            </li>
-          </ul>
+            <!--<a href="/about/" class="beta-link">Beta</a>-->
 
-          <form ng-controller="SearchCtrl" class="search-form navbar-form navbar-left" role="search">
-            <div class="form-group">
-              <input type="text" ng-model="searchText" class="form-control" placeholder="Search…">
-            </div>
-            <button
-              ng-click="clearSearch()"
-              ng-show="searchText.length > 0"
-              ng-cloak=""
-              type="reset"
-              class="btn btn-link"
-              aria-label="Cancel search">
-              <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+            <button class="menu__header__search-toggler" pc-toggle="search">
+              <span class="icon-search" aria-hidden="true"></span>
+              <span class="sr-only">Search</span>
             </button>
+            <button class="menu__header__location-toggler" pc-toggle="location">
+              <span class="icon-geolocation" aria-hidden="true">
+                <span class="bar-1"></span>
+                <span class="bar-2"></span>
+              </span>
+              <span class="sr-only">Location</span>
+            </button>
+          </div><!-- .menu__header -->
+
+          <div class="locations">
+            <a
+              href="#"
+              title="Edit current location"
+              class="locations__toggler"
+              pc-toggle="location">
+              <span class="icon-geolocation" aria-hidden="true">
+                <span class="bar-1"></span>
+                <span class="bar-2"></span>
+              </span>
+              <span class="current-location">
+                <span ng-if="!address" ng-cloak="">Set Location&hellip;</span>
+                <span ng-if="address" ng-cloak="">{{address}}</span>
+              </span>
+              <span class="edit">Edit</span>
+              <span class="icon-cancel"></span>
+            </a>
+            <div class="locations__controls">
+              <button ng-click="setPosition()">
+                <span ng-if="!address">Set Location</span>
+                <span ng-if="address">Refresh Location</span>
+              </button>
+              <ul>
+                <li>
+                  <a ng-click="setPosition('downtown')" href="#">
+                    <span class="icon-downtown"></span> Downtown
+                  </a>
+                </li>
+                <li>
+                  <a ng-click="setPosition('north')" href="#">
+                    <span class="icon-north"></span> North
+                  </a>
+                </li>
+                <li>
+                  <a ng-click="setPosition('northeast')" href="#">
+                    <span class="icon-northeast"></span> Northeast
+                  </a>
+                </li>
+                <li>
+                  <a ng-click="setPosition('northwest')" href="#">
+                    <span class="icon-northwest"></span> Northwest
+                  </a>
+                </li>
+                <li>
+                  <a ng-click="setPosition('southeast')" href="#">
+                    <span class="icon-southeast"></span> Southeast
+                  </a>
+                </li>
+                <li>
+                  <a ng-click="setPosition('southwest')" href="#">
+                    <span class="icon-southwest"></span> Southwest
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div><!-- .locations -->
+          <nav class="menu__links" role="navigation">
+            <ul>
+              <li>
+                <a href="/" ng-class="{'is-active': isActive('/location')}">
+                  <span class="icon-locations" aria-hidden="true">
+                    <span class="bar-1"></span>
+                    <span class="bar-2"></span>
+                  </span>
+                  Locations
+                </a>
+              </li>
+              <li>
+                <a href="/map" ng-class="{'is-active': isActive('/map')}">
+                  <span class="icon-map" aria-hidden="true">
+                    <span class="area-1"></span>
+                  </span>
+                  Map
+                </a>
+              </li>
+              <li>
+                <a href="/regions" ng-class="{'is-active': isActive('/regions')}">
+                  <span class="icon-regions" aria-hidden="true">
+                    <span class="dots-1"></span>
+                    <span class="dots-2"></span>
+                  </span>
+                  Regions
+                </a>
+              </li>
+              <li>
+                <a href="/streets" ng-class="{'is-active': isActive('/streets')}">
+                  <span class="icon-streets" aria-hidden="true">
+                    <span class="bar-1"></span>
+                  </span>
+                  Streets
+                </a>
+              </li>
+            </ul>
+          </nav><!-- .menu__links -->
+
+          <div ng-controller="SearchCtrl" class="search-form">
+            <form role="search">
+              <label class="sr-only">Search:</label>
+              <input ng-model="searchText" type="search" placeholder="Search…">
+              <button class="search-toggler" type="reset" pc-toggle="search">
+                <span class="icon-cancel"></span>
+                <span class="sr-only">Cancel</span>
+              </button>
+            </form>
             <div ng-cloak="" ng-show="results.length > 0" class="search-form__results">
-              <div ng-repeat="location in results | limitTo:4" class="vcard">
+              <div ng-repeat="location in results" class="vcard">
                 <a ng-href="/location/{{location.id}}">
                   <h4 class="org">{{location.name}}</h4>
                   <div class="adr" ng-bind-html="location.address"></div>
@@ -101,71 +163,47 @@
             </div><!-- .search-form__results -->
             <div ng-cloak="" ng-show="message.length > 0" class="search-form__message">
               {{message}}
+            </div><!-- .search-form__message -->
+          </div><!-- .search-form -->
+        </div><!-- .menu__wrapper -->
+      </header><!-- .menu -->
+
+      <div class="site__content">
+        <main role="main" class="container-fluid">
+          <div class="row">
+
+            <div ng-view="" class="col-xs-12 col-sm-10"></div>
+
+            <aside class="col-xs-12 col-sm-2">
+            </aside>
+          </div><!-- .row -->
+        </main>
+
+        <footer role="contentinfo">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                <ul class="nav nav-pills">
+                  <li role="presentation"><a href="/about/">About</a></li>
+                </ul>
+              </div>
+              <div class="col-xs-12 col-sm-6 text-right">
+                <small>&copy; 2015, <a href="http://www.onedrillion.com/">One Drillion</a>  &amp; <a href="http://swashcap.com">Swash Cap</a>. All rights reserved.</small>
+              </div>
             </div>
-          </form>
+          </div><!-- .container-fluid -->
+        </footer>
+      </div><!-- .site__content -->
 
-          <ul class="nav navbar-nav navbar-right">
-            <li ng-class="{'open': toggleDropdown}" class="dropdown">
-              <a
-                ng-click="toggleDropdown = !toggleDropdown"
-                class="dropdown-toggle"
-                role="button"
-                aria-expanded="false">
-                <span ng-if="!address">Set Location&hellip;</span>
-                <span ng-if="address">{{address}}</span>
-                <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu" role="menu">
-                <li>
-                  <a ng-click="setPosition()">
-                    <span ng-if="!address">
-                      <span class="glyphicon glyphicon-screenshot"></span>
-                      Use Device Location
-                    </span>
-                    <span ng-if="address">
-                      <span class="glyphicon glyphicon-refresh"></span>
-                      Refresh Location
-                    </span>
-                  </a>
-                </li>
-                <li role="presentation" class="dropdown-header">Presets</li>
-                <li><a ng-click="setPosition('north')">North</a></li>
-                <li><a ng-click="setPosition('northwest')">Northwest</a></li>
-                <li><a ng-click="setPosition('northeast')">Northeast</a></li>
-                <li><a ng-click="setPosition('downtown')">Downtown</a></li>
-                <li><a ng-click="setPosition('southwest')">Southwest</a></li>
-                <li><a ng-click="setPosition('southeast')">Southeast</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </header><!-- .container-fluid -->
+      <a class="site__guard" pc-toggle=""></a>
 
-    <main role="main" class="container-fluid">
-      <div class="row">
-
-        <div ng-view="" class="col-xs-12 col-sm-10"></div>
-
-        <aside class="col-xs-12 col-sm-2">
-        </aside>
-      </div><!-- .row -->
-    </main>
-
-    <footer role="contentinfo">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-xs-12 col-sm-6">
-            <ul class="nav nav-pills">
-              <li role="presentation"><a href="/about/">About</a></li>
-            </ul>
-          </div>
-          <div class="col-xs-12 col-sm-6 text-right">
-            <small>&copy; 2015, <a href="http://www.onedrillion.com/">One Drillion</a>  &amp; <a href="http://swashcap.com">Swash Cap</a>. All rights reserved.</small>
-          </div>
-        </div>
-      </div><!-- .container-fluid -->
-    </footer>
+      <a class="site__menu-toggler" pc-toggle="menu">
+        <span class="bar-1"></span>
+        <span class="bar-2"></span>
+        <span class="bar-3"></span>
+        <span class="sr-only">Menu</span>
+      </a>
+    </div><!-- .site -->
 
     <script>
       (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
@@ -210,7 +248,7 @@
     <script src="scripts/regions/regions.controller.js"></script>
     <script src="scripts/region-street/region-street.controller.js"></script>
     <script src="scripts/region-single/region-single.controller.js"></script>
-    <script src="scripts/navigation/navigation.controller.js"></script>
+    <script src="scripts/menu/menu.controller.js"></script>
     <script src="scripts/map/map.controller.js"></script>
     <script src="scripts/location-list/location-list.controller.js"></script>
     <script src="scripts/location-detail/location-detail.controller.js"></script>
@@ -220,6 +258,7 @@
     <script src="scripts/components/preferences.js"></script>
     <script src="scripts/components/position.js"></script>
     <script src="scripts/components/pcmap.js"></script>
+    <script src="scripts/components/pc-toggle.js"></script>
     <script src="scripts/components/misc.js"></script>
     <script src="scripts/components/locations.js"></script>
     <script src="scripts/components/hours.js"></script>
