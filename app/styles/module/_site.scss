@@ -15,10 +15,35 @@
     width: auto;
   }
 }
-.site__content {
-  main {
-    padding: 0 20px;
+
+.site__mobile-header {
+  background: $gray-lighter;
+  margin-bottom: 1em;
+  padding: 1.25em ($grid-gutter-width / 2);
+
+  @media (min-width: $screen-sm) {
+    display: none;
   }
+
+  h1 {
+    font-size: 16px;
+    line-height: $line-height-base;
+    margin: 0;
+  }
+  a {
+    color: $gray;
+
+    &:focus,
+    &:hover,
+    &:active {
+      color: $gray-darker;
+      text-decoration: none;
+    }
+  }
+}
+
+.site__content {
+
 }
 
 /* Guard
