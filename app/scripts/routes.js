@@ -37,6 +37,14 @@
           templateUrl: 'scripts/about/about.html',
           controller: 'AboutCtrl'
         })
+        .when('/streets', {
+          templateUrl: 'scripts/streets/streets.html',
+          controller: 'StreetsCtrl'
+        })
+        .when('/streets/:streetName', {
+          templateUrl: 'scripts/streets-detail/streets-detail.html',
+          controller: 'StreetsDetailCtrl'
+        })
         .otherwise({
           redirectTo: '/'
         });

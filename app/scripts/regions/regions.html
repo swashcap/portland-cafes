@@ -16,21 +16,4 @@
       <a ng-href="/regions/{{region.slug}}" class="btn btn-default btn-block btn-sm" ng-show="region.locations.length > 5">See all {{region.name}} cafés</a>
     </div>
   </div>
-  <div class="col-xs-12 col-sm-6">
-    <h1>By Major Street</h1>
-    <div
-      ng-repeat="street in streets"
-      ng-hide="street.locations.length == 0">
-      <h3>{{street.name}}</h3>
-      <ul class="locations-list list-group">
-        <li ng-repeat="location in street.locations | orderBy:reverseSort:'rating' | limitTo:5" class="list-group-item">
-          <a ng-href="/location/{{location.id}}">
-            {{location.name}}
-            <span ng-bind-html="location.rating | toStars"></span>
-          </a>
-        </li>
-      </ul>
-      <a ng-href="/regions/streets/{{street.slug}}" class="btn btn-default btn-block btn-sm" ng-show="street.locations.length > 5">See all {{street.name}} cafés</a>
-    </div>
-  </div>
 </div><!-- .row -->

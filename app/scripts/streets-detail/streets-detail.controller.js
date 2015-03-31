@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('portlandcafes')
-    .controller('RegionStreetCtrl', ['$scope', '$routeParams', 'Streets', 'Locations', 'Geolib', function ($scope, $routeParams, Streets, Locations, Geolib) {
+    .controller('StreetsDetailCtrl', ['$scope', '$routeParams', 'Streets', 'Locations', 'Geolib', function ($scope, $routeParams, Streets, Locations, Geolib) {
       /**
        * @todo This controller shares much with the 'RegionSingleCtrl'. Look
        *       into a manner of sharing functions, initialization, etc.
