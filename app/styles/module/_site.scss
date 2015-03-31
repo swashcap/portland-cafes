@@ -3,16 +3,10 @@
    ========================================================================== */
 
 .site {
-  height: 100%;
-  overflow: hidden;
   position: relative;
-  width: 100%;
 
   @media (min-width: $screen-sm) {
-    height: auto;
     position: static;
-    overflow: visible;
-    width: auto;
   }
 }
 
@@ -103,7 +97,7 @@
   right: 6px;
   top: 6px;
   width: 44px;
-  z-index: 3;
+  z-index: $zindex-navbar;
 
   @media (min-width: $screen-sm) {
     display: none;

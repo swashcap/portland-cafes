@@ -10,7 +10,7 @@
   transition: transform $transition-duration;
   transform: translateX(100%);
   width: 100%;
-  z-index: 2;
+  z-index: $zindex-navbar;
 
   @media (min-width: 320px) {
     width: 85%;

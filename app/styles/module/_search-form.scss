@@ -17,7 +17,6 @@
     background: rgba(12, 12, 12, .94);
     bottom: auto;
     display: none;
-    height: 32em;
     left: auto;
     right: 0;
     top: 0;
@@ -81,6 +80,10 @@
   width: 100%;
   z-index: 1;
 
+  @media (min-width: $screen-sm) {
+    background: rgba(12, 12, 12, .94);
+    height: 32em;
+  }
   @media (min-width: $screen-md) {
     top: 80px;
   }
@@ -133,7 +136,16 @@
    ========================================================================== */
 
 .search-form__message {
-  color: $gray-lighter;
-  padding: .6em 1.125em;
+  background: rgba(12, 12, 12, .94);
+  color: #fff;
+  font-weight: 700;
+  padding: 1em 0;
+  position: absolute;
   text-align: center;
+  top: 60px;
+  width: 100%;
+
+  @media (min-width: $screen-lg) {
+    top: 80px;
+  }
 }
