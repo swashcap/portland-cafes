@@ -55,7 +55,6 @@
 
           <div class="locations">
             <a
-              href="#"
               title="Edit current location"
               class="locations__toggler"
               pc-toggle="location">
@@ -112,7 +111,7 @@
           <nav class="menu__links" role="navigation">
             <ul>
               <li>
-                <a href="/" ng-class="{'is-active': isActive('/location')}">
+                <a href="/" ng-class="{'is-active': isActive('/location')}" pc-toggle="">
                   <span class="icon-locations" aria-hidden="true">
                     <span class="bar-1"></span>
                     <span class="bar-2"></span>
@@ -121,7 +120,7 @@
                 </a>
               </li>
               <li>
-                <a href="/map" ng-class="{'is-active': isActive('/map')}">
+                <a href="/map" ng-class="{'is-active': isActive('/map')}" pc-toggle="">
                   <span class="icon-map" aria-hidden="true">
                     <span class="area-1"></span>
                   </span>
@@ -129,7 +128,7 @@
                 </a>
               </li>
               <li>
-                <a href="/regions" ng-class="{'is-active': isActive('/regions')}">
+                <a href="/regions" ng-class="{'is-active': isActive('/regions')}" pc-toggle="">
                   <span class="icon-regions" aria-hidden="true">
                     <span class="dots-1"></span>
                     <span class="dots-2"></span>
@@ -138,7 +137,7 @@
                 </a>
               </li>
               <li>
-                <a href="/streets" ng-class="{'is-active': isActive('/streets')}">
+                <a href="/streets" ng-class="{'is-active': isActive('/streets')}" pc-toggle="">
                   <span class="icon-streets" aria-hidden="true">
                     <span class="bar-1"></span>
                   </span>
@@ -152,7 +151,11 @@
             <form role="search">
               <label class="sr-only">Search:</label>
               <input ng-model="searchText" type="search" placeholder="Search…">
-              <button class="search-toggler" type="reset" pc-toggle="search">
+              <button
+                ng-click="clearSearch()"
+                pc-toggle="search"
+                class="search-toggler"
+                type="reset">
                 <span class="icon-cancel"></span>
                 <span class="sr-only">Cancel</span>
               </button>
