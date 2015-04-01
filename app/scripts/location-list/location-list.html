@@ -7,6 +7,10 @@
   <div class="location-list__filter">
     <button ng-click="hideFilter = !hideFilter" class="btn btn-default">Filter List</button>
     <div class="location-list__filter__controls" ng-class="{'is-active': hideFilter == false}">
+      <button ng-click="hideFilter = !hideFilter">
+        <span class="icon-cancel" aria-hidden="true"></span>
+        <span class="sr-only">Close</span>
+      </button>
       <div class="controls-1">
         <label>
           <input ng-model="hideClosed" type="checkbox" /> Hide closed cafés
@@ -65,7 +69,12 @@
             id="location-list-rating-5" />
           <label for="location-list-rating-5"><span>5 stars</span></label>
 
-          <button ng-click="ratingFloor = 0" title="Clear limit">&times;</button>
+          <div>
+            <button
+              ng-click="ratingFloor = 0"
+              title="Clear limit"
+              class="controls__button">Clear</button>
+          </div>
       </div>
       <div class="controls-4">
         <label for="location-list-order">
@@ -81,7 +90,9 @@
               <option value="distance">Distance</option>
             </select>
           </label>
-          <button ng-click="reverseSort = !reverseSort" class="btn btn-default">
+          <button
+            ng-click="reverseSort = !reverseSort"
+            class="controls__button">
             <span class="glyphicon glyphicon-sort"></span>
             <span ng-if="reverseSort">Reverse Order</span>
             <span ng-if="!reverseSort">Normal Order</span>
