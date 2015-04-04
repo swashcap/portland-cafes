@@ -92,4 +92,38 @@
           }
         }).catch(errorHandler);
     }]);
+
+  angular.module('portlandcafes')
+    .controller('AppCtrl', ['$scope', function ($scope) {
+      /**
+       * Application-level menu 'state' variables.
+       *
+       * These control classes through a `ng-class` directive on the
+       * controller's root element.
+       */
+      $scope.isMenu = false;
+      $scope.isSearch = false;
+      $scope.isLocation = false;
+
+      $scope.setMenuState = function (state) {
+        switch (state) {
+          case 'menu':
+            $scope.isMenu = !$scope.isMenu;
+            break;
+          case 'search':
+            $scope.isSearch = !$scope.isSearch;
+            break;
+          case 'location':
+            $scope.isLocation = !$scope.isLocation;
+            break;
+          default:
+            $scope.isMenu = $scope.isSearch = $scope.isLocation = false;
+        }
+      };
+
+      /** Clear the menu state on route changes */
+      $scope.$on('$locationChangeStart', function () {
+        $scope.setMenuState();
+      });
+    }]);
 })(window.angular);

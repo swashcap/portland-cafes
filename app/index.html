@@ -29,7 +29,10 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div class="site">
+    <div
+      ng-controller="AppCtrl"
+      ng-class="{'is-menu': isMenu, 'is-search': isSearch, 'is-location': isLocation}"
+      class="site">
       <div class="site__mobile-header">
         <h1><a href="/" rel="home">Portland Cafés</a></h1>
       </div>
@@ -40,11 +43,13 @@
             <a href="/" rel="home">Portland Cafés</a>
             <!--<a href="/about/" class="beta-link">Beta</a>-->
 
-            <button class="menu__header__search-toggler" pc-toggle="search">
+            <button class="menu__header__search-toggler" ng-click="setMenuState('search')">
               <span class="icon-search" aria-hidden="true"></span>
               <span class="sr-only">Search</span>
             </button>
-            <button class="menu__header__location-toggler" pc-toggle="location">
+            <button
+              ng-click="setMenuState('location')"
+              class="menu__header__location-toggler">
               <span class="icon-geolocation" aria-hidden="true">
                 <span class="bar-1"></span>
                 <span class="bar-2"></span>
@@ -55,9 +60,9 @@
 
           <div class="locations">
             <a
+              ng-click="setMenuState('location')"
               title="Edit current location"
-              class="locations__toggler"
-              pc-toggle="location">
+              class="locations__toggler">
               <span class="icon-geolocation" aria-hidden="true">
                 <span class="bar-1"></span>
                 <span class="bar-2"></span>
@@ -111,7 +116,7 @@
           <nav class="menu__links" role="navigation">
             <ul>
               <li>
-                <a href="/" ng-class="{'is-active': isActive('/location')}" pc-toggle="">
+                <a href="/" ng-class="{'is-active': isActive('/location')}">
                   <span class="icon-locations" aria-hidden="true">
                     <span class="bar-1"></span>
                     <span class="bar-2"></span>
@@ -120,7 +125,7 @@
                 </a>
               </li>
               <li>
-                <a href="/map" ng-class="{'is-active': isActive('/map')}" pc-toggle="">
+                <a href="/map" ng-class="{'is-active': isActive('/map')}">
                   <span class="icon-map" aria-hidden="true">
                     <span class="area-1"></span>
                   </span>
@@ -128,7 +133,7 @@
                 </a>
               </li>
               <li>
-                <a href="/regions" ng-class="{'is-active': isActive('/regions')}" pc-toggle="">
+                <a href="/regions" ng-class="{'is-active': isActive('/regions')}">
                   <span class="icon-regions" aria-hidden="true">
                     <span class="dots-1"></span>
                     <span class="dots-2"></span>
@@ -137,7 +142,7 @@
                 </a>
               </li>
               <li>
-                <a href="/streets" ng-class="{'is-active': isActive('/streets')}" pc-toggle="">
+                <a href="/streets" ng-class="{'is-active': isActive('/streets')}">
                   <span class="icon-streets" aria-hidden="true">
                     <span class="bar-1"></span>
                   </span>
@@ -150,10 +155,13 @@
           <div ng-controller="SearchCtrl" class="search-form">
             <form role="search">
               <label class="sr-only">Search:</label>
-              <input ng-model="searchText" type="search" placeholder="Search…">
+              <input
+                ng-model="searchText"
+                pc-focus="isSearch"
+                type="search"
+                placeholder="Search…">
               <button
-                ng-click="clearSearch()"
-                pc-toggle="search"
+                ng-click="clearSearch(); setMenuState('search')"
                 class="search-toggler"
                 type="reset">
                 <span class="icon-cancel"></span>
@@ -202,9 +210,9 @@
         </footer>
       </div><!-- .site__content -->
 
-      <a class="site__guard" pc-toggle=""></a>
+      <a class="site__guard" ng-click="setMenuState()"></a>
 
-      <a class="site__menu-toggler" pc-toggle="menu">
+      <a class="site__menu-toggler" ng-click="setMenuState('menu')">
         <span class="bar-1"></span>
         <span class="bar-2"></span>
         <span class="bar-3"></span>
@@ -266,7 +274,7 @@
     <script src="scripts/components/preferences.js"></script>
     <script src="scripts/components/position.js"></script>
     <script src="scripts/components/pcmap.js"></script>
-    <script src="scripts/components/pc-toggle.js"></script>
+    <script src="scripts/components/pc-focus.js"></script>
     <script src="scripts/components/misc.js"></script>
     <script src="scripts/components/locations.js"></script>
     <script src="scripts/components/hours.js"></script>
