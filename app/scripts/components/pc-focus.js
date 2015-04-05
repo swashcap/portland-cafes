@@ -1,5 +1,5 @@
-(function (angular, $) {
-  'use strict'
+(function (angular) {
+  'use strict';
 
   /**
    * A directive to focus an input.
@@ -21,6 +21,6 @@
           });
         },
         restrict: 'A'
-      }
+      };
     }]);
 })(window.angular);
