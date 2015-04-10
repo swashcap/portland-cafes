@@ -1,21 +1,20 @@
 'use strict';
 
-var mainBowerFiles = require('main-bower-files');
-var files = mainBowerFiles({
-  includeDev: 'inclusive',
-  filter: /.*\.js$/gi
-});
+/** @{@link https://github.com/taptapship/wiredep} */
+var wiredep = require('wiredep')({ devDependencies: true });
+var files = wiredep.js;
 var options;
 
-files.push('app/scripts/*.js', 'app/scripts/**/*.js');
+files.push('app/scripts/**/*.js');
 
 options = {
   browsers: ['Chrome'],
-  frameworks: ['jasmine'],
-  files: files
+  frameworks: ['jasmine', 'angular-filesort'],
+  files: files,
+  angularFilesort: {
+    whitelist: ['app/scripts/**/*.js']
+  }
 };
-
-console.log(options.files);
 
 module.exports = function (config) {
   config.set(options);
