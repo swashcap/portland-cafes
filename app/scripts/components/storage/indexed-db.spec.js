@@ -1,3 +1,4 @@
+/* global module,inject */
 describe('IndexedDB Component', function () {
   'use strict';
 
@@ -27,20 +28,15 @@ describe('IndexedDB Component', function () {
   beforeEach(function () {
     module('pcStorage');
 
-    resetIndexedDBMock();
-    commitIndexedDBMockData(location1.id, location1);
-    commitIndexedDBMockData(location2.id, location2);
-    commitIndexedDBMockData(location3.id, location3);
+    // resetIndexedDBMock();
+    // commitIndexedDBMockData(location1.id, location1);
+    // commitIndexedDBMockData(location2.id, location2);
+    // commitIndexedDBMockData(location3.id, location3);
   });
 
   xit('should store locations', function (done) {
     inject(function (IndexedDB) {
-      IndexedDB.put([location1, location2, location3]).then(function (transaction) {
-        console.log('Complete!', transaction);
-        done();
-      }).catch(function (error) {
-        console.log('Error!', error);
-      });
+      IndexedDB.put([location1, location2, location3]).then(done).catch(done);
     });
   });
 });
