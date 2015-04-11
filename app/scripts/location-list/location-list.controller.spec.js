@@ -47,4 +47,19 @@ describe('LocationList Controller', function () {
     $scope.hideClosed = true;
     expect($scope.maybeHideClosed({ isOpen: false })).toEqual(false);
   }));
+
+  it('should filter location distances properly', inject(function () {
+    var location1 = { distance: 1 };
+    var location2 = { distance: 10 };
+
+    $scope.distanceRange = 0;
+
+    expect($scope.rangeFilter(location1)).toEqual(true);
+    expect($scope.rangeFilter(location2)).toEqual(true);
+
+    $scope.distanceRange = 5;
+
+    expect($scope.rangeFilter(location1)).toEqual(true);
+    expect($scope.rangeFilter(location2)).toEqual(false);
+  }));
 });
