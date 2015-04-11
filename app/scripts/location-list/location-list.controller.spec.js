@@ -37,4 +37,14 @@ describe('LocationList Controller', function () {
     expect($scope.getPageLink('2')).toEqual('page/2');
     expect($scope.getPageLink('99')).toEqual('page/99');
   }));
+
+  it('should hide closed locations', inject(function () {
+    $scope.hideClosed = false;
+
+    expect($scope.maybeHideClosed({ isOpen: false })).toEqual(true);
+    expect($scope.maybeHideClosed({ isOpen: true })).toEqual(true);
+
+    $scope.hideClosed = true;
+    expect($scope.maybeHideClosed({ isOpen: false })).toEqual(false);
+  }));
 });
