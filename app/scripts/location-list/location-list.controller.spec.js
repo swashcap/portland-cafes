@@ -31,4 +31,10 @@ describe('LocationList Controller', function () {
     expect($scope.getPagesRange(2, 35)).toEqual([11, 20]);
     expect($scope.getPagesRange(4, 35)).toEqual([31, 35]);
   }));
+
+  it('should link to pagination pages', inject(function () {
+    expect($scope.getPageLink('1')).toEqual('/');
+    expect($scope.getPageLink('2')).toEqual('page/2');
+    expect($scope.getPageLink('99')).toEqual('page/99');
+  }));
 });

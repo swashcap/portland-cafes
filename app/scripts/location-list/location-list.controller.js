@@ -102,7 +102,9 @@
 
         if (isNaN(page)) {
           output = 'page/' + Math.ceil($scope.filtered.length / $scope.locationsPerPage);
-        } else if (page !== 1) {
+        } else if (page === 1) {
+          output = '/';
+        } else {
           output = 'page/' + page;
         }
 
