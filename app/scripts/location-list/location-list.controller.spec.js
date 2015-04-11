@@ -51,15 +51,23 @@ describe('LocationList Controller', function () {
   describe('should properly filter', function () {
     var location1;
     var location2;
+    var location3;
 
     beforeEach(function () {
       location1 = {
         distance: 1,
-        rating: 1
+        rating: 1,
+        todayHours: {
+          open: 9,
+          close: 15
+        }
       };
       location2 = {
         distance: 10,
         rating: 4
+      };
+      location3 = {
+
       };
     });
 
@@ -85,6 +93,18 @@ describe('LocationList Controller', function () {
 
       expect($scope.ratingFilter(location1)).toBe(false);
       expect($scope.ratingFilter(location2)).toBe(true);
+    }));
+
+    it('locations with unset properties', inject(function () {
+      $scope.orderByField = 'whatever';
+
+      expect($scope.maybeHideUnsetLocations(location1)).toBe(true);
+      expect($scope.maybeHideUnsetLocations(location2)).toBe(false);
+
+      $scope.orderByField = 'rating';
+
+      expect($scope.maybeHideUnsetLocations(location1)).toBe(true);
+      expect($scope.maybeHideUnsetLocations(location3)).toBe(false);
     }));
   });
 });
