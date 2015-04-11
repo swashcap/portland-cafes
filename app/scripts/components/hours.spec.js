@@ -1,4 +1,4 @@
-/* global jasmine, describe, it, expect, beforeEach, afterEach, module, inject */
+/* global module,inject */
 describe('The Hours component', function () {
   'use strict';
 
