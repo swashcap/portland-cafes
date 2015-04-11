@@ -48,18 +48,29 @@ describe('LocationList Controller', function () {
     expect($scope.maybeHideClosed({ isOpen: false })).toEqual(false);
   }));
 
-  it('should filter location distances properly', inject(function () {
-    var location1 = { distance: 1 };
-    var location2 = { distance: 10 };
+  describe('should properly filter', function () {
+    var location1;
+    var location2;
 
-    $scope.distanceRange = 0;
+    beforeEach(function () {
+      location1 = {
+        distance: 1
+      };
+      location2 = {
+        distance: 10
+      };
+    });
 
-    expect($scope.rangeFilter(location1)).toEqual(true);
-    expect($scope.rangeFilter(location2)).toEqual(true);
+    it('location distances', inject(function () {
+      $scope.distanceRange = 0;
 
-    $scope.distanceRange = 5;
+      expect($scope.rangeFilter(location1)).toEqual(true);
+      expect($scope.rangeFilter(location2)).toEqual(true);
 
-    expect($scope.rangeFilter(location1)).toEqual(true);
-    expect($scope.rangeFilter(location2)).toEqual(false);
-  }));
+      $scope.distanceRange = 5;
+
+      expect($scope.rangeFilter(location1)).toEqual(true);
+      expect($scope.rangeFilter(location2)).toEqual(false);
+    }));
+  });
 });
