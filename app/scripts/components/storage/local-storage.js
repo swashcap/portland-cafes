@@ -7,8 +7,8 @@
    * @{@link  http://learn.ionicframework.com/formulas/localstorage/#angularjs-service}
    */
   angular.module('pcStorage', [])
-    .factory('$localStorage', function () {
-      var localStorage = window.localStorage;
+    .factory('$localStorage', ['$window', function ($window) {
+      var localStorage = $window.localStorage;
 
       return {
         set: function(key, value) {
@@ -24,5 +24,5 @@
           return JSON.parse(localStorage[key] || '{}');
         }
       };
-    });
+    }]);
 })(window, window.angular);
