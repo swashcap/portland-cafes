@@ -54,10 +54,12 @@ describe('LocationList Controller', function () {
 
     beforeEach(function () {
       location1 = {
-        distance: 1
+        distance: 1,
+        rating: 1
       };
       location2 = {
-        distance: 10
+        distance: 10,
+        rating: 4
       };
     });
 
@@ -71,6 +73,18 @@ describe('LocationList Controller', function () {
 
       expect($scope.rangeFilter(location1)).toEqual(true);
       expect($scope.rangeFilter(location2)).toEqual(false);
+    }));
+
+    it('locations by rating', inject(function () {
+      $scope.ratingFloor = 0;
+
+      expect($scope.ratingFilter(location1)).toBe(true);
+      expect($scope.ratingFilter(location2)).toBe(true);
+
+      $scope.ratingFloor = 3;
+
+      expect($scope.ratingFilter(location1)).toBe(false);
+      expect($scope.ratingFilter(location2)).toBe(true);
     }));
   });
 });
