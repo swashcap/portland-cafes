@@ -24,9 +24,13 @@
     },
     "idbwrapper": {
       "main": "idbstore.js"
+    },
+    "mock-indexeddb": {
+      "main": "indexeddb.js"
     }
   },
   "devDependencies": {
-    "angular-mocks": "~1.3.8"
+    "angular-mocks": "~1.3.8",
+    "mock-indexeddb": "https://github.com/szimmers/mock-indexeddb.git"
   }
 }
